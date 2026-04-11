@@ -45,7 +45,7 @@
             padding: 30px 20px;
             background: linear-gradient(135deg, #0f172a, #1e293b);
             border-radius: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             box-shadow: 0 20px 40px -15px rgba(0,0,0,0.3);
             border-bottom: 3px solid #22c55e;
             animation: slideDown 0.6s ease-out;
@@ -72,12 +72,51 @@
             margin-top: 8px;
         }
 
+        /* Banner Image Styles */
+        .top-banner {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .bottom-banner {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .banner-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .banner-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(34,197,94,0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Market Grid - Professional Cards */
         .market-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
 
         .market-card {
@@ -504,10 +543,20 @@
     <div class="container">
     <div class="header">
         <h1>🎲 RONAK<span>_LIVE_SHOW</span></h1>
-        <p>Professional Market Results Platform | Instant Verification</p>
+        <!-- Headline text removed -->
+    </div>
+
+    <!-- TOP BANNER IMAGE (Under Headline, Before Market List) -->
+    <div class="top-banner">
+        <img src="YOUR_TOP_BANNER_IMAGE_URL_HERE" alt="Top Banner" class="banner-img" id="topBannerImg">
     </div>
 
     <div class="market-grid" id="marketGrid"></div>
+
+    <!-- BOTTOM BANNER IMAGE (After Market List) -->
+    <div class="bottom-banner">
+        <img src="YOUR_BOTTOM_BANNER_IMAGE_URL_HERE" alt="Bottom Banner" class="banner-img" id="bottomBannerImg">
+    </div>
 
     <div class="footer">
         <p>© 2024 RONAK_LIVE_SHOW - All Rights Reserved | Support: WhatsApp Only</p>
@@ -535,6 +584,11 @@
         </div>
         <div class="qr-note">Scan QR code to pay ₹999</div>
         
+        <!-- WhatsApp Button - Directly under QR Code -->
+        <a href="#" id="whatsappLink" class="btn-whatsapp" target="_blank">
+            📤 Send Screenshot on WhatsApp
+        </a>
+        
         <!-- Divider -->
         <div class="divider">
             <div class="divider-line"></div>
@@ -555,10 +609,6 @@
             <div class="upi-id-label">UPI ID (Click to copy):</div>
             <div class="upi-id-value" id="upiIdText" onclick="copyUpiId()">ganeshpatil99@slc</div>
         </div>
-        
-        <a href="#" id="whatsappLink" class="btn-whatsapp" target="_blank">
-            📤 Send Screenshot on WhatsApp
-        </a>
         
         <div class="instruction">
             <strong>📌 Instructions:</strong><br>
@@ -626,6 +676,7 @@
                 <button class="btn-select" onclick="showAdminTab('results')" style="background: #3b82f6;">📤 Results</button>
                 <button class="btn-select" onclick="showAdminTab('payments')" style="background: #22c55e;">💰 Payments</button>
                 <button class="btn-select" onclick="showAdminTab('settings')" style="background: #f59e0b;">⚙️ Settings</button>
+                <button class="btn-select" onclick="showAdminTab('images')" style="background: #8b5cf6;">🖼️ Banner Images</button>
             </div>
 
             <div id="adminTabResults">
@@ -641,6 +692,11 @@
             <div id="adminTabSettings" style="display: none;">
                 <h3 style="color: white;">⚙️ Admin Settings</h3>
                 <div id="settingsTabContent"></div>
+            </div>
+
+            <div id="adminTabImages" style="display: none;">
+                <h3 style="color: white;">🖼️ Banner Images Settings</h3>
+                <div id="bannerImagesForm"></div>
             </div>
 
             <button class="btn-select" onclick="closeAdminPanel()" style="margin-top: 20px; background: #475569;">Close</button>
@@ -659,12 +715,86 @@
     const payeeName = "RONAK LIVE SHOW";
     const note = "Market Result Payment";
     
+    // Banner Images
+    let topBannerImage = localStorage.getItem('topBannerImage') || "https://via.placeholder.com/1200x200/1e293b/22c55e?text=Welcome+to+Ronak+Live+Show";
+    let bottomBannerImage = localStorage.getItem('bottomBannerImage') || "https://via.placeholder.com/1200x200/1e293b/22c55e?text=Trusted+Market+Results+Platform";
+    
     let marketResults = JSON.parse(localStorage.getItem('marketResults') || '{}');
     let paymentRequests = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
     let verifiedPayments = JSON.parse(localStorage.getItem('verifiedPayments') || '[]');
     
     let timerInterval = null;
     let currentTransactionId = null;
+
+    // ============ BANNER IMAGE FUNCTIONS ============
+    function loadBannerImages() {
+        const topImg = document.getElementById('topBannerImg');
+        const bottomImg = document.getElementById('bottomBannerImg');
+        if (topImg) topImg.src = topBannerImage;
+        if (bottomImg) bottomImg.src = bottomBannerImage;
+    }
+
+    function loadBannerImagesForm() {
+        const container = document.getElementById('bannerImagesForm');
+        container.innerHTML = `
+            <div class="result-card" style="flex-direction: column; align-items: stretch;">
+                <h4 style="color: white; margin-bottom: 15px;">📸 Top Banner Image (Under Headline)</h4>
+                <div style="margin-bottom: 15px;">
+                    <label style="color: #94a3b8; font-size: 0.75rem;">Image URL:</label>
+                    <input type="text" id="topBannerUrl" placeholder="Enter image URL" value="${topBannerImage}" style="width: 100%; padding: 10px; margin-top: 5px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
+                </div>
+                <div style="margin-bottom: 15px; text-align: center;">
+                    <img src="${topBannerImage}" alt="Preview" style="max-width: 100%; border-radius: 10px; margin-top: 10px;">
+                </div>
+                <button class="btn-confirm" onclick="updateTopBanner()" style="margin-bottom: 20px;">✅ Update Top Banner</button>
+                
+                <hr style="border-color: #334155; margin: 20px 0;">
+                
+                <h4 style="color: white; margin-bottom: 15px;">📸 Bottom Banner Image (After Market List)</h4>
+                <div style="margin-bottom: 15px;">
+                    <label style="color: #94a3b8; font-size: 0.75rem;">Image URL:</label>
+                    <input type="text" id="bottomBannerUrl" placeholder="Enter image URL" value="${bottomBannerImage}" style="width: 100%; padding: 10px; margin-top: 5px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
+                </div>
+                <div style="margin-bottom: 15px; text-align: center;">
+                    <img src="${bottomBannerImage}" alt="Preview" style="max-width: 100%; border-radius: 10px; margin-top: 10px;">
+                </div>
+                <button class="btn-confirm" onclick="updateBottomBanner()">✅ Update Bottom Banner</button>
+                
+                <div class="instruction" style="margin-top: 15px;">
+                    <strong>📌 How to get image URL:</strong><br>
+                    1. Upload image to <strong>imgur.com</strong> or <strong>postimages.org</strong><br>
+                    2. Copy the <strong>direct image link</strong> (ends with .jpg, .png, .jpeg)<br>
+                    3. Paste it above and click Update
+                </div>
+            </div>
+        `;
+    }
+
+    function updateTopBanner() {
+        const newUrl = document.getElementById('topBannerUrl').value;
+        if (newUrl) {
+            topBannerImage = newUrl;
+            localStorage.setItem('topBannerImage', topBannerImage);
+            document.getElementById('topBannerImg').src = topBannerImage;
+            alert('✅ Top banner updated successfully!');
+            loadBannerImagesForm();
+        } else {
+            alert('Please enter a valid image URL!');
+        }
+    }
+
+    function updateBottomBanner() {
+        const newUrl = document.getElementById('bottomBannerUrl').value;
+        if (newUrl) {
+            bottomBannerImage = newUrl;
+            localStorage.setItem('bottomBannerImage', bottomBannerImage);
+            document.getElementById('bottomBannerImg').src = bottomBannerImage;
+            alert('✅ Bottom banner updated successfully!');
+            loadBannerImagesForm();
+        } else {
+            alert('Please enter a valid image URL!');
+        }
+    }
 
     // ============ UPI APP FUNCTIONS ============
     function openUpiApp(app) {
@@ -831,6 +961,7 @@ function checkAdminLogin() {
         loadResultLinksForm();
         loadPaymentRequestsList();
         loadSettingsTab();
+        loadBannerImagesForm();
         showAdminTab('results');
     } else {
         alert('Wrong password!');
@@ -847,6 +978,7 @@ function showAdminTab(tab) {
     document.getElementById('adminTabResults').style.display = 'none';
     document.getElementById('adminTabPayments').style.display = 'none';
     document.getElementById('adminTabSettings').style.display = 'none';
+    document.getElementById('adminTabImages').style.display = 'none';
     
     if (tab === 'results') {
         document.getElementById('adminTabResults').style.display = 'block';
@@ -857,6 +989,9 @@ function showAdminTab(tab) {
     } else if (tab === 'settings') {
         document.getElementById('adminTabSettings').style.display = 'block';
         loadSettingsTab();
+    } else if (tab === 'images') {
+        document.getElementById('adminTabImages').style.display = 'block';
+        loadBannerImagesForm();
     }
 }
 
@@ -1066,6 +1201,7 @@ function clearAllData() {
 
         // Initialize
         loadMarkets();
+        loadBannerImages();
         checkForVerifiedPayments();
         
         // Manual result check button
