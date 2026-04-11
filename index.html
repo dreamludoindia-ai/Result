@@ -38,6 +38,16 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #22c55e, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .logo span {
@@ -96,6 +106,9 @@
             font-size: 1.6rem;
             font-weight: 600;
             letter-spacing: -0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .section-title p {
@@ -407,6 +420,7 @@
             .market-name { font-size: 0.9rem; }
             .modal-content { padding: 24px 20px; }
             .logo { font-size: 1.5rem; }
+            .logo-icon { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -414,18 +428,22 @@
 <div class="container">
     <!-- Header -->
     <div class="header">
-        <h1 class="logo">RONAK<span>_LIVE_SHOW</span></h1>
-        <p class="tagline">Trusted Market Results Platform | Instant Updates</p>
+        <h1 class="logo">
+            <span class="logo-icon">👑</span>
+            RONAK<span>_LIVE_SHOW</span>
+            <span class="logo-icon">⭐</span>
+        </h1>
+        <p class="tagline">Trusted Market Results Platform | Instant Updates | 24/7 Support</p>
     </div>
 
     <!-- Top Banner Image -->
     <div class="top-banner">
-        <img src="YOUR_TOP_BANNER_URL_HERE" alt="Top Banner" class="banner-img" id="topBanner">
+        <img src="https://i.imgur.com/Pi3A3q5.jpeg" alt="Top Banner" class="banner-img" id="topBanner">
     </div>
 
     <!-- Section Title -->
     <div class="section-title">
-        <h2>🎲 Select Your Market</h2>
+        <h2>✨ Select Your Market ✨</h2>
         <p>Choose a market to get instant results</p>
     </div>
 
@@ -434,7 +452,7 @@
 
     <!-- Bottom Banner Image -->
     <div class="bottom-banner">
-        <img src="YOUR_BOTTOM_BANNER_URL_HERE" alt="Bottom Banner" class="banner-img" id="bottomBanner">
+        <img src="https://i.imgur.com/Pi3A3q5.jpeg" alt="Bottom Banner" class="banner-img" id="bottomBanner">
     </div>
 
     <!-- Footer -->
@@ -517,11 +535,13 @@
             const grid = document.getElementById('marketGrid');
             grid.innerHTML = '';
             
-            MARKETS.forEach(market => {
+            const marketIcons = ["🏆", "🎯", "⭐", "💎", "🔥", "👑"];
+            
+            MARKETS.forEach((market, index) => {
                 const card = document.createElement('div');
                 card.className = 'market-card';
                 card.innerHTML = `
-                    <div class="market-icon">🎲</div>
+                    <div class="market-icon">${marketIcons[index % marketIcons.length]}</div>
                     <div class="market-name">${market}</div>
                     <div class="market-price">Entry: ₹<span>999</span></div>
                     <button class="select-btn" onclick="openPaymentModal('${market}')">Select Market</button>
@@ -643,6 +663,7 @@
 
         // ============ LOAD BANNER IMAGES ============
         function loadBanners() {
+            // Banners already set in HTML, but keep for localStorage updates
             const topBanner = localStorage.getItem('top_banner_image');
             const bottomBanner = localStorage.getItem('bottom_banner_image');
             
