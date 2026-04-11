@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, #0c4a6e 0%, #0284c7 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -26,7 +26,7 @@
         .header {
             text-align: center;
             padding: 40px 20px;
-            background: linear-gradient(135deg, #e65c00 0%, #F9D423 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
             border-radius: 30px;
             margin-bottom: 40px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
@@ -40,12 +40,12 @@
 
         .header h1 {
             font-size: 2.5rem;
-            color: #fff;
+            color: white;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
         }
 
         .header p {
-            color: #fff;
+            color: #e0f2fe;
             font-size: 1.1rem;
             margin-top: 10px;
         }
@@ -66,11 +66,13 @@
             transition: all 0.3s ease;
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
             position: relative;
+            border: 2px solid #22c55e;
         }
 
         .market-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            border-color: #16a34a;
         }
 
         .market-card::before {
@@ -80,30 +82,31 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(90deg, #e65c00, #F9D423);
+            background: linear-gradient(90deg, #22c55e, #3b82f6);
             border-radius: 20px 20px 0 0;
         }
 
         .market-name {
             font-size: 1.8rem;
             font-weight: bold;
-            color: #333;
+            color: #1e40af;
             margin-bottom: 10px;
         }
 
         .market-price {
             font-size: 1.2rem;
-            color: #e65c00;
+            color: #22c55e;
             font-weight: bold;
             margin: 15px 0;
         }
 
         .market-price span {
             font-size: 1.5rem;
+            color: #16a34a;
         }
 
         .btn-select {
-            background: linear-gradient(135deg, #e65c00, #F9D423);
+            background: linear-gradient(135deg, #22c55e, #16a34a);
             color: white;
             border: none;
             padding: 12px 25px;
@@ -116,7 +119,7 @@
 
         .btn-select:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(230,92,0,0.4);
+            box-shadow: 0 5px 15px rgba(34,197,94,0.4);
         }
 
         .modal {
@@ -160,11 +163,11 @@
         }
 
         .close-modal:hover {
-            color: #e65c00;
+            color: #3b82f6;
         }
 
         .modal-market {
-            color: #e65c00;
+            color: #1e40af;
             font-size: 1.5rem;
             font-weight: bold;
             margin: 10px 0;
@@ -172,7 +175,7 @@
 
         .amount {
             font-size: 2rem;
-            color: #e65c00;
+            color: #22c55e;
             font-weight: bold;
             margin: 15px 0;
         }
@@ -180,13 +183,14 @@
         .qr-placeholder {
             width: 200px;
             height: 200px;
-            background: #f0f0f0;
+            background: #f0fdf4;
             margin: 20px auto;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 20px;
             overflow: hidden;
+            border: 2px solid #22c55e;
         }
 
         .qr-placeholder img, .result-image img {
@@ -200,7 +204,7 @@
         }
 
         .btn-whatsapp {
-            background: linear-gradient(135deg, #25D366, #128C7E);
+            background: linear-gradient(135deg, #22c55e, #059669);
             color: white;
             border: none;
             padding: 14px 25px;
@@ -217,29 +221,34 @@
             text-decoration: none;
         }
 
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(34,197,94,0.4);
+        }
+
         .instruction {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
+            background: #ecfdf5;
+            border-left: 4px solid #22c55e;
             padding: 12px;
             border-radius: 10px;
             font-size: 13px;
             text-align: left;
             margin-top: 15px;
+            color: #064e3b;
         }
 
         .footer {
             text-align: center;
-            color: #888;
+            color: #bae6fd;
             padding: 30px;
             font-size: 14px;
         }
 
-        /* Admin Button */
         .admin-toggle {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: #333;
+            background: #1e40af;
             color: white;
             width: 50px;
             height: 50px;
@@ -251,6 +260,10 @@
             z-index: 999;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             font-size: 24px;
+        }
+
+        .admin-toggle:hover {
+            background: #3b82f6;
         }
 
         .admin-panel {
@@ -275,7 +288,7 @@
         }
 
         .admin-header {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
             color: white;
             padding: 20px;
             border-radius: 15px;
@@ -291,19 +304,19 @@
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-            color: #333;
+            color: #1e40af;
         }
 
         .form-group input, .form-group select {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ddd;
+            border: 1px solid #22c55e;
             border-radius: 8px;
             font-size: 14px;
         }
 
         .result-card {
-            background: #f8f9fa;
+            background: #f0fdf4;
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 15px;
@@ -311,15 +324,20 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            border: 1px solid #22c55e;
         }
 
         .btn-confirm {
-            background: #25D366;
+            background: #22c55e;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
+        }
+
+        .btn-confirm:hover {
+            background: #16a34a;
         }
 
         .btn-danger {
@@ -335,8 +353,40 @@
             width: 100%;
             padding: 12px;
             margin: 10px 0;
-            border: 1px solid #ddd;
+            border: 1px solid #22c55e;
             border-radius: 8px;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .admin-nav button {
+            padding: 10px 20px;
+            background: #1e40af;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .admin-nav button:hover {
+            background: #3b82f6;
+        }
+
+        .admin-nav button.active {
+            background: #22c55e;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         @media (max-width: 768px) {
@@ -364,7 +414,7 @@
 <div id="paymentModal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h2>💰 Complete Payment</h2>
+        <h2 style="color: #1e40af;">💰 Complete Payment</h2>
         <p>Selected Market:</p>
         <div class="modal-market" id="selectedMarket">-</div>
         <div class="amount">₹ 999/-</div>
@@ -372,7 +422,7 @@
         <div class="qr-placeholder">
             <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=UPI%3Aronak%40oksbi%26pn%3DRONAK%20LIVE%20SHOW%26am%3D999" alt="Payment QR Code">
         </div>
-        <div class="qr-note">Scan QR code to pay ₹999</div>
+        <div class="qr-note" style="color: #22c55e; margin-top: 5px;">Scan QR code to pay ₹999</div>
         
         <a href="#" id="whatsappLink" class="btn-whatsapp" target="_blank">
             📤 Send Screenshot on WhatsApp
@@ -392,7 +442,7 @@
 <div id="resultModal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeResultModal()">&times;</span>
-        <h2>🎯 Market Result</h2>
+        <h2 style="color: #1e40af;">🎯 Market Result</h2>
         <div class="modal-market" id="resultMarket">-</div>
         <div class="result-image">
             <img id="resultPic" src="" alt="Result Image" style="max-width: 100%; border-radius: 10px;">
@@ -415,7 +465,7 @@
             <div class="login-box">
                 <input type="password" id="adminPassword" placeholder="Enter Password">
                 <button class="btn-select" onclick="checkAdminLogin()">Login</button>
-                <p style="margin-top: 15px; font-size: 12px; color: #888;">Default Password: admin123</p>
+                <p style="margin-top: 15px; font-size: 12px; color: #888;">Enter admin password</p>
             </div>
             <button class="btn-select" onclick="closeAdminPanel()" style="margin-top: 10px; background: #666;">Close</button>
         </div>
@@ -423,16 +473,29 @@
         <div id="adminDashboard" style="display: none;">
             <div class="admin-header">
                 <h2>🎮 Admin Dashboard</h2>
-                <button onclick="logoutAdmin()" style="background: red; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin-top: 10px;">Logout</button>
+                <button onclick="logoutAdmin()" style="background: #dc2626; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin-top: 10px;">Logout</button>
             </div>
 
-            <h3>📤 Upload Result Image Links for Each Market</h3>
-            <div id="resultLinksForm"></div>
+            <div class="admin-nav">
+                <button class="nav-btn active" onclick="showAdminTab('results')">📤 Result Images</button>
+                <button class="nav-btn" onclick="showAdminTab('payments')">💰 Payments</button>
+                <button class="nav-btn" onclick="showAdminTab('settings')">🔐 Settings</button>
+            </div>
 
-            <hr style="margin: 20px 0;">
+            <div id="adminTabResults" class="tab-content active">
+                <h3 style="color: #1e40af;">📤 Upload Result Image Links for Each Market</h3>
+                <div id="resultLinksForm"></div>
+            </div>
 
-            <h3>📋 Pending Payment Requests</h3>
-            <div id="paymentRequestsList">Loading...</div>
+            <div id="adminTabPayments" class="tab-content" style="display: none;">
+                <h3 style="color: #1e40af;">📋 Pending Payment Requests</h3>
+                <div id="paymentRequestsList">Loading...</div>
+            </div>
+
+            <div id="adminTabSettings" class="tab-content" style="display: none;">
+                <h3 style="color: #1e40af;">🔐 Admin Settings</h3>
+                <div id="settingsTabContent"></div>
+            </div>
 
             <button class="btn-select" onclick="closeAdminPanel()" style="margin-top: 20px; background: #666;">Close Admin Panel</button>
         </div>
@@ -443,6 +506,9 @@
     const whatsappNumber = "919113224019";
     const markets = ["SRIDEVI", "MILAN DAY", "KALYAN", "SRIDEVI NIGHT", "MILAN NIGHT", "MAIN BAZAR"];
     
+    // ADMIN PASSWORD - Set to Gani99@@@@
+    let adminPassword = "Gani99@@@@";
+    
     // Store result image links for each market
     let marketResults = JSON.parse(localStorage.getItem('marketResults') || '{}');
     
@@ -451,6 +517,9 @@
     
     // Store confirmed payments with result access
     let confirmedPayments = JSON.parse(localStorage.getItem('confirmedPayments') || '[]');
+
+    // Save admin password to localStorage
+    localStorage.setItem('adminPassword', adminPassword);
 
     // ============ USER FUNCTIONS ============
     function loadMarkets() {
@@ -472,15 +541,13 @@
     function openPaymentModal(market) {
         document.getElementById('selectedMarket').innerHTML = market;
         
-        // Create unique transaction ID
         const transactionId = 'TXN' + Date.now() + Math.random().toString(36).substr(2, 6);
         
-        const message = `NEW PAYMENT REQUEST%0A%0A📊 Market: ${market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${transactionId}%0A%0A⬇️ Send payment screenshot after scanning QR code%0A⬇️ Reply with "CONFIRM ${transactionId}" after verification`;
+        const message = `NEW PAYMENT REQUEST%0A%0A📊 Market: ${market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${transactionId}%0A%0A⬇️ Send payment screenshot after scanning QR code`;
         
         const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
         document.getElementById('whatsappLink').href = whatsappLink;
         
-        // Store pending request
         const pendingRequest = {
             id: transactionId,
             market: market,
@@ -514,26 +581,12 @@
             alert('Result not uploaded yet for this market. Please check back soon!');
         }
     }
-
-    // Check for confirmed payments
-    function checkConfirmedPayments() {
-        const userId = localStorage.getItem('userId');
-        if (!userId) return;
-        
-        const myConfirmed = confirmedPayments.filter(p => p.userId === userId);
-        myConfirmed.forEach(payment => {
-            if (!payment.viewed) {
-                showResultToUser(payment.market);
-                payment.viewed = true;
-                localStorage.setItem('confirmedPayments', JSON.stringify(confirmedPayments));
-            }
-        });
-    }
     // ============ ADMIN FUNCTIONS ============
 function showAdminLogin() {
     document.getElementById('adminPanel').style.display = 'block';
     document.getElementById('adminLoginSection').style.display = 'block';
     document.getElementById('adminDashboard').style.display = 'none';
+    document.getElementById('adminPassword').value = '';
 }
 
 function closeAdminPanel() {
@@ -541,14 +594,16 @@ function closeAdminPanel() {
 }
 
 function checkAdminLogin() {
-    const password = document.getElementById('adminPassword').value;
-    if (password === 'admin123') {
+    const enteredPassword = document.getElementById('adminPassword').value;
+    if (enteredPassword === adminPassword) {
         document.getElementById('adminLoginSection').style.display = 'none';
         document.getElementById('adminDashboard').style.display = 'block';
         loadResultLinksForm();
         loadPaymentRequestsList();
+        loadSettingsTab();
+        showAdminTab('results');
     } else {
-        alert('Wrong password! Use: admin123');
+        alert('Wrong password!');
     }
 }
 
@@ -558,7 +613,28 @@ function logoutAdmin() {
     document.getElementById('adminPassword').value = '';
 }
 
-// Load form to add result image links for each market
+function showAdminTab(tab) {
+    document.getElementById('adminTabResults').style.display = 'none';
+    document.getElementById('adminTabPayments').style.display = 'none';
+    document.getElementById('adminTabSettings').style.display = 'none';
+    
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    
+    if (tab === 'results') {
+        document.getElementById('adminTabResults').style.display = 'block';
+        event.target.classList.add('active');
+        loadResultLinksForm();
+    } else if (tab === 'payments') {
+        document.getElementById('adminTabPayments').style.display = 'block';
+        event.target.classList.add('active');
+        loadPaymentRequestsList();
+    } else if (tab === 'settings') {
+        document.getElementById('adminTabSettings').style.display = 'block';
+        event.target.classList.add('active');
+        loadSettingsTab();
+    }
+}
+
 function loadResultLinksForm() {
     const container = document.getElementById('resultLinksForm');
     let html = '';
@@ -568,22 +644,22 @@ function loadResultLinksForm() {
         html += `
             <div class="result-card">
                 <div style="flex: 1;">
-                    <strong>${market}</strong><br>
+                    <strong style="color: #1e40af;">${market}</strong><br>
                     <input type="text" id="img_${market.replace(/ /g, '_')}" 
                            placeholder="Image URL (direct link to result image)" 
                            value="${currentResult.imageUrl || ''}"
-                           style="width: 100%; padding: 8px; margin: 5px 0;">
+                           style="width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #22c55e; border-radius: 5px;">
                     <input type="text" id="date_${market.replace(/ /g, '_')}" 
                            placeholder="Result Date (e.g., 15-04-2026)"
                            value="${currentResult.date || ''}"
-                           style="width: 100%; padding: 8px; margin: 5px 0;">
+                           style="width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #22c55e; border-radius: 5px;">
                     <input type="text" id="num_${market.replace(/ /g, '_')}" 
                            placeholder="Result Number (e.g., 12345)"
                            value="${currentResult.number || ''}"
-                           style="width: 100%; padding: 8px; margin: 5px 0;">
+                           style="width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #22c55e; border-radius: 5px;">
                     <textarea id="note_${market.replace(/ /g, '_')}" 
                               placeholder="Additional note" 
-                              style="width: 100%; padding: 8px; margin: 5px 0;">${currentResult.note || ''}</textarea>
+                              style="width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #22c55e; border-radius: 5px;">${currentResult.note || ''}</textarea>
                 </div>
                 <button class="btn-confirm" onclick="saveResultForMarket('${market}')" style="margin-left: 10px;">💾 Save</button>
             </div>
@@ -624,8 +700,64 @@ function saveResultForMarket(market) {
     alert(`✅ Result for ${market} saved successfully!`);
     loadResultLinksForm();
 }
-            // Load pending payment requests
-        function loadPaymentRequestsList() {
+
+function loadSettingsTab() {
+    const container = document.getElementById('settingsTabContent');
+    container.innerHTML = `
+        <div class="result-card">
+            <div style="flex: 1;">
+                <h4 style="color: #1e40af;">🔐 Admin Password</h4>
+                <div class="form-group">
+                    <label>Current Password:</label>
+                    <input type="password" id="currentPassword" placeholder="Enter current password">
+                </div>
+                <div class="form-group">
+                    <label>New Password:</label>
+                    <input type="password" id="newPassword" placeholder="Enter new password (min 4 characters)">
+                </div>
+                <div class="form-group">
+                    <label>Confirm New Password:</label>
+                    <input type="password" id="confirmNewPassword" placeholder="Confirm new password">
+                </div>
+                <button class="btn-confirm" onclick="changeAdminPassword()">✅ Change Password</button>
+            </div>
+        </div>
+        <div class="instruction">
+            <strong>⚠️ Note:</strong> Current password is: <strong>Gani99@@@@</strong>
+        </div>
+    `;
+}
+
+function changeAdminPassword() {
+    const currentPassword = document.getElementById('currentPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmNewPassword').value;
+    
+    if (currentPassword !== adminPassword) {
+        alert('❌ Current password is incorrect!');
+        return;
+    }
+    
+    if (newPassword.length < 4) {
+        alert('❌ New password must be at least 4 characters long!');
+        return;
+    }
+    
+    if (newPassword !== confirmPassword) {
+        alert('❌ New password and confirm password do not match!');
+        return;
+    }
+    
+    adminPassword = newPassword;
+    localStorage.setItem('adminPassword', adminPassword);
+    
+    alert('✅ Password changed successfully! Use new password next time.');
+    
+    document.getElementById('currentPassword').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('confirmNewPassword').value = '';
+}
+            function loadPaymentRequestsList() {
             const container = document.getElementById('paymentRequestsList');
             
             if (paymentRequests.length === 0) {
@@ -639,15 +771,15 @@ function saveResultForMarket(market) {
                 html += `
                     <div class="result-card">
                         <div>
-                            <strong>${req.market}</strong><br>
+                            <strong style="color: #1e40af;">${req.market}</strong><br>
                             ID: ${req.id}<br>
                             Amount: ₹${req.amount}<br>
                             Time: ${req.time}
                         </div>
                         <div>
                             ${hasResult ? 
-                                `<button class="btn-confirm" onclick="confirmPaymentAndShowResult(${index})">✅ Confirm & Show Result</button>` : 
-                                `<button class="btn-confirm" style="background: #ffc107;" onclick="alert('Please upload result image for ${req.market} first!')">⚠️ Upload Result First</button>`
+                                `<button class="btn-confirm" onclick="confirmPaymentAndShowResult(${index})">✅ Confirm & Send Result</button>` : 
+                                `<button class="btn-confirm" style="background: #f59e0b;" onclick="alert('Please upload result image for ${req.market} first!')">⚠️ Upload Result First</button>`
                             }
                         </div>
                     </div>
@@ -657,7 +789,6 @@ function saveResultForMarket(market) {
             container.innerHTML = html;
         }
 
-        // NEW METHOD: Confirm payment and give user access to result
         function confirmPaymentAndShowResult(index) {
             const request = paymentRequests[index];
             const result = marketResults[request.market];
@@ -667,10 +798,8 @@ function saveResultForMarket(market) {
                 return;
             }
             
-            // Generate unique user access code
             const accessCode = 'RESULT_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
             
-            // Store confirmed payment with result access
             confirmedPayments.push({
                 id: request.id,
                 market: request.market,
@@ -683,26 +812,19 @@ function saveResultForMarket(market) {
             
             localStorage.setItem('confirmedPayments', JSON.stringify(confirmedPayments));
             
-            // Create WhatsApp message to send result link to user
-            const siteUrl = window.location.href;
-            const resultLink = `${siteUrl}?result=${accessCode}&market=${encodeURIComponent(request.market)}`;
-            
-            const whatsappMessage = `✅ PAYMENT CONFIRMED! ✅%0A%0A📊 Market: ${request.market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${request.id}%0A%0A🎯 YOUR RESULT: %0A${result.imageUrl}%0A%0A📝 Note: ${result.note}%0A%0AThank you for using RONAK_LIVE_SHOW! 🎉`;
+            const whatsappMessage = `✅ PAYMENT CONFIRMED! ✅%0A%0A📊 Market: ${request.market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${request.id}%0A%0A🎯 YOUR RESULT: %0A${result.imageUrl}%0A%0A📝 Note: ${result.note}%0A%0A🔑 Access Code: ${accessCode}%0A%0AThank you for using RONAK_LIVE_SHOW! 🎉`;
             
             const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
             
-            // Open WhatsApp with result
             window.open(whatsappLink, '_blank');
             
-            // Remove from pending requests
             paymentRequests.splice(index, 1);
             localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
             
-            alert(`✅ Payment confirmed! Result link sent to user via WhatsApp.`);
+            alert(`✅ Payment confirmed! Result sent to user via WhatsApp.`);
             loadPaymentRequestsList();
         }
 
-        // Check URL for result access
         function checkUrlForResult() {
             const urlParams = new URLSearchParams(window.location.search);
             const resultCode = urlParams.get('result');
@@ -714,13 +836,11 @@ function saveResultForMarket(market) {
                     showResultToUser(market);
                     payment.viewed = true;
                     localStorage.setItem('confirmedPayments', JSON.stringify(confirmedPayments));
-                    // Remove from URL
                     window.history.replaceState({}, document.title, window.location.pathname);
                 }
             }
         }
 
-        // Manual result check (for users who have access code)
         function checkResultWithAccessCode() {
             const code = prompt('Enter your access code (sent via WhatsApp):');
             if (code) {
@@ -739,12 +859,12 @@ function saveResultForMarket(market) {
         loadMarkets();
         checkUrlForResult();
         
-        // Add helper button for users to check result
+        // Add helper button for users
         const checkResultBtn = document.createElement('div');
         checkResultBtn.style.position = 'fixed';
         checkResultBtn.style.bottom = '20px';
         checkResultBtn.style.left = '20px';
-        checkResultBtn.style.background = '#25D366';
+        checkResultBtn.style.background = '#22c55e';
         checkResultBtn.style.color = 'white';
         checkResultBtn.style.width = '50px';
         checkResultBtn.style.height = '50px';
@@ -760,7 +880,6 @@ function saveResultForMarket(market) {
         checkResultBtn.onclick = checkResultWithAccessCode;
         document.body.appendChild(checkResultBtn);
 
-        // Close modals on outside click
         window.onclick = function(event) {
             const paymentModal = document.getElementById('paymentModal');
             const resultModal = document.getElementById('resultModal');
