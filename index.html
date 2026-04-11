@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>RONAK_LIVE_SHOW - Professional Market Results</title>
     <style>
         * {
@@ -170,13 +170,15 @@
         .modal-content {
             background: linear-gradient(135deg, #1e293b, #0f172a);
             border-radius: 24px;
-            max-width: 500px;
+            max-width: 550px;
             width: 90%;
             padding: 30px;
             text-align: center;
             position: relative;
             animation: modalPop 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
             border: 1px solid rgba(34,197,94,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         @keyframes modalPop {
@@ -242,6 +244,60 @@
             color: #94a3b8;
             font-size: 0.7rem;
             margin-top: 5px;
+        }
+
+        /* UPI Apps Grid */
+        .upi-apps-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .upi-btn {
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .upi-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .phonepe { background: linear-gradient(135deg, #5D3B9E, #4A2D7C); }
+        .googlepay { background: linear-gradient(135deg, #4285F4, #1A73E8); }
+        .paytm { background: linear-gradient(135deg, #00BAF2, #0096C7); }
+        .copyid { background: linear-gradient(135deg, #22c55e, #16a34a); }
+
+        .upi-id-box {
+            background: #0f172a;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border: 1px dashed #22c55e;
+        }
+
+        .upi-id-label {
+            color: #94a3b8;
+            font-size: 0.65rem;
+            margin-bottom: 5px;
+        }
+
+        .upi-id-value {
+            color: #4ade80;
+            font-size: 0.9rem;
+            font-weight: 600;
+            word-break: break-all;
+            cursor: pointer;
         }
 
         .btn-whatsapp {
@@ -310,11 +366,6 @@
         @keyframes pulse {
             0% { transform: scale(0.95); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
-        }
-
-        .success-message p {
-            color: #4ade80;
-            font-size: 0.8rem;
         }
 
         .instruction {
@@ -424,11 +475,28 @@
             color: white;
         }
 
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: #334155;
+        }
+        .divider-text {
+            padding: 0 10px;
+            color: #94a3b8;
+            font-size: 0.7rem;
+        }
+
         @media (max-width: 768px) {
             .market-grid { gap: 12px; }
             .market-name { font-size: 0.85rem; }
             .qr-placeholder { width: 220px; height: 220px; }
             .header h1 { font-size: 1.3rem; }
+            .upi-apps-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -454,17 +522,39 @@
         <div class="modal-market" id="selectedMarket">-</div>
         <div class="amount">₹ 999/-</div>
         
-        <!-- Timer for Verification -->
-        <div class="timer-box" id="timerBox">
+        <!-- Timer -->
+        <div class="timer-box">
             <div class="timer-label">⏱️ Time left to send screenshot</div>
             <div class="timer-value" id="timerDisplay">10:00</div>
             <div class="timer-warning" id="timerWarning"></div>
         </div>
         
+        <!-- QR Code -->
         <div class="qr-placeholder">
             <img id="qrImage" src="https://i.imgur.com/W4JYgb3.jpeg" alt="Payment QR Code">
         </div>
         <div class="qr-note">Scan QR code to pay ₹999</div>
+        
+        <!-- Divider -->
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-text">OR PAY WITH UPI APPS</span>
+            <div class="divider-line"></div>
+        </div>
+        
+        <!-- UPI Apps Buttons -->
+        <div class="upi-apps-grid">
+            <button onclick="openUpiApp('phonepe')" class="upi-btn phonepe">📱 PhonePe</button>
+            <button onclick="openUpiApp('googlepay')" class="upi-btn googlepay">💳 Google Pay</button>
+            <button onclick="openUpiApp('paytm')" class="upi-btn paytm">🔷 Paytm</button>
+            <button onclick="copyUpiId()" class="upi-btn copyid">📋 Copy UPI ID</button>
+        </div>
+        
+        <!-- UPI ID Display -->
+        <div class="upi-id-box">
+            <div class="upi-id-label">UPI ID (Click to copy):</div>
+            <div class="upi-id-value" id="upiIdText" onclick="copyUpiId()">ganeshpatil99@slc</div>
+        </div>
         
         <a href="#" id="whatsappLink" class="btn-whatsapp" target="_blank">
             📤 Send Screenshot on WhatsApp
@@ -472,8 +562,8 @@
         
         <div class="instruction">
             <strong>📌 Instructions:</strong><br>
-            1. Scan QR code & pay ₹999<br>
-            2. Take screenshot of payment<br>
+            1. Pay ₹999 using QR code OR any UPI app above<br>
+            2. Take screenshot of payment success<br>
             3. Click above button to send screenshot on WhatsApp<br>
             4. You will receive result within 10 minutes
         </div>
@@ -486,7 +576,7 @@
         <span class="close-modal" onclick="closeResultModal()">&times;</span>
         <h2>🎯 Market Result</h2>
         <div class="modal-market" id="resultMarket">-</div>
-        <div class="result-image" id="resultImageContainer">
+        <div class="result-image">
             <img id="resultPic" src="" alt="Result Image" style="max-width: 100%; border-radius: 12px;">
         </div>
         <div class="success-message" id="resultNote"></div>
@@ -494,7 +584,7 @@
     </div>
 </div>
 
-<!-- Success Message Modal (Payment Verified) -->
+<!-- Success Message Modal -->
 <div id="successModal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeSuccessModal()">&times;</span>
@@ -535,6 +625,7 @@
             <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
                 <button class="btn-select" onclick="showAdminTab('results')" style="background: #3b82f6;">📤 Results</button>
                 <button class="btn-select" onclick="showAdminTab('payments')" style="background: #22c55e;">💰 Payments</button>
+                <button class="btn-select" onclick="showAdminTab('settings')" style="background: #f59e0b;">⚙️ Settings</button>
             </div>
 
             <div id="adminTabResults">
@@ -547,6 +638,11 @@
                 <div id="paymentRequestsList"></div>
             </div>
 
+            <div id="adminTabSettings" style="display: none;">
+                <h3 style="color: white;">⚙️ Admin Settings</h3>
+                <div id="settingsTabContent"></div>
+            </div>
+
             <button class="btn-select" onclick="closeAdminPanel()" style="margin-top: 20px; background: #475569;">Close</button>
         </div>
     </div>
@@ -557,12 +653,64 @@
     const markets = ["SRIDEVI", "MILAN DAY", "KALYAN", "SRIDEVI NIGHT", "MILAN NIGHT", "MAIN BAZAR"];
     let adminPassword = "Gani99@@@@";
     
+    // UPI Details
+    const upiId = "ganeshpatil99@slc";
+    const amount = "999";
+    const payeeName = "RONAK LIVE SHOW";
+    const note = "Market Result Payment";
+    
     let marketResults = JSON.parse(localStorage.getItem('marketResults') || '{}');
     let paymentRequests = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
     let verifiedPayments = JSON.parse(localStorage.getItem('verifiedPayments') || '[]');
     
     let timerInterval = null;
     let currentTransactionId = null;
+
+    // ============ UPI APP FUNCTIONS ============
+    function openUpiApp(app) {
+        let upiLink = "";
+        const encodedPayee = encodeURIComponent(upiId);
+        const encodedName = encodeURIComponent(payeeName);
+        const encodedNote = encodeURIComponent(note);
+        
+        const baseParams = `pa=${encodedPayee}&pn=${encodedName}&am=${amount}&cu=INR&tn=${encodedNote}`;
+        
+        switch(app) {
+            case 'phonepe':
+                upiLink = `phonepe://pay?${baseParams}`;
+                break;
+            case 'googlepay':
+                upiLink = `tez://upi/pay?${baseParams}`;
+                break;
+            case 'paytm':
+                upiLink = `paytmmp://pay?${baseParams}`;
+                break;
+            default:
+                upiLink = `upi://pay?${baseParams}`;
+        }
+        
+        window.location.href = upiLink;
+        
+        setTimeout(() => {
+            window.location.href = `https://upiapp.online/pay?${baseParams}`;
+        }, 500);
+    }
+    
+    function copyUpiId() {
+        navigator.clipboard.writeText(upiId).then(() => {
+            const upiElement = document.getElementById('upiIdText');
+            const originalText = upiElement.innerHTML;
+            upiElement.innerHTML = '✅ Copied!';
+            upiElement.style.color = '#22c55e';
+            setTimeout(() => {
+                upiElement.innerHTML = originalText;
+                upiElement.style.color = '#4ade80';
+            }, 2000);
+            alert(`UPI ID copied: ${upiId}`);
+        }).catch(() => {
+            alert('Failed to copy. Please manually copy: ' + upiId);
+        });
+    }
 
     // ============ USER FUNCTIONS ============
     function loadMarkets() {
@@ -585,6 +733,8 @@
         document.getElementById('selectedMarket').innerHTML = market;
         currentTransactionId = 'TXN' + Date.now() + Math.random().toString(36).substr(2, 6);
         
+        document.getElementById('upiIdText').innerHTML = upiId;
+        
         const message = `NEW PAYMENT REQUEST%0A%0A📊 Market: ${market}%0A💰 Amount: ₹999%0A🆔 ID: ${currentTransactionId}%0A%0A📸 Send screenshot after payment`;
         const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
         document.getElementById('whatsappLink').href = whatsappLink;
@@ -599,13 +749,10 @@
         paymentRequests.push(pendingRequest);
         localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
         
-        // Start 10 minute timer
         startTimer(600);
-        
         document.getElementById('paymentModal').style.display = 'flex';
     }
 
-    // Timer Function (10 minutes = 600 seconds)
     function startTimer(seconds) {
         if (timerInterval) clearInterval(timerInterval);
         
@@ -620,7 +767,6 @@
                 clearInterval(timerInterval);
                 document.getElementById('timerDisplay').innerHTML = "00:00";
                 document.getElementById('timerWarning').innerHTML = "⚠️ Time expired! Please create new request.";
-                // Disable WhatsApp button
                 document.getElementById('whatsappLink').style.opacity = '0.5';
                 document.getElementById('whatsappLink').style.pointerEvents = 'none';
             } else if (timeLeft <= 180) {
@@ -651,9 +797,7 @@
     function showSuccessMessage(message) {
         document.getElementById('successMessage').innerHTML = `<p style="font-size: 1rem; color: #4ade80;">${message}</p>`;
         document.getElementById('successModal').style.display = 'flex';
-        setTimeout(() => {
-            closeSuccessModal();
-        }, 5000);
+        setTimeout(() => closeSuccessModal(), 5000);
     }
 
     function showResultToUser(marketName) {
@@ -672,6 +816,7 @@ function showAdminLogin() {
     document.getElementById('adminPanel').style.display = 'block';
     document.getElementById('adminLoginSection').style.display = 'block';
     document.getElementById('adminDashboard').style.display = 'none';
+    document.getElementById('adminPassword').value = '';
 }
 
 function closeAdminPanel() {
@@ -685,6 +830,7 @@ function checkAdminLogin() {
         document.getElementById('adminDashboard').style.display = 'block';
         loadResultLinksForm();
         loadPaymentRequestsList();
+        loadSettingsTab();
         showAdminTab('results');
     } else {
         alert('Wrong password!');
@@ -694,17 +840,23 @@ function checkAdminLogin() {
 function logoutAdmin() {
     document.getElementById('adminLoginSection').style.display = 'block';
     document.getElementById('adminDashboard').style.display = 'none';
+    document.getElementById('adminPassword').value = '';
 }
 
 function showAdminTab(tab) {
+    document.getElementById('adminTabResults').style.display = 'none';
+    document.getElementById('adminTabPayments').style.display = 'none';
+    document.getElementById('adminTabSettings').style.display = 'none';
+    
     if (tab === 'results') {
         document.getElementById('adminTabResults').style.display = 'block';
-        document.getElementById('adminTabPayments').style.display = 'none';
         loadResultLinksForm();
-    } else {
-        document.getElementById('adminTabResults').style.display = 'none';
+    } else if (tab === 'payments') {
         document.getElementById('adminTabPayments').style.display = 'block';
         loadPaymentRequestsList();
+    } else if (tab === 'settings') {
+        document.getElementById('adminTabSettings').style.display = 'block';
+        loadSettingsTab();
     }
 }
 
@@ -777,11 +929,9 @@ function loadPaymentRequestsList() {
     container.innerHTML = html;
 }
 
-// NEW: Verify payment and show success message to user
 function verifyPaymentAndShowSuccess(index) {
     const request = paymentRequests[index];
     
-    // Store verified payment
     verifiedPayments.push({
         id: request.id,
         market: request.market,
@@ -789,22 +939,111 @@ function verifyPaymentAndShowSuccess(index) {
     });
     localStorage.setItem('verifiedPayments', JSON.stringify(verifiedPayments));
     
-    // Send success message to user via WhatsApp
     const successMessage = `✅✅ PAYMENT VERIFIED! ✅✅%0A%0A📊 Market: ${request.market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${request.id}%0A%0A🎉 Your payment has been confirmed successfully!%0A%0AYou will receive your result shortly.%0A%0AThank you for using RONAK_LIVE_SHOW!`;
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${successMessage}`;
     window.open(whatsappLink, '_blank');
     
-    // Remove from pending
     paymentRequests.splice(index, 1);
     localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
     
     alert(`✅ Payment verified! Success message sent to user via WhatsApp.`);
     loadPaymentRequestsList();
 }
+
+function loadSettingsTab() {
+    const container = document.getElementById('settingsTabContent');
+    container.innerHTML = `
+        <div class="result-card" style="flex-direction: column; align-items: stretch;">
+            <h4 style="color: white; margin-bottom: 15px;">🔐 Change Admin Password</h4>
+            <div style="margin-bottom: 15px;">
+                <label style="color: #94a3b8; font-size: 0.75rem;">Current Password</label>
+                <input type="password" id="currentPassword" placeholder="Enter current password" style="width: 100%; padding: 10px; margin-top: 5px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="color: #94a3b8; font-size: 0.75rem;">New Password</label>
+                <input type="password" id="newPassword" placeholder="Enter new password (min 4 characters)" style="width: 100%; padding: 10px; margin-top: 5px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="color: #94a3b8; font-size: 0.75rem;">Confirm New Password</label>
+                <input type="password" id="confirmNewPassword" placeholder="Confirm new password" style="width: 100%; padding: 10px; margin-top: 5px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
+            </div>
+            <button class="btn-confirm" onclick="changeAdminPassword()" style="margin-bottom: 20px;">✅ Change Password</button>
+            
+            <hr style="border-color: #334155; margin: 20px 0;">
+            
+            <h4 style="color: white; margin-bottom: 15px;">🗑️ Clear History & Data</h4>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn-confirm" onclick="clearPaymentHistory()" style="background: #f59e0b;">📋 Clear Payment History</button>
+                <button class="btn-confirm" onclick="clearResultHistory()" style="background: #ef4444;">🖼️ Clear All Results</button>
+                <button class="btn-confirm" onclick="clearAllData()" style="background: #dc2626;">⚠️ Clear EVERYTHING</button>
+            </div>
+            <div class="instruction" style="margin-top: 15px; font-size: 0.7rem;">
+                <strong>⚠️ Warning:</strong> Clear actions cannot be undone!
+            </div>
+        </div>
+    `;
+}
+
+function changeAdminPassword() {
+    const currentPassword = document.getElementById('currentPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmNewPassword').value;
+    
+    if (currentPassword !== adminPassword) {
+        alert('❌ Current password is incorrect!');
+        return;
+    }
+    if (newPassword.length < 4) {
+        alert('❌ New password must be at least 4 characters long!');
+        return;
+    }
+    if (newPassword !== confirmPassword) {
+        alert('❌ New password and confirm password do not match!');
+        return;
+    }
+    
+    adminPassword = newPassword;
+    localStorage.setItem('adminPassword', adminPassword);
+    alert('✅ Password changed successfully!');
+    
+    document.getElementById('currentPassword').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('confirmNewPassword').value = '';
+}
+
+function clearPaymentHistory() {
+    if (confirm('Clear ALL payment requests?')) {
+        paymentRequests = [];
+        localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
+        alert('✅ Payment history cleared!');
+        loadPaymentRequestsList();
+    }
+}
+
+function clearResultHistory() {
+    if (confirm('Clear ALL saved market results?')) {
+        marketResults = {};
+        localStorage.setItem('marketResults', JSON.stringify(marketResults));
+        alert('✅ All results cleared!');
+        loadResultLinksForm();
+    }
+}
+
+function clearAllData() {
+    if (confirm('⚠️ DELETE EVERYTHING? This cannot be undone!')) {
+        marketResults = {};
+        paymentRequests = [];
+        verifiedPayments = [];
+        localStorage.setItem('marketResults', JSON.stringify(marketResults));
+        localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
+        localStorage.setItem('verifiedPayments', JSON.stringify(verifiedPayments));
+        alert('✅ All data cleared!');
+        loadResultLinksForm();
+        loadPaymentRequestsList();
+    }
+}
             // ============ CHECK FOR VERIFIED PAYMENTS ============
         function checkForVerifiedPayments() {
-            // This would check if user has any verified payment
-            // For demo, we check localStorage for last verified
             const lastVerified = localStorage.getItem('lastVerified');
             if (lastVerified) {
                 const verified = JSON.parse(lastVerified);
@@ -816,10 +1055,9 @@ function verifyPaymentAndShowSuccess(index) {
             }
         }
 
-        // Manual result check
         function checkResultManually() {
             const market = prompt('Enter market name (SRIDEVI, MILAN DAY, KALYAN, SRIDEVI NIGHT, MILAN NIGHT, MAIN BAZAR):');
-            if (market && marketResults[market]) {
+            if (market && marketResults[market.toUpperCase()]) {
                 showResultToUser(market.toUpperCase());
             } else {
                 alert('Result not available for this market yet!');
@@ -830,7 +1068,7 @@ function verifyPaymentAndShowSuccess(index) {
         loadMarkets();
         checkForVerifiedPayments();
         
-        // Add manual result check button
+        // Manual result check button
         const checkBtn = document.createElement('div');
         checkBtn.style.position = 'fixed';
         checkBtn.style.bottom = '20px';
@@ -851,7 +1089,6 @@ function verifyPaymentAndShowSuccess(index) {
         checkBtn.onclick = checkResultManually;
         document.body.appendChild(checkBtn);
 
-        // Close modals on outside click
         window.onclick = function(event) {
             const paymentModal = document.getElementById('paymentModal');
             const resultModal = document.getElementById('resultModal');
