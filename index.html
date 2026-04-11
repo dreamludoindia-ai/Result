@@ -745,6 +745,7 @@
     // Admin session state
     let isAdminLoggedIn = false;
     let activeAdminTab = 'payments';
+    let lastRequestCount = paymentRequests.length;
 
     // ============ BANNER IMAGE FUNCTIONS ============
     function loadBannerImages() {
@@ -901,6 +902,7 @@
             return;
         }
         
+        // Create payment request
         const pendingRequest = {
             id: transactionId,
             market: market,
@@ -913,14 +915,76 @@
         paymentRequests.push(pendingRequest);
         localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
         
+        // Play notification sound (if supported)
+        playNotificationSound();
+        
+        // Update admin badge if admin panel is open
+        updateAdminNotificationBadge();
+        
+        // Show alert to user
+        alert(`✅ Payment request sent to admin!\n\nTransaction ID: ${transactionId}\n\nPlease send your payment screenshot on WhatsApp.\n\nAdmin will verify and send your result.`);
+        
+        // Open WhatsApp
         const whatsappMessage = `📸 PAYMENT SCREENSHOT%0A%0A📊 Market: ${market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${transactionId}%0A%0A⬇️⬇️⬇️ Send your payment screenshot below ⬇️⬇️⬇️%0A%0A(Attach screenshot here)`;
         const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
         window.open(whatsappLink, '_blank');
         
-        alert(`✅ Payment request created!\n\nTransaction ID: ${transactionId}\n\nPlease send your payment screenshot on WhatsApp.\n\nAdmin will verify and send your result.`);
-        
         closeModal();
         if (timerInterval) clearInterval(timerInterval);
+    }
+
+    function playNotificationSound() {
+        try {
+            // Create a simple beep sound using Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.frequency.value = 800;
+            gainNode.gain.value = 0.3;
+            oscillator.start();
+            setTimeout(() => {
+                oscillator.stop();
+                audioContext.close();
+            }, 300);
+        } catch(e) {
+            console.log('Sound not supported');
+        }
+    }
+
+    function updateAdminNotificationBadge() {
+        const adminToggle = document.querySelector('.admin-toggle');
+        const requestCount = paymentRequests.length;
+        
+        if (requestCount > 0) {
+            // Remove existing badge
+            const existingBadge = document.querySelector('.admin-badge');
+            if (existingBadge) existingBadge.remove();
+            
+            // Create new badge
+            const badge = document.createElement('span');
+            badge.className = 'admin-badge';
+            badge.innerHTML = requestCount;
+            badge.style.position = 'absolute';
+            badge.style.top = '-5px';
+            badge.style.right = '-5px';
+            badge.style.background = '#ef4444';
+            badge.style.color = 'white';
+            badge.style.borderRadius = '50%';
+            badge.style.width = '20px';
+            badge.style.height = '20px';
+            badge.style.fontSize = '11px';
+            badge.style.display = 'flex';
+            badge.style.alignItems = 'center';
+            badge.style.justifyContent = 'center';
+            badge.style.fontWeight = 'bold';
+            adminToggle.style.position = 'relative';
+            adminToggle.appendChild(badge);
+        } else {
+            const existingBadge = document.querySelector('.admin-badge');
+            if (existingBadge) existingBadge.remove();
+        }
     }
 
     function startTimer(seconds) {
@@ -1001,7 +1065,6 @@ function showAdminLogin() {
 
 function closeAdminPanel() {
     document.getElementById('adminPanel').style.display = 'none';
-    // Save admin state as closed
     localStorage.setItem('adminPanelOpen', 'false');
     isAdminLoggedIn = false;
 }
@@ -1021,16 +1084,76 @@ function checkAdminLogin() {
         loadBannerImagesForm();
         showAdminTab(activeAdminTab);
         
-        // Auto-refresh every 5 seconds
+        // Start real-time refresh every 3 seconds
         if (window.adminRefreshInterval) clearInterval(window.adminRefreshInterval);
         window.adminRefreshInterval = setInterval(() => {
             if (isAdminLoggedIn && document.getElementById('adminDashboard').style.display === 'block') {
-                loadPaymentRequestsList();
+                checkForNewPayments();
             }
-        }, 5000);
+        }, 3000);
     } else {
         alert('Wrong password!');
     }
+}
+
+// Check for new payments and show notification
+function checkForNewPayments() {
+    const currentRequests = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
+    const oldCount = paymentRequests.length;
+    const newCount = currentRequests.length;
+    
+    if (newCount > oldCount) {
+        // New payment request received!
+        paymentRequests = currentRequests;
+        
+        // Play notification sound
+        playNotificationSound();
+        
+        // Show browser notification
+        if (Notification.permission === 'granted') {
+            new Notification('💰 New Payment Request!', {
+                body: `${newCount - oldCount} new payment request(s) received. Click to verify.`,
+                icon: 'https://i.imgur.com/W4JYgb3.jpeg'
+            });
+        } else if (Notification.permission !== 'denied') {
+            Notification.requestPermission();
+        }
+        
+        // Show visual alert in admin panel
+        showAdminAlert(`🔔 ${newCount - oldCount} new payment request(s)!`);
+        
+        // Refresh the list
+        loadPaymentRequestsList();
+        
+        // Update badge
+        updateAdminNotificationBadge();
+    } else {
+        paymentRequests = currentRequests;
+    }
+}
+
+function showAdminAlert(message) {
+    // Create floating alert
+    const alertDiv = document.createElement('div');
+    alertDiv.innerHTML = message;
+    alertDiv.style.position = 'fixed';
+    alertDiv.style.top = '20px';
+    alertDiv.style.right = '20px';
+    alertDiv.style.background = '#22c55e';
+    alertDiv.style.color = 'white';
+    alertDiv.style.padding = '12px 20px';
+    alertDiv.style.borderRadius = '10px';
+    alertDiv.style.zIndex = '3000';
+    alertDiv.style.fontWeight = 'bold';
+    alertDiv.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
+    alertDiv.style.animation = 'slideInRight 0.5s ease';
+    
+    document.body.appendChild(alertDiv);
+    
+    setTimeout(() => {
+        alertDiv.style.opacity = '0';
+        setTimeout(() => alertDiv.remove(), 500);
+    }, 4000);
 }
 
 function logoutAdmin() {
@@ -1045,14 +1168,14 @@ function logoutAdmin() {
     closeAdminPanel();
 }
 
-// Refresh Admin Panel (reloads data without closing)
 function refreshAdminPanel() {
     if (isAdminLoggedIn) {
         loadPaymentRequestsList();
         loadResultLinksForm();
         loadSettingsTab();
         loadBannerImagesForm();
-        alert('✅ Admin panel refreshed!');
+        updateAdminNotificationBadge();
+        showAdminAlert('✅ Admin panel refreshed!');
     }
 }
 
@@ -1130,15 +1253,20 @@ function loadPaymentRequestsList() {
     paymentRequests = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
     const container = document.getElementById('paymentRequestsList');
     
+    // Update badge
+    updateAdminNotificationBadge();
+    
     if (paymentRequests.length === 0) {
         container.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 20px;">📭 No pending payment requests. Wait for users to send screenshots.</p>';
         return;
     }
     
     let html = `<div style="background: #22c55e; color: white; padding: 5px 10px; border-radius: 20px; display: inline-block; margin-bottom: 10px;">📌 ${paymentRequests.length} Pending Request(s)</div>`;
+    html += `<div style="margin-bottom: 15px; font-size: 12px; color: #f59e0b;">🔔 New requests appear automatically!</div>`;
+    
     paymentRequests.forEach((req, index) => {
         html += `
-            <div class="result-card">
+            <div class="result-card" style="animation: fadeInUp 0.3s ease;">
                 <div>
                     <strong style="color: #22c55e;">💰 ${req.market}</strong><br>
                     🆔 ID: ${req.id}<br>
@@ -1161,6 +1289,7 @@ function deletePaymentRequest(index) {
         localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
         alert('✅ Request deleted!');
         loadPaymentRequestsList();
+        updateAdminNotificationBadge();
     }
 }
 
@@ -1201,6 +1330,7 @@ function verifyPaymentAndShowSuccess(index) {
     
     alert(`✅ Payment verified! Result sent to user via WhatsApp.`);
     loadPaymentRequestsList();
+    updateAdminNotificationBadge();
 }
 
 function loadSettingsTab() {
@@ -1270,6 +1400,7 @@ function clearPaymentHistory() {
         localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
         alert('✅ Payment history cleared!');
         loadPaymentRequestsList();
+        updateAdminNotificationBadge();
     }
 }
 
@@ -1293,8 +1424,9 @@ function clearAllData() {
         alert('✅ All data cleared!');
         loadResultLinksForm();
         loadPaymentRequestsList();
+        updateAdminNotificationBadge();
     }
-}
+            }
             // ============ CHECK FOR VERIFIED PAYMENTS ============
         function checkForVerifiedPayments() {
             const lastVerified = localStorage.getItem('lastVerified');
@@ -1317,6 +1449,21 @@ function clearAllData() {
             }
         }
 
+        // Request notification permission on load
+        function requestNotificationPermission() {
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+        }
+
+        // Update badge on load
+        function updateBadgeOnLoad() {
+            const count = paymentRequests.length;
+            if (count > 0) {
+                updateAdminNotificationBadge();
+            }
+        }
+
         // ============ AUTO-RESTORE ADMIN SESSION ON PAGE REFRESH ============
         function restoreAdminSession() {
             const wasLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
@@ -1327,7 +1474,6 @@ function clearAllData() {
                 isAdminLoggedIn = true;
                 activeAdminTab = savedTab || 'payments';
                 
-                // Auto-open admin panel
                 document.getElementById('adminPanel').style.display = 'flex';
                 document.getElementById('adminLoginSection').style.display = 'none';
                 document.getElementById('adminDashboard').style.display = 'block';
@@ -1337,21 +1483,23 @@ function clearAllData() {
                 loadBannerImagesForm();
                 showAdminTab(activeAdminTab);
                 
-                // Start auto-refresh
                 if (window.adminRefreshInterval) clearInterval(window.adminRefreshInterval);
                 window.adminRefreshInterval = setInterval(() => {
                     if (isAdminLoggedIn && document.getElementById('adminDashboard').style.display === 'block') {
-                        loadPaymentRequestsList();
+                        checkForNewPayments();
                     }
-                }, 5000);
+                }, 3000);
             }
+            
+            updateBadgeOnLoad();
         }
 
         // Initialize
         loadMarkets();
         loadBannerImages();
         checkForVerifiedPayments();
-        restoreAdminSession(); // Restore admin panel if it was open
+        restoreAdminSession();
+        requestNotificationPermission();
         
         // Manual result check button
         const checkBtn = document.createElement('div');
@@ -1373,6 +1521,32 @@ function clearAllData() {
         checkBtn.title = 'Check Result Manually';
         checkBtn.onclick = checkResultManually;
         document.body.appendChild(checkBtn);
+
+        // Add animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
 
         window.onclick = function(event) {
             const paymentModal = document.getElementById('paymentModal');
