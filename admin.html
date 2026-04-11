@@ -274,6 +274,15 @@
             color: #cbd5e1;
         }
 
+        .notification-badge {
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 8px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
         @media (max-width: 768px) {
             .result-card { flex-direction: column; text-align: center; }
             .stats-bar { flex-direction: column; }
@@ -315,7 +324,7 @@
 
             <!-- Tabs -->
             <div class="tabs">
-                <button class="tab-btn active" onclick="showTab('payments')">💰 Payment Requests</button>
+                <button class="tab-btn active" onclick="showTab('payments')">💰 Payment Requests <span id="paymentBadge" class="notification-badge" style="display: none;">0</span></button>
                 <button class="tab-btn" onclick="showTab('results')">📤 Upload Results</button>
                 <button class="tab-btn" onclick="showTab('banners')">🖼️ Banner Images</button>
                 <button class="tab-btn" onclick="showTab('settings')">⚙️ Settings</button>
@@ -353,38 +362,73 @@
         const markets = ["SRIDEVI", "MILAN DAY", "KALYAN", "SRIDEVI NIGHT", "MILAN NIGHT", "MAIN BAZAR"];
         
         let refreshInterval = null;
-        let isLoggedIn = false;
+        let previousPaymentCount = 0;
+
+        // ============ CHECK LOGIN STATUS ON PAGE LOAD ============
+        function checkStoredLogin() {
+            const loggedIn = localStorage.getItem('adminLoggedIn');
+            if (loggedIn === 'true') {
+                // Auto login
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('adminDashboard').style.display = 'block';
+                loadAllData();
+                startAutoRefresh();
+                updateNotificationBadge();
+            }
+        }
 
         // ============ LOGIN FUNCTIONS ============
         function checkLogin() {
             const password = document.getElementById('adminPassword').value;
             if (password === adminPassword) {
-                isLoggedIn = true;
+                localStorage.setItem('adminLoggedIn', 'true');
                 document.getElementById('loginSection').style.display = 'none';
                 document.getElementById('adminDashboard').style.display = 'block';
                 loadAllData();
                 startAutoRefresh();
                 showAlert('✅ Login successful!', 'success');
+                updateNotificationBadge();
             } else {
                 showAlert('❌ Wrong password!', 'error');
             }
         }
 
         function logout() {
-            isLoggedIn = false;
+            localStorage.removeItem('adminLoggedIn');
             if (refreshInterval) clearInterval(refreshInterval);
             document.getElementById('loginSection').style.display = 'block';
             document.getElementById('adminDashboard').style.display = 'none';
             document.getElementById('adminPassword').value = '';
+            showAlert('✅ Logged out successfully!', 'success');
         }
 
         function startAutoRefresh() {
             if (refreshInterval) clearInterval(refreshInterval);
             refreshInterval = setInterval(() => {
-                if (isLoggedIn) {
-                    loadPaymentsList();
-                }
-            }, 3000);
+                checkForNewPayments();
+            }, 2000); // Check every 2 seconds
+        }
+
+        function checkForNewPayments() {
+            const payments = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
+            const currentCount = payments.length;
+            
+            if (currentCount > previousPaymentCount) {
+                // New payment detected!
+                const newCount = currentCount - previousPaymentCount;
+                showAlert(`🔔 ${newCount} new payment request(s) received!`, 'success');
+                loadPaymentsList();
+                updateNotificationBadge();
+                
+                // Play simple beep using Audio
+                try {
+                    const audio = new Audio('data:audio/wav;base64,U3RlYWx0aCBzb3VuZA==');
+                    audio.play().catch(e => console.log('Audio not supported'));
+                } catch(e) {}
+            }
+            
+            previousPaymentCount = currentCount;
+            updatePendingCount();
         }
 
         function refreshData() {
@@ -398,11 +442,30 @@
             loadBannersForm();
             loadSettingsForm();
             updatePendingCount();
+            updateNotificationBadge();
+            
+            // Update previous count
+            const payments = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
+            previousPaymentCount = payments.length;
         }
 
         function updatePendingCount() {
             const payments = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
             document.getElementById('pendingCount').innerHTML = payments.length;
+        }
+
+        function updateNotificationBadge() {
+            const payments = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
+            const count = payments.length;
+            const badge = document.getElementById('paymentBadge');
+            if (badge) {
+                if (count > 0) {
+                    badge.style.display = 'inline-block';
+                    badge.innerHTML = count;
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
         }
 
         function showAlert(message, type) {
@@ -419,6 +482,7 @@
             const payments = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
             const container = document.getElementById('paymentsList');
             updatePendingCount();
+            updateNotificationBadge();
             
             if (payments.length === 0) {
                 container.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 40px;">📭 No pending payment requests</p>';
@@ -466,6 +530,9 @@
             localStorage.setItem('paymentRequests', JSON.stringify(payments));
             
             loadPaymentsList();
+            updatePendingCount();
+            updateNotificationBadge();
+            previousPaymentCount = payments.length;
             showAlert(`✅ Payment confirmed! Result sent to user.`, 'success');
         }
 
@@ -497,7 +564,7 @@
                             <textarea id="note_${market.replace(/ /g, '_')}" 
                                       placeholder="Additional message" rows="2">${current.note || ''}</textarea>
                         </div>
-                        ${current.imageUrl ? `<img src="${current.imageUrl}" class="preview-img" alt="Preview">` : ''}
+                        ${current.imageUrl ? `<img src="${current.imageUrl}" class="preview-img" alt="Preview" onerror="this.style.display='none'">` : ''}
                         <button class="btn-confirm" onclick="saveResult('${market}')" style="margin-top: 10px;">💾 Save Result</button>
                     </div>
                 `;
@@ -548,7 +615,7 @@
                         <label>Image URL:</label>
                         <input type="text" id="topBannerUrl" placeholder="Image URL" value="${topBanner}">
                     </div>
-                    ${topBanner ? `<img src="${topBanner}" class="preview-img" alt="Preview">` : ''}
+                    ${topBanner ? `<img src="${topBanner}" class="preview-img" alt="Preview" onerror="this.style.display='none'">` : ''}
                     <button class="btn-confirm" onclick="updateTopBanner()" style="margin-top: 10px;">✅ Update Top Banner</button>
                 </div>
                 
@@ -558,7 +625,7 @@
                         <label>Image URL:</label>
                         <input type="text" id="bottomBannerUrl" placeholder="Image URL" value="${bottomBanner}">
                     </div>
-                    ${bottomBanner ? `<img src="${bottomBanner}" class="preview-img" alt="Preview">` : ''}
+                    ${bottomBanner ? `<img src="${bottomBanner}" class="preview-img" alt="Preview" onerror="this.style.display='none'">` : ''}
                     <button class="btn-confirm" onclick="updateBottomBanner()" style="margin-top: 10px;">✅ Update Bottom Banner</button>
                 </div>
             `;
@@ -629,7 +696,8 @@
                 return;
             }
             
-            showAlert('✅ Password changed for this session!', 'success');
+            // Note: Password change only works for this session
+            showAlert('✅ Password changed! Use new password next login.', 'success');
             document.getElementById('currentPass').value = '';
             document.getElementById('newPass').value = '';
             document.getElementById('confirmPass').value = '';
@@ -640,6 +708,8 @@
                 localStorage.setItem('paymentRequests', JSON.stringify([]));
                 loadPaymentsList();
                 updatePendingCount();
+                updateNotificationBadge();
+                previousPaymentCount = 0;
                 showAlert('✅ All payments cleared!', 'success');
             }
         }
@@ -675,6 +745,9 @@
                 loadSettingsForm();
             }
         }
+
+        // ============ INITIALIZE ON PAGE LOAD ============
+        checkStoredLogin();
     </script>
 </body>
 </html>
