@@ -66,12 +66,6 @@
             color: #22c55e;
         }
 
-        .header p {
-            color: #94a3b8;
-            font-size: 0.85rem;
-            margin-top: 8px;
-        }
-
         /* Banner Image Styles */
         .top-banner {
             text-align: center;
@@ -530,6 +524,31 @@
             font-size: 0.7rem;
         }
 
+        /* Refresh Button */
+        .refresh-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 10px;
+        }
+        .refresh-btn:hover {
+            background: #2563eb;
+        }
+        .admin-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
         @media (max-width: 768px) {
             .market-grid { gap: 12px; }
             .market-name { font-size: 0.85rem; }
@@ -543,17 +562,16 @@
     <div class="container">
     <div class="header">
         <h1>🎲 RONAK<span>_LIVE_SHOW</span></h1>
-        <!-- Headline text removed -->
     </div>
 
-    <!-- TOP BANNER IMAGE (Under Headline, Before Market List) -->
+    <!-- TOP BANNER IMAGE -->
     <div class="top-banner">
         <img src="YOUR_TOP_BANNER_IMAGE_URL_HERE" alt="Top Banner" class="banner-img" id="topBannerImg">
     </div>
 
     <div class="market-grid" id="marketGrid"></div>
 
-    <!-- BOTTOM BANNER IMAGE (After Market List) -->
+    <!-- BOTTOM BANNER IMAGE -->
     <div class="bottom-banner">
         <img src="YOUR_BOTTOM_BANNER_IMAGE_URL_HERE" alt="Bottom Banner" class="banner-img" id="bottomBannerImg">
     </div>
@@ -571,32 +589,27 @@
         <div class="modal-market" id="selectedMarket">-</div>
         <div class="amount">₹ 999/-</div>
         
-        <!-- Timer -->
         <div class="timer-box">
             <div class="timer-label">⏱️ Time left to send screenshot</div>
             <div class="timer-value" id="timerDisplay">10:00</div>
             <div class="timer-warning" id="timerWarning"></div>
         </div>
         
-        <!-- QR Code -->
         <div class="qr-placeholder">
             <img id="qrImage" src="https://i.imgur.com/W4JYgb3.jpeg" alt="Payment QR Code">
         </div>
         <div class="qr-note">Scan QR code to pay ₹999</div>
         
-        <!-- WhatsApp Button - Directly under QR Code -->
-        <a href="#" id="whatsappLink" class="btn-whatsapp" target="_blank">
+        <button id="whatsappBtn" class="btn-whatsapp" onclick="sendScreenshotAndCreateRequest()">
             📤 Send Screenshot on WhatsApp
-        </a>
+        </button>
         
-        <!-- Divider -->
         <div class="divider">
             <div class="divider-line"></div>
             <span class="divider-text">OR PAY WITH UPI APPS</span>
             <div class="divider-line"></div>
         </div>
         
-        <!-- UPI Apps Buttons -->
         <div class="upi-apps-grid">
             <button onclick="openUpiApp('phonepe')" class="upi-btn phonepe">📱 PhonePe</button>
             <button onclick="openUpiApp('googlepay')" class="upi-btn googlepay">💳 Google Pay</button>
@@ -604,7 +617,6 @@
             <button onclick="copyUpiId()" class="upi-btn copyid">📋 Copy UPI ID</button>
         </div>
         
-        <!-- UPI ID Display -->
         <div class="upi-id-box">
             <div class="upi-id-label">UPI ID (Click to copy):</div>
             <div class="upi-id-value" id="upiIdText" onclick="copyUpiId()">ganeshpatil99@slc</div>
@@ -614,8 +626,8 @@
             <strong>📌 Instructions:</strong><br>
             1. Pay ₹999 using QR code OR any UPI app above<br>
             2. Take screenshot of payment success<br>
-            3. Click above button to send screenshot on WhatsApp<br>
-            4. You will receive result within 10 minutes
+            3. Click "Send Screenshot on WhatsApp" button<br>
+            4. Admin will verify and send result
         </div>
     </div>
 </div>
@@ -650,7 +662,7 @@
 </div>
 
 <!-- Admin Toggle Button -->
-<div class="admin-toggle" onclick="showAdminLogin()">👑</div>
+<div class="admin-toggle" onclick="toggleAdminPanel()">👑</div>
 
 <!-- Admin Panel -->
 <div id="adminPanel" class="admin-panel">
@@ -668,7 +680,10 @@
 
         <div id="adminDashboard" style="display: none;">
             <div class="admin-header">
-                <h2>🎮 Admin Dashboard</h2>
+                <div class="admin-header-top">
+                    <h2>🎮 Admin Dashboard</h2>
+                    <button class="refresh-btn" onclick="refreshAdminPanel()">🔄 Refresh</button>
+                </div>
                 <button onclick="logoutAdmin()" style="background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 8px; margin-top: 10px;">Logout</button>
             </div>
 
@@ -685,7 +700,7 @@
             </div>
 
             <div id="adminTabPayments" style="display: none;">
-                <h3 style="color: white;">📋 Pending Payments</h3>
+                <h3 style="color: white;">📋 Pending Payment Requests</h3>
                 <div id="paymentRequestsList"></div>
             </div>
 
@@ -724,7 +739,12 @@
     let verifiedPayments = JSON.parse(localStorage.getItem('verifiedPayments') || '[]');
     
     let timerInterval = null;
+    let currentMarket = null;
     let currentTransactionId = null;
+    
+    // Admin session state
+    let isAdminLoggedIn = false;
+    let activeAdminTab = 'payments';
 
     // ============ BANNER IMAGE FUNCTIONS ============
     function loadBannerImages() {
@@ -860,27 +880,47 @@
     }
 
     function openPaymentModal(market) {
+        currentMarket = market;
         document.getElementById('selectedMarket').innerHTML = market;
         currentTransactionId = 'TXN' + Date.now() + Math.random().toString(36).substr(2, 6);
-        
         document.getElementById('upiIdText').innerHTML = upiId;
         
-        const message = `NEW PAYMENT REQUEST%0A%0A📊 Market: ${market}%0A💰 Amount: ₹999%0A🆔 ID: ${currentTransactionId}%0A%0A📸 Send screenshot after payment`;
-        const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
-        document.getElementById('whatsappLink').href = whatsappLink;
-        
-        const pendingRequest = {
-            id: currentTransactionId,
-            market: market,
-            amount: 999,
-            time: new Date().toLocaleString(),
-            status: 'pending'
-        };
-        paymentRequests.push(pendingRequest);
-        localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
+        sessionStorage.setItem('currentTransactionId', currentTransactionId);
+        sessionStorage.setItem('currentMarket', market);
         
         startTimer(600);
         document.getElementById('paymentModal').style.display = 'flex';
+    }
+
+    function sendScreenshotAndCreateRequest() {
+        const market = currentMarket;
+        const transactionId = currentTransactionId;
+        
+        if (!market || !transactionId) {
+            alert('Please select a market first!');
+            return;
+        }
+        
+        const pendingRequest = {
+            id: transactionId,
+            market: market,
+            amount: 999,
+            time: new Date().toLocaleString(),
+            status: 'pending',
+            userAction: 'Waiting for admin verification'
+        };
+        
+        paymentRequests.push(pendingRequest);
+        localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
+        
+        const whatsappMessage = `📸 PAYMENT SCREENSHOT%0A%0A📊 Market: ${market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${transactionId}%0A%0A⬇️⬇️⬇️ Send your payment screenshot below ⬇️⬇️⬇️%0A%0A(Attach screenshot here)`;
+        const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+        window.open(whatsappLink, '_blank');
+        
+        alert(`✅ Payment request created!\n\nTransaction ID: ${transactionId}\n\nPlease send your payment screenshot on WhatsApp.\n\nAdmin will verify and send your result.`);
+        
+        closeModal();
+        if (timerInterval) clearInterval(timerInterval);
     }
 
     function startTimer(seconds) {
@@ -897,8 +937,9 @@
                 clearInterval(timerInterval);
                 document.getElementById('timerDisplay').innerHTML = "00:00";
                 document.getElementById('timerWarning').innerHTML = "⚠️ Time expired! Please create new request.";
-                document.getElementById('whatsappLink').style.opacity = '0.5';
-                document.getElementById('whatsappLink').style.pointerEvents = 'none';
+                const whatsappBtn = document.getElementById('whatsappBtn');
+                whatsappBtn.style.opacity = '0.5';
+                whatsappBtn.style.pointerEvents = 'none';
             } else if (timeLeft <= 180) {
                 document.getElementById('timerWarning').innerHTML = "⚠️ Only 3 minutes left! Send screenshot quickly.";
             }
@@ -942,8 +983,17 @@
         }
     }
     // ============ ADMIN FUNCTIONS ============
+function toggleAdminPanel() {
+    const adminPanel = document.getElementById('adminPanel');
+    if (adminPanel.style.display === 'flex') {
+        closeAdminPanel();
+    } else {
+        showAdminLogin();
+    }
+}
+
 function showAdminLogin() {
-    document.getElementById('adminPanel').style.display = 'block';
+    document.getElementById('adminPanel').style.display = 'flex';
     document.getElementById('adminLoginSection').style.display = 'block';
     document.getElementById('adminDashboard').style.display = 'none';
     document.getElementById('adminPassword').value = '';
@@ -951,30 +1001,65 @@ function showAdminLogin() {
 
 function closeAdminPanel() {
     document.getElementById('adminPanel').style.display = 'none';
+    // Save admin state as closed
+    localStorage.setItem('adminPanelOpen', 'false');
+    isAdminLoggedIn = false;
 }
 
 function checkAdminLogin() {
     const enteredPassword = document.getElementById('adminPassword').value;
     if (enteredPassword === adminPassword) {
+        isAdminLoggedIn = true;
+        localStorage.setItem('adminLoggedIn', 'true');
+        localStorage.setItem('adminPanelOpen', 'true');
+        
         document.getElementById('adminLoginSection').style.display = 'none';
         document.getElementById('adminDashboard').style.display = 'block';
         loadResultLinksForm();
         loadPaymentRequestsList();
         loadSettingsTab();
         loadBannerImagesForm();
-        showAdminTab('results');
+        showAdminTab(activeAdminTab);
+        
+        // Auto-refresh every 5 seconds
+        if (window.adminRefreshInterval) clearInterval(window.adminRefreshInterval);
+        window.adminRefreshInterval = setInterval(() => {
+            if (isAdminLoggedIn && document.getElementById('adminDashboard').style.display === 'block') {
+                loadPaymentRequestsList();
+            }
+        }, 5000);
     } else {
         alert('Wrong password!');
     }
 }
 
 function logoutAdmin() {
+    isAdminLoggedIn = false;
+    localStorage.setItem('adminLoggedIn', 'false');
+    localStorage.setItem('adminPanelOpen', 'false');
+    if (window.adminRefreshInterval) clearInterval(window.adminRefreshInterval);
+    
     document.getElementById('adminLoginSection').style.display = 'block';
     document.getElementById('adminDashboard').style.display = 'none';
     document.getElementById('adminPassword').value = '';
+    closeAdminPanel();
+}
+
+// Refresh Admin Panel (reloads data without closing)
+function refreshAdminPanel() {
+    if (isAdminLoggedIn) {
+        loadPaymentRequestsList();
+        loadResultLinksForm();
+        loadSettingsTab();
+        loadBannerImagesForm();
+        alert('✅ Admin panel refreshed!');
+    }
 }
 
 function showAdminTab(tab) {
+    activeAdminTab = tab;
+    localStorage.setItem('activeAdminTab', tab);
+    
     document.getElementById('adminTabResults').style.display = 'none';
     document.getElementById('adminTabPayments').style.display = 'none';
     document.getElementById('adminTabSettings').style.display = 'none';
@@ -1042,30 +1127,54 @@ function saveResultForMarket(market) {
 }
 
 function loadPaymentRequestsList() {
+    paymentRequests = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
     const container = document.getElementById('paymentRequestsList');
+    
     if (paymentRequests.length === 0) {
-        container.innerHTML = '<p style="color: #94a3b8;">No pending payments</p>';
+        container.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 20px;">📭 No pending payment requests. Wait for users to send screenshots.</p>';
         return;
     }
     
-    let html = '';
+    let html = `<div style="background: #22c55e; color: white; padding: 5px 10px; border-radius: 20px; display: inline-block; margin-bottom: 10px;">📌 ${paymentRequests.length} Pending Request(s)</div>`;
     paymentRequests.forEach((req, index) => {
         html += `
             <div class="result-card">
                 <div>
-                    <strong style="color: white;">${req.market}</strong><br>
-                    ID: ${req.id}<br>
-                    Time: ${req.time}
+                    <strong style="color: #22c55e;">💰 ${req.market}</strong><br>
+                    🆔 ID: ${req.id}<br>
+                    ⏰ Time: ${req.time}<br>
+                    💵 Amount: ₹${req.amount}
                 </div>
-                <button class="btn-confirm" onclick="verifyPaymentAndShowSuccess(${index})">✅ Verify Payment</button>
+                <div>
+                    <button class="btn-confirm" onclick="verifyPaymentAndShowSuccess(${index})" style="background: #22c55e; margin-right: 5px;">✅ Verify Payment</button>
+                    <button class="btn-confirm" onclick="deletePaymentRequest(${index})" style="background: #ef4444;">🗑️ Delete</button>
+                </div>
             </div>
         `;
     });
     container.innerHTML = html;
 }
 
+function deletePaymentRequest(index) {
+    if (confirm('Delete this payment request?')) {
+        paymentRequests.splice(index, 1);
+        localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
+        alert('✅ Request deleted!');
+        loadPaymentRequestsList();
+    }
+}
+
 function verifyPaymentAndShowSuccess(index) {
     const request = paymentRequests[index];
+    const result = marketResults[request.market];
+    
+    if (!result || !result.imageUrl) {
+        if (confirm(`⚠️ Result for ${request.market} is not uploaded yet!\n\nDo you want to verify payment anyway? User will get result once you upload it.`)) {
+            // Proceed without result
+        } else {
+            return;
+        }
+    }
     
     verifiedPayments.push({
         id: request.id,
@@ -1074,14 +1183,23 @@ function verifyPaymentAndShowSuccess(index) {
     });
     localStorage.setItem('verifiedPayments', JSON.stringify(verifiedPayments));
     
-    const successMessage = `✅✅ PAYMENT VERIFIED! ✅✅%0A%0A📊 Market: ${request.market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${request.id}%0A%0A🎉 Your payment has been confirmed successfully!%0A%0AYou will receive your result shortly.%0A%0AThank you for using RONAK_LIVE_SHOW!`;
+    let successMessage = `✅✅ PAYMENT VERIFIED! ✅✅%0A%0A📊 Market: ${request.market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${request.id}%0A%0A🎉 Your payment has been confirmed successfully!%0A%0A`;
+    
+    if (result && result.imageUrl) {
+        successMessage += `🎯 YOUR RESULT: %0A${result.imageUrl}%0A%0A📝 ${result.note || 'Thank you for using RONAK_LIVE_SHOW!'}`;
+    } else {
+        successMessage += `📝 Result will be sent to you shortly. Please wait.`;
+    }
+    
+    successMessage += `%0A%0AThank you for using RONAK_LIVE_SHOW! 🎉`;
+    
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${successMessage}`;
     window.open(whatsappLink, '_blank');
     
     paymentRequests.splice(index, 1);
     localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
     
-    alert(`✅ Payment verified! Success message sent to user via WhatsApp.`);
+    alert(`✅ Payment verified! Result sent to user via WhatsApp.`);
     loadPaymentRequestsList();
 }
 
@@ -1199,10 +1317,41 @@ function clearAllData() {
             }
         }
 
+        // ============ AUTO-RESTORE ADMIN SESSION ON PAGE REFRESH ============
+        function restoreAdminSession() {
+            const wasLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+            const wasPanelOpen = localStorage.getItem('adminPanelOpen') === 'true';
+            const savedTab = localStorage.getItem('activeAdminTab');
+            
+            if (wasLoggedIn && wasPanelOpen) {
+                isAdminLoggedIn = true;
+                activeAdminTab = savedTab || 'payments';
+                
+                // Auto-open admin panel
+                document.getElementById('adminPanel').style.display = 'flex';
+                document.getElementById('adminLoginSection').style.display = 'none';
+                document.getElementById('adminDashboard').style.display = 'block';
+                loadResultLinksForm();
+                loadPaymentRequestsList();
+                loadSettingsTab();
+                loadBannerImagesForm();
+                showAdminTab(activeAdminTab);
+                
+                // Start auto-refresh
+                if (window.adminRefreshInterval) clearInterval(window.adminRefreshInterval);
+                window.adminRefreshInterval = setInterval(() => {
+                    if (isAdminLoggedIn && document.getElementById('adminDashboard').style.display === 'block') {
+                        loadPaymentRequestsList();
+                    }
+                }, 5000);
+            }
+        }
+
         // Initialize
         loadMarkets();
         loadBannerImages();
         checkForVerifiedPayments();
+        restoreAdminSession(); // Restore admin panel if it was open
         
         // Manual result check button
         const checkBtn = document.createElement('div');
@@ -1233,7 +1382,7 @@ function clearAllData() {
             if (event.target === paymentModal) closeModal();
             if (event.target === resultModal) closeResultModal();
             if (event.target === successModal) closeSuccessModal();
-            if (event.target === adminPanel) closeAdminPanel();
+            if (event.target === adminPanel && isAdminLoggedIn === false) closeAdminPanel();
         }
     </script>
 </body>
