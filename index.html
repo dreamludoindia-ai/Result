@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>RONAK_LIVE_SHOW - Professional Market Results</title>
+    <title>RONAK_LIVE_SHOW - Market Results</title>
     <style>
         * {
             margin: 0;
@@ -334,12 +334,13 @@
             font-size: 0.7rem;
         }
 
-        .admin-toggle {
+        /* Manual Check Button */
+        .check-btn {
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            left: 20px;
             background: #1e293b;
-            color: white;
+            color: #22c55e;
             width: 45px;
             height: 45px;
             border-radius: 50%;
@@ -348,119 +349,14 @@
             justify-content: center;
             cursor: pointer;
             z-index: 999;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #22c55e;
             font-size: 20px;
             transition: all 0.3s;
-            border: 1px solid #22c55e;
-            position: relative;
         }
 
-        .admin-toggle:hover {
+        .check-btn:hover {
             transform: scale(1.05);
             background: #22c55e;
-        }
-
-        .admin-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .admin-panel {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 2000;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .admin-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #1e293b;
-            border-radius: 20px;
-            padding: 25px;
-        }
-
-        .admin-header {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            text-align: center;
-            border-bottom: 2px solid #22c55e;
-        }
-
-        .admin-header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .result-card {
-            background: #0f172a;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            border: 1px solid #334155;
-        }
-
-        .btn-confirm {
-            background: #22c55e;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.75rem;
-        }
-
-        .refresh-btn {
-            background: #3b82f6;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .refresh-btn:hover {
-            background: #2563eb;
-        }
-
-        .login-box input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 8px;
             color: white;
         }
 
@@ -473,621 +369,215 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>🎲 RONAK<span>_LIVE_SHOW</span></h1>
+    <div class="container">
+        <div class="header">
+            <h1>🎲 RONAK<span>_LIVE_SHOW</span></h1>
+        </div>
+
+        <div class="top-banner">
+            <img src="YOUR_TOP_BANNER_IMAGE_URL_HERE" alt="Top Banner" class="banner-img" id="topBannerImg">
+        </div>
+
+        <div class="market-grid" id="marketGrid"></div>
+
+        <div class="bottom-banner">
+            <img src="YOUR_BOTTOM_BANNER_IMAGE_URL_HERE" alt="Bottom Banner" class="banner-img" id="bottomBannerImg">
+        </div>
+
+        <div class="footer">
+            <p>© 2024 RONAK_LIVE_SHOW - All Rights Reserved | Support: WhatsApp Only</p>
+        </div>
     </div>
 
-    <div class="top-banner">
-        <img src="YOUR_TOP_BANNER_IMAGE_URL_HERE" alt="Top Banner" class="banner-img" id="topBannerImg">
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>💰 Complete Payment</h2>
+            <div class="modal-market" id="selectedMarket">-</div>
+            <div class="amount">₹ 999/-</div>
+            
+            <div class="timer-box">
+                <div class="timer-label">⏱️ Time left to send screenshot</div>
+                <div class="timer-value" id="timerDisplay">10:00</div>
+                <div class="timer-warning" id="timerWarning"></div>
+            </div>
+            
+            <div class="qr-placeholder">
+                <img id="qrImage" src="https://i.imgur.com/W4JYgb3.jpeg" alt="Payment QR Code">
+            </div>
+            <div class="qr-note">Scan QR code to pay ₹999</div>
+            
+            <button id="whatsappBtn" class="btn-whatsapp" onclick="sendScreenshotAndCreateRequest()">
+                📤 Send Screenshot on WhatsApp
+            </button>
+            
+            <div class="instruction">
+                <strong>📌 Instructions:</strong><br>
+                1. Scan QR code & pay ₹999<br>
+                2. Take screenshot of payment success<br>
+                3. Click "Send Screenshot on WhatsApp" button<br>
+                4. Admin will verify and send result
+            </div>
+        </div>
     </div>
 
-    <div class="market-grid" id="marketGrid"></div>
-
-    <div class="bottom-banner">
-        <img src="YOUR_BOTTOM_BANNER_IMAGE_URL_HERE" alt="Bottom Banner" class="banner-img" id="bottomBannerImg">
+    <!-- Result Modal -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeResultModal()">&times;</span>
+            <h2>🎯 Market Result</h2>
+            <div class="modal-market" id="resultMarket">-</div>
+            <div class="result-image">
+                <img id="resultPic" src="" alt="Result Image" style="max-width: 100%; border-radius: 12px;">
+            </div>
+            <div class="instruction" id="resultNote" style="margin-top: 15px;"></div>
+            <button class="btn-select" onclick="closeResultModal()" style="margin-top: 15px;">Close</button>
+        </div>
     </div>
 
-    <div class="footer">
-        <p>© 2024 RONAK_LIVE_SHOW - All Rights Reserved | Support: WhatsApp Only</p>
-    </div>
-</div>
+    <!-- Manual Check Button (No Admin Button) -->
+    <div class="check-btn" onclick="checkResultManually()">🔍</div>
 
-<!-- Payment Modal -->
-<div id="paymentModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h2>💰 Complete Payment</h2>
-        <div class="modal-market" id="selectedMarket">-</div>
-        <div class="amount">₹ 999/-</div>
+    <script>
+        // ============ CONSTANTS & DATA ============
+        const whatsappNumber = "919113224019";
+        const markets = ["SRIDEVI", "MILAN DAY", "KALYAN", "SRIDEVI NIGHT", "MILAN NIGHT", "MAIN BAZAR"];
         
-        <div class="timer-box">
-            <div class="timer-label">⏱️ Time left to send screenshot</div>
-            <div class="timer-value" id="timerDisplay">10:00</div>
-            <div class="timer-warning" id="timerWarning"></div>
-        </div>
+        let topBannerImage = localStorage.getItem('topBannerImage') || "https://via.placeholder.com/1200x200/1e293b/22c55e?text=Welcome+to+Ronak+Live+Show";
+        let bottomBannerImage = localStorage.getItem('bottomBannerImage') || "https://via.placeholder.com/1200x200/1e293b/22c55e?text=Trusted+Market+Results+Platform";
         
-        <div class="qr-placeholder">
-            <img id="qrImage" src="https://i.imgur.com/W4JYgb3.jpeg" alt="Payment QR Code">
-        </div>
-        <div class="qr-note">Scan QR code to pay ₹999</div>
-        
-        <button id="whatsappBtn" class="btn-whatsapp" onclick="sendScreenshotAndCreateRequest()">
-            📤 Send Screenshot on WhatsApp
-        </button>
-        
-        <div class="instruction">
-            <strong>📌 Instructions:</strong><br>
-            1. Scan QR code & pay ₹999<br>
-            2. Take screenshot of payment success<br>
-            3. Click "Send Screenshot on WhatsApp" button<br>
-            4. Admin will verify and send result
-        </div>
-    </div>
-</div>
+        let timerInterval = null;
+        let currentMarket = null;
+        let currentTransactionId = null;
 
-<!-- Result Modal -->
-<div id="resultModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeResultModal()">&times;</span>
-        <h2>🎯 Market Result</h2>
-        <div class="modal-market" id="resultMarket">-</div>
-        <div class="result-image">
-            <img id="resultPic" src="" alt="Result Image" style="max-width: 100%; border-radius: 12px;">
-        </div>
-        <div class="instruction" id="resultNote" style="margin-top: 15px;"></div>
-        <button class="btn-select" onclick="closeResultModal()" style="margin-top: 15px;">Close</button>
-    </div>
-</div>
-
-<!-- Admin Toggle Button -->
-<div class="admin-toggle" onclick="toggleAdminPanel()">👑</div>
-
-<!-- Admin Panel -->
-<div id="adminPanel" class="admin-panel">
-    <div class="admin-container">
-        <div id="adminLoginSection">
-            <div class="admin-header">
-                <h2>🔐 Admin Login</h2>
-            </div>
-            <div class="login-box">
-                <input type="password" id="adminPassword" placeholder="Enter Password">
-                <button class="btn-select" onclick="checkAdminLogin()">Login</button>
-            </div>
-            <button class="btn-select" onclick="closeAdminPanel()" style="margin-top: 10px; background: #475569;">Close</button>
-        </div>
-
-        <div id="adminDashboard" style="display: none;">
-            <div class="admin-header">
-                <div class="admin-header-top">
-                    <h2>🎮 Admin Dashboard</h2>
-                    <button class="refresh-btn" onclick="refreshAdminPanel()">🔄 Refresh</button>
-                </div>
-                <button onclick="logoutAdmin()" style="background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 8px; margin-top: 10px;">Logout</button>
-            </div>
-
-            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
-                <button class="btn-select" onclick="showAdminTab('results')" style="background: #3b82f6;">📤 Results</button>
-                <button class="btn-select" onclick="showAdminTab('payments')" style="background: #22c55e;">💰 Payments</button>
-                <button class="btn-select" onclick="showAdminTab('settings')" style="background: #f59e0b;">⚙️ Settings</button>
-                <button class="btn-select" onclick="showAdminTab('images')" style="background: #8b5cf6;">🖼️ Banner Images</button>
-            </div>
-
-            <div id="adminTabResults">
-                <h3 style="color: white;">📤 Result Image Links</h3>
-                <div id="resultLinksForm"></div>
-            </div>
-
-            <div id="adminTabPayments" style="display: none;">
-                <h3 style="color: white;">📋 Pending Payment Requests</h3>
-                <div id="paymentRequestsList"></div>
-            </div>
-
-            <div id="adminTabSettings" style="display: none;">
-                <h3 style="color: white;">⚙️ Admin Settings</h3>
-                <div id="settingsTabContent"></div>
-            </div>
-
-            <div id="adminTabImages" style="display: none;">
-                <h3 style="color: white;">🖼️ Banner Images Settings</h3>
-                <div id="bannerImagesForm"></div>
-            </div>
-
-            <button class="btn-select" onclick="closeAdminPanel()" style="margin-top: 20px; background: #475569;">Close</button>
-        </div>
-    </div>
-</div>
-<script>
-    // ============ CONSTANTS & DATA ============
-    const whatsappNumber = "919113224019";
-    const markets = ["SRIDEVI", "MILAN DAY", "KALYAN", "SRIDEVI NIGHT", "MILAN NIGHT", "MAIN BAZAR"];
-    let adminPassword = "Gani99@@@@";
-    
-    // Banner Images
-    let topBannerImage = localStorage.getItem('topBannerImage') || "https://via.placeholder.com/1200x200/1e293b/22c55e?text=Welcome+to+Ronak+Live+Show";
-    let bottomBannerImage = localStorage.getItem('bottomBannerImage') || "https://via.placeholder.com/1200x200/1e293b/22c55e?text=Trusted+Market+Results+Platform";
-    
-    let marketResults = JSON.parse(localStorage.getItem('marketResults') || '{}');
-    let paymentRequests = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
-    
-    let timerInterval = null;
-    let currentMarket = null;
-    let currentTransactionId = null;
-    
-    let isAdminLoggedIn = false;
-    let activeAdminTab = 'payments';
-
-    // ============ BANNER FUNCTIONS ============
-    function loadBannerImages() {
-        const topImg = document.getElementById('topBannerImg');
-        const bottomImg = document.getElementById('bottomBannerImg');
-        if (topImg) topImg.src = topBannerImage;
-        if (bottomImg) bottomImg.src = bottomBannerImage;
-    }
-
-    function loadBannerImagesForm() {
-        const container = document.getElementById('bannerImagesForm');
-        container.innerHTML = `
-            <div class="result-card" style="flex-direction: column; align-items: stretch;">
-                <h4 style="color: white;">📸 Top Banner Image</h4>
-                <input type="text" id="topBannerUrl" placeholder="Image URL" value="${topBannerImage}" style="width: 100%; padding: 10px; margin: 10px 0; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
-                <img src="${topBannerImage}" alt="Preview" style="max-width: 100%; border-radius: 10px;">
-                <button class="btn-confirm" onclick="updateTopBanner()" style="margin-top: 10px;">✅ Update Top Banner</button>
-                
-                <hr style="border-color: #334155; margin: 20px 0;">
-                
-                <h4 style="color: white;">📸 Bottom Banner Image</h4>
-                <input type="text" id="bottomBannerUrl" placeholder="Image URL" value="${bottomBannerImage}" style="width: 100%; padding: 10px; margin: 10px 0; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
-                <img src="${bottomBannerImage}" alt="Preview" style="max-width: 100%; border-radius: 10px;">
-                <button class="btn-confirm" onclick="updateBottomBanner()" style="margin-top: 10px;">✅ Update Bottom Banner</button>
-            </div>
-        `;
-    }
-
-    function updateTopBanner() {
-        const newUrl = document.getElementById('topBannerUrl').value;
-        if (newUrl) {
-            topBannerImage = newUrl;
-            localStorage.setItem('topBannerImage', topBannerImage);
-            document.getElementById('topBannerImg').src = topBannerImage;
-            alert('✅ Top banner updated!');
-            loadBannerImagesForm();
+        // ============ LOAD BANNERS ============
+        function loadBannerImages() {
+            const topImg = document.getElementById('topBannerImg');
+            const bottomImg = document.getElementById('bottomBannerImg');
+            if (topImg) topImg.src = topBannerImage;
+            if (bottomImg) bottomImg.src = bottomBannerImage;
         }
-    }
 
-    function updateBottomBanner() {
-        const newUrl = document.getElementById('bottomBannerUrl').value;
-        if (newUrl) {
-            bottomBannerImage = newUrl;
-            localStorage.setItem('bottomBannerImage', bottomBannerImage);
-            document.getElementById('bottomBannerImg').src = bottomBannerImage;
-            alert('✅ Bottom banner updated!');
-            loadBannerImagesForm();
+        // ============ MARKET FUNCTIONS ============
+        function loadMarkets() {
+            const grid = document.getElementById('marketGrid');
+            grid.innerHTML = '';
+            
+            markets.forEach(market => {
+                const card = document.createElement('div');
+                card.className = 'market-card';
+                card.innerHTML = `
+                    <div class="market-name">${market}</div>
+                    <div class="market-price">💰 ₹<span>999</span></div>
+                    <button class="btn-select" onclick="openPaymentModal('${market}')">Select</button>
+                `;
+                grid.appendChild(card);
+            });
         }
-    }
 
-    // ============ USER FUNCTIONS ============
-    function loadMarkets() {
-        const grid = document.getElementById('marketGrid');
-        grid.innerHTML = '';
-        
-        markets.forEach(market => {
-            const card = document.createElement('div');
-            card.className = 'market-card';
-            card.innerHTML = `
-                <div class="market-name">${market}</div>
-                <div class="market-price">💰 ₹<span>999</span></div>
-                <button class="btn-select" onclick="openPaymentModal('${market}')">Select</button>
-            `;
-            grid.appendChild(card);
-        });
-    }
-
-    function openPaymentModal(market) {
-        currentMarket = market;
-        document.getElementById('selectedMarket').innerHTML = market;
-        currentTransactionId = 'TXN' + Date.now() + Math.random().toString(36).substr(2, 6);
-        startTimer(600);
-        document.getElementById('paymentModal').style.display = 'flex';
-    }
-
-    function sendScreenshotAndCreateRequest() {
-        const market = currentMarket;
-        const transactionId = currentTransactionId;
-        
-        if (!market || !transactionId) {
-            alert('Please select a market first!');
-            return;
+        function openPaymentModal(market) {
+            currentMarket = market;
+            document.getElementById('selectedMarket').innerHTML = market;
+            currentTransactionId = 'TXN' + Date.now() + Math.random().toString(36).substr(2, 6);
+            startTimer(600);
+            document.getElementById('paymentModal').style.display = 'flex';
         }
-        
-        const pendingRequest = {
-            id: transactionId,
-            market: market,
-            amount: 999,
-            time: new Date().toLocaleString()
-        };
-        
-        paymentRequests.push(pendingRequest);
-        localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
-        
-        updateAdminBadge();
-        
-        const whatsappMessage = `📸 PAYMENT SCREENSHOT%0A%0A📊 Market: ${market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${transactionId}%0A%0A⬇️ Send your payment screenshot below ⬇️`;
-        const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
-        window.open(whatsappLink, '_blank');
-        
-        alert(`✅ Request sent! Transaction ID: ${transactionId}\n\nAdmin will verify and send result.`);
-        
-        closeModal();
-        if (timerInterval) clearInterval(timerInterval);
-    }
 
-    function startTimer(seconds) {
-        if (timerInterval) clearInterval(timerInterval);
-        let timeLeft = seconds;
-        updateTimerDisplay(timeLeft);
-        
-        timerInterval = setInterval(() => {
-            timeLeft--;
+        function sendScreenshotAndCreateRequest() {
+            const market = currentMarket;
+            const transactionId = currentTransactionId;
+            
+            if (!market || !transactionId) {
+                alert('Please select a market first!');
+                return;
+            }
+            
+            // Get existing payment requests
+            let paymentRequests = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
+            
+            const pendingRequest = {
+                id: transactionId,
+                market: market,
+                amount: 999,
+                time: new Date().toLocaleString()
+            };
+            
+            paymentRequests.push(pendingRequest);
+            localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
+            
+            const whatsappMessage = `📸 PAYMENT SCREENSHOT%0A%0A📊 Market: ${market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${transactionId}%0A%0A⬇️ Send your payment screenshot below ⬇️`;
+            const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+            window.open(whatsappLink, '_blank');
+            
+            alert(`✅ Request sent! Transaction ID: ${transactionId}\n\nAdmin will verify and send result.`);
+            
+            closeModal();
+            if (timerInterval) clearInterval(timerInterval);
+        }
+
+        function startTimer(seconds) {
+            if (timerInterval) clearInterval(timerInterval);
+            let timeLeft = seconds;
             updateTimerDisplay(timeLeft);
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                document.getElementById('timerDisplay').innerHTML = "00:00";
-                document.getElementById('timerWarning').innerHTML = "⚠️ Time expired!";
-                document.getElementById('whatsappBtn').style.opacity = '0.5';
-                document.getElementById('whatsappBtn').style.pointerEvents = 'none';
-            } else if (timeLeft <= 180) {
-                document.getElementById('timerWarning').innerHTML = "⚠️ Only 3 minutes left!";
-            }
-        }, 1000);
-    }
-
-    function updateTimerDisplay(seconds) {
-        const mins = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        document.getElementById('timerDisplay').innerHTML = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
-
-    function closeModal() {
-        if (timerInterval) clearInterval(timerInterval);
-        document.getElementById('paymentModal').style.display = 'none';
-    }
-
-    function closeResultModal() {
-        document.getElementById('resultModal').style.display = 'none';
-    }
-
-    function showResultToUser(marketName, resultImageUrl, resultNote) {
-        document.getElementById('resultMarket').innerHTML = marketName;
-        document.getElementById('resultPic').src = resultImageUrl;
-        document.getElementById('resultNote').innerHTML = resultNote || `🎉 Result for ${marketName}`;
-        document.getElementById('resultModal').style.display = 'flex';
-    }
-
-    function updateAdminBadge() {
-        const adminToggle = document.querySelector('.admin-toggle');
-        const count = paymentRequests.length;
-        const existingBadge = document.querySelector('.admin-badge');
-        if (existingBadge) existingBadge.remove();
-        
-        if (count > 0) {
-            const badge = document.createElement('span');
-            badge.className = 'admin-badge';
-            badge.innerHTML = count;
-            adminToggle.appendChild(badge);
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay(timeLeft);
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('timerDisplay').innerHTML = "00:00";
+                    document.getElementById('timerWarning').innerHTML = "⚠️ Time expired!";
+                    document.getElementById('whatsappBtn').style.opacity = '0.5';
+                    document.getElementById('whatsappBtn').style.pointerEvents = 'none';
+                } else if (timeLeft <= 180) {
+                    document.getElementById('timerWarning').innerHTML = "⚠️ Only 3 minutes left!";
+                }
+            }, 1000);
         }
-    }
-// ============ ADMIN FUNCTIONS ============
-function toggleAdminPanel() {
-    const panel = document.getElementById('adminPanel');
-    if (panel.style.display === 'flex') {
-        closeAdminPanel();
-    } else {
-        showAdminLogin();
-    }
-}
 
-function showAdminLogin() {
-    document.getElementById('adminPanel').style.display = 'flex';
-    document.getElementById('adminLoginSection').style.display = 'block';
-    document.getElementById('adminDashboard').style.display = 'none';
-}
+        function updateTimerDisplay(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            document.getElementById('timerDisplay').innerHTML = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
 
-function closeAdminPanel() {
-    document.getElementById('adminPanel').style.display = 'none';
-    localStorage.setItem('adminPanelOpen', 'false');
-    isAdminLoggedIn = false;
-}
+        function closeModal() {
+            if (timerInterval) clearInterval(timerInterval);
+            document.getElementById('paymentModal').style.display = 'none';
+        }
 
-function checkAdminLogin() {
-    const enteredPassword = document.getElementById('adminPassword').value;
-    if (enteredPassword === adminPassword) {
-        isAdminLoggedIn = true;
-        localStorage.setItem('adminLoggedIn', 'true');
-        localStorage.setItem('adminPanelOpen', 'true');
-        
-        document.getElementById('adminLoginSection').style.display = 'none';
-        document.getElementById('adminDashboard').style.display = 'block';
-        loadResultLinksForm();
-        loadPaymentRequestsList();
-        loadSettingsTab();
-        loadBannerImagesForm();
-        showAdminTab(activeAdminTab);
-        
-        if (window.adminRefreshInterval) clearInterval(window.adminRefreshInterval);
-        window.adminRefreshInterval = setInterval(() => {
-            if (isAdminLoggedIn) {
-                loadPaymentRequestsList();
-            }
-        }, 3000);
-    } else {
-        alert('Wrong password!');
-    }
-}
+        function closeResultModal() {
+            document.getElementById('resultModal').style.display = 'none';
+        }
 
-function logoutAdmin() {
-    isAdminLoggedIn = false;
-    localStorage.setItem('adminLoggedIn', 'false');
-    localStorage.setItem('adminPanelOpen', 'false');
-    if (window.adminRefreshInterval) clearInterval(window.adminRefreshInterval);
-    closeAdminPanel();
-}
-
-function refreshAdminPanel() {
-    if (isAdminLoggedIn) {
-        loadPaymentRequestsList();
-        loadResultLinksForm();
-        alert('✅ Refreshed!');
-    }
-}
-
-function showAdminTab(tab) {
-    activeAdminTab = tab;
-    document.getElementById('adminTabResults').style.display = 'none';
-    document.getElementById('adminTabPayments').style.display = 'none';
-    document.getElementById('adminTabSettings').style.display = 'none';
-    document.getElementById('adminTabImages').style.display = 'none';
-    
-    if (tab === 'results') {
-        document.getElementById('adminTabResults').style.display = 'block';
-        loadResultLinksForm();
-    } else if (tab === 'payments') {
-        document.getElementById('adminTabPayments').style.display = 'block';
-        loadPaymentRequestsList();
-    } else if (tab === 'settings') {
-        document.getElementById('adminTabSettings').style.display = 'block';
-        loadSettingsTab();
-    } else if (tab === 'images') {
-        document.getElementById('adminTabImages').style.display = 'block';
-        loadBannerImagesForm();
-    }
-}
-
-function loadResultLinksForm() {
-    const container = document.getElementById('resultLinksForm');
-    let html = '';
-    
-    markets.forEach(market => {
-        const currentResult = marketResults[market] || {};
-        html += `
-            <div class="result-card">
-                <div style="flex: 1;">
-                    <strong style="color: white;">${market}</strong><br>
-                    <input type="text" id="img_${market.replace(/ /g, '_')}" 
-                           placeholder="Result Image URL" 
-                           value="${currentResult.imageUrl || ''}"
-                           style="width: 100%; padding: 8px; margin: 5px 0; background: #0f172a; border: 1px solid #334155; border-radius: 5px; color: white;">
-                    <input type="text" id="num_${market.replace(/ /g, '_')}" 
-                           placeholder="Result Number"
-                           value="${currentResult.number || ''}"
-                           style="width: 100%; padding: 8px; margin: 5px 0; background: #0f172a; border: 1px solid #334155; border-radius: 5px; color: white;">
-                </div>
-                <button class="btn-confirm" onclick="saveResultForMarket('${market}')">💾 Save</button>
-            </div>
-        `;
-    });
-    container.innerHTML = html;
-}
-
-function saveResultForMarket(market) {
-    const marketKey = market.replace(/ /g, '_');
-    const imageUrl = document.getElementById(`img_${marketKey}`).value;
-    const number = document.getElementById(`num_${marketKey}`).value;
-    
-    if (!imageUrl) {
-        alert('Please enter image URL!');
-        return;
-    }
-    
-    marketResults[market] = {
-        imageUrl: imageUrl,
-        number: number || 'N/A',
-        note: `🎉 ${market} Result: ${number || 'Check image'}`
-    };
-    
-    localStorage.setItem('marketResults', JSON.stringify(marketResults));
-    alert(`✅ Result for ${market} saved!`);
-}
-
-function loadPaymentRequestsList() {
-    paymentRequests = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
-    const container = document.getElementById('paymentRequestsList');
-    updateAdminBadge();
-    
-    if (paymentRequests.length === 0) {
-        container.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 20px;">📭 No pending payments</p>';
-        return;
-    }
-    
-    let html = `<div style="background: #22c55e; color: white; padding: 5px 10px; border-radius: 20px; display: inline-block; margin-bottom: 10px;">📌 ${paymentRequests.length} Pending</div>`;
-    
-    paymentRequests.forEach((req, index) => {
-        html += `
-            <div class="result-card">
-                <div>
-                    <strong style="color: #22c55e;">💰 ${req.market}</strong><br>
-                    🆔 ${req.id}<br>
-                    ⏰ ${req.time}
-                </div>
-                <button class="btn-confirm" onclick="confirmPaymentAndSendResult(${index})">✅ Confirm & Send Result</button>
-            </div>
-        `;
-    });
-    container.innerHTML = html;
-}
-
-// FIXED: This function sends the result link directly to user
-function confirmPaymentAndSendResult(index) {
-    const request = paymentRequests[index];
-    const result = marketResults[request.market];
-    
-    if (!result || !result.imageUrl) {
-        alert(`❌ Please upload result for ${request.market} first!`);
-        return;
-    }
-    
-    // Send result directly to user via WhatsApp
-    const resultMessage = `✅✅ PAYMENT CONFIRMED! ✅✅%0A%0A📊 Market: ${request.market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${request.id}%0A%0A🎯 YOUR RESULT: %0A${result.imageUrl}%0A%0A📝 ${result.note}%0A%0AThank you for using RONAK_LIVE_SHOW! 🎉`;
-    
-    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${resultMessage}`;
-    window.open(whatsappLink, '_blank');
-    
-    // Remove from pending
-    paymentRequests.splice(index, 1);
-    localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
-    
-    alert(`✅ Payment confirmed! Result link sent to user via WhatsApp.`);
-    loadPaymentRequestsList();
-    updateAdminBadge();
-}
-
-function loadSettingsTab() {
-    const container = document.getElementById('settingsTabContent');
-    container.innerHTML = `
-        <div class="result-card" style="flex-direction: column;">
-            <h4 style="color: white;">🔐 Change Password</h4>
-            <input type="password" id="currentPassword" placeholder="Current Password" style="width: 100%; padding: 10px; margin: 10px 0; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
-            <input type="password" id="newPassword" placeholder="New Password" style="width: 100%; padding: 10px; margin: 10px 0; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
-            <input type="password" id="confirmNewPassword" placeholder="Confirm Password" style="width: 100%; padding: 10px; margin: 10px 0; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
-            <button class="btn-confirm" onclick="changeAdminPassword()">✅ Change Password</button>
-            
-            <hr style="border-color: #334155; margin: 20px 0;">
-            
-            <h4 style="color: white;">🗑️ Clear Data</h4>
-            <button class="btn-confirm" onclick="clearPaymentHistory()" style="background: #f59e0b;">📋 Clear Payments</button>
-            <button class="btn-confirm" onclick="clearAllResults()" style="background: #ef4444; margin-top: 10px;">🖼️ Clear All Results</button>
-        </div>
-    `;
-}
-
-function changeAdminPassword() {
-    const current = document.getElementById('currentPassword').value;
-    const newPass = document.getElementById('newPassword').value;
-    const confirm = document.getElementById('confirmNewPassword').value;
-    
-    if (current !== adminPassword) {
-        alert('❌ Current password incorrect!');
-        return;
-    }
-    if (newPass.length < 4) {
-        alert('❌ Password must be at least 4 characters!');
-        return;
-    }
-    if (newPass !== confirm) {
-        alert('❌ Passwords do not match!');
-        return;
-    }
-    
-    adminPassword = newPass;
-    localStorage.setItem('adminPassword', adminPassword);
-    alert('✅ Password changed!');
-}
-
-function clearPaymentHistory() {
-    if (confirm('Clear all payment requests?')) {
-        paymentRequests = [];
-        localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
-        loadPaymentRequestsList();
-        updateAdminBadge();
-        alert('✅ Cleared!');
-    }
-}
-
-function clearAllResults() {
-    if (confirm('Clear all saved results?')) {
-        marketResults = {};
-        localStorage.setItem('marketResults', JSON.stringify(marketResults));
-        loadResultLinksForm();
-        alert('✅ Results cleared!');
-    }
-}
-        // ============ INITIALIZATION ============
-        function restoreAdminSession() {
-            const wasLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
-            const wasPanelOpen = localStorage.getItem('adminPanelOpen') === 'true';
-            
-            if (wasLoggedIn && wasPanelOpen) {
-                isAdminLoggedIn = true;
-                document.getElementById('adminPanel').style.display = 'flex';
-                document.getElementById('adminLoginSection').style.display = 'none';
-                document.getElementById('adminDashboard').style.display = 'block';
-                loadResultLinksForm();
-                loadPaymentRequestsList();
-                loadSettingsTab();
-                loadBannerImagesForm();
-                showAdminTab('payments');
-                
-                if (window.adminRefreshInterval) clearInterval(window.adminRefreshInterval);
-                window.adminRefreshInterval = setInterval(() => {
-                    if (isAdminLoggedIn) loadPaymentRequestsList();
-                }, 3000);
-            }
-            updateAdminBadge();
+        function showResultToUser(marketName, resultImageUrl, resultNote) {
+            document.getElementById('resultMarket').innerHTML = marketName;
+            document.getElementById('resultPic').src = resultImageUrl;
+            document.getElementById('resultNote').innerHTML = resultNote || `🎉 Result for ${marketName}`;
+            document.getElementById('resultModal').style.display = 'flex';
         }
 
         function checkResultManually() {
+            const marketResults = JSON.parse(localStorage.getItem('marketResults') || '{}');
             const market = prompt('Enter market name (SRIDEVI, MILAN DAY, KALYAN, SRIDEVI NIGHT, MILAN NIGHT, MAIN BAZAR):');
             if (market && marketResults[market.toUpperCase()]) {
                 const r = marketResults[market.toUpperCase()];
                 showResultToUser(market.toUpperCase(), r.imageUrl, r.note);
             } else {
-                alert('Result not available!');
+                alert('Result not available for this market yet!');
             }
         }
 
         // Initialize
         loadMarkets();
         loadBannerImages();
-        restoreAdminSession();
-        
-        // Manual check button
-        const checkBtn = document.createElement('div');
-        checkBtn.style.position = 'fixed';
-        checkBtn.style.bottom = '20px';
-        checkBtn.style.left = '20px';
-        checkBtn.style.background = '#1e293b';
-        checkBtn.style.color = '#22c55e';
-        checkBtn.style.width = '45px';
-        checkBtn.style.height = '45px';
-        checkBtn.style.borderRadius = '50%';
-        checkBtn.style.display = 'flex';
-        checkBtn.style.alignItems = 'center';
-        checkBtn.style.justifyContent = 'center';
-        checkBtn.style.cursor = 'pointer';
-        checkBtn.style.zIndex = '999';
-        checkBtn.style.border = '1px solid #22c55e';
-        checkBtn.innerHTML = '🔍';
-        checkBtn.title = 'Check Result Manually';
-        checkBtn.onclick = checkResultManually;
-        document.body.appendChild(checkBtn);
 
         window.onclick = function(event) {
-            const pm = document.getElementById('paymentModal');
-            const rm = document.getElementById('resultModal');
-            const ap = document.getElementById('adminPanel');
-            if (event.target === pm) closeModal();
-            if (event.target === rm) closeResultModal();
-            if (event.target === ap && !isAdminLoggedIn) closeAdminPanel();
+            const paymentModal = document.getElementById('paymentModal');
+            const resultModal = document.getElementById('resultModal');
+            if (event.target === paymentModal) closeModal();
+            if (event.target === resultModal) closeResultModal();
         }
     </script>
 </body>
