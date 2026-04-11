@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RONAK_LIVE_SHOW - Market Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎲 Welcome to RONAK_LIVE_SHOW 🎲</h1>
+            <p>Your Trusted Market Result Platform | Fast & Secure</p>
+        </div>
+
+        <!-- Market Grid -->
+        <div class="market-grid" id="marketGrid"></div>
+
+        <!-- Status Message -->
+        <div id="statusMsg" class="status-msg"></div>
+
+        <div class="footer">
+            <p>⚠️ For any issues, contact us on WhatsApp | Results will be shown after payment confirmation</p>
+            <p>© 2024 RONAK_LIVE_SHOW - All Rights Reserved</p>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>💰 Complete Payment</h2>
+            <p>Selected Market:</p>
+            <div class="modal-market" id="selectedMarket">-</div>
+            <div class="amount">₹ 999/-</div>
+            
+            <div class="qr-placeholder">
+                <img id="qrImage" src="images/qr-code.jpg" alt="Payment QR Code" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=UPI%3Aronak%40999'">
+            </div>
+            <div class="qr-note">Scan QR code to pay ₹999</div>
+            
+            <a href="#" id="whatsappLink" class="btn-whatsapp" target="_blank">
+                📤 Send Screenshot on WhatsApp
+            </a>
+            
+            <div class="instruction">
+                <strong>📌 Instructions:</strong><br>
+                1. Scan QR code & pay ₹999<br>
+                2. Take screenshot of payment<br>
+                3. Click above button to send screenshot on WhatsApp<br>
+                4. Wait for confirmation & result
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeResultModal()">&times;</span>
+            <h2>🎯 Market Result</h2>
+            <div class="modal-market" id="resultMarket">-</div>
+            <div class="result-image" id="resultImageContainer">
+                <img id="resultPic" src="" alt="Result Image">
+            </div>
+            <div class="instruction" id="resultNote">
+                ✅ Payment confirmed! Here is your market result.
+            </div>
+            <button class="btn-select" onclick="closeResultModal()" style="margin-top: 15px;">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
