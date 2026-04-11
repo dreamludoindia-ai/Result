@@ -19,7 +19,6 @@
             position: relative;
         }
 
-        /* Animated Background */
         body::before {
             content: '';
             position: fixed;
@@ -39,7 +38,6 @@
             z-index: 1;
         }
 
-        /* Professional Header */
         .header {
             text-align: center;
             padding: 30px 20px;
@@ -66,7 +64,6 @@
             color: #22c55e;
         }
 
-        /* Banner Image Styles */
         .top-banner {
             text-align: center;
             margin-bottom: 30px;
@@ -85,27 +82,18 @@
             height: auto;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
         .banner-img:hover {
             transform: scale(1.02);
-            box-shadow: 0 15px 40px rgba(34,197,94,0.2);
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Market Grid - Professional Cards */
         .market-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -151,7 +139,6 @@
             font-weight: 600;
             color: #ffffff;
             margin-bottom: 8px;
-            letter-spacing: 0.5px;
         }
 
         .market-price {
@@ -185,7 +172,6 @@
             box-shadow: 0 5px 15px rgba(34,197,94,0.4);
         }
 
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -203,7 +189,7 @@
         .modal-content {
             background: linear-gradient(135deg, #1e293b, #0f172a);
             border-radius: 24px;
-            max-width: 550px;
+            max-width: 500px;
             width: 90%;
             padding: 30px;
             text-align: center;
@@ -253,7 +239,6 @@
             margin: 10px 0;
         }
 
-        /* Larger QR Code */
         .qr-placeholder {
             width: 280px;
             height: 280px;
@@ -277,60 +262,6 @@
             color: #94a3b8;
             font-size: 0.7rem;
             margin-top: 5px;
-        }
-
-        /* UPI Apps Grid */
-        .upi-apps-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .upi-btn {
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.3s;
-        }
-
-        .upi-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .phonepe { background: linear-gradient(135deg, #5D3B9E, #4A2D7C); }
-        .googlepay { background: linear-gradient(135deg, #4285F4, #1A73E8); }
-        .paytm { background: linear-gradient(135deg, #00BAF2, #0096C7); }
-        .copyid { background: linear-gradient(135deg, #22c55e, #16a34a); }
-
-        .upi-id-box {
-            background: #0f172a;
-            padding: 10px;
-            border-radius: 10px;
-            margin: 10px 0;
-            border: 1px dashed #22c55e;
-        }
-
-        .upi-id-label {
-            color: #94a3b8;
-            font-size: 0.65rem;
-            margin-bottom: 5px;
-        }
-
-        .upi-id-value {
-            color: #4ade80;
-            font-size: 0.9rem;
-            font-weight: 600;
-            word-break: break-all;
-            cursor: pointer;
         }
 
         .btn-whatsapp {
@@ -357,7 +288,6 @@
             box-shadow: 0 8px 20px rgba(34,197,94,0.3);
         }
 
-        /* Timer Styles */
         .timer-box {
             background: #0f172a;
             border-radius: 12px;
@@ -386,21 +316,6 @@
             margin-top: 5px;
         }
 
-        /* Success Message */
-        .success-message {
-            background: #064e3b;
-            border-left: 3px solid #22c55e;
-            padding: 12px;
-            border-radius: 10px;
-            margin-top: 15px;
-            animation: pulse 0.5s ease;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
         .instruction {
             background: #0f172a;
             border-left: 3px solid #22c55e;
@@ -419,7 +334,6 @@
             font-size: 0.7rem;
         }
 
-        /* Admin Toggle */
         .admin-toggle {
             position: fixed;
             bottom: 20px;
@@ -438,11 +352,28 @@
             font-size: 20px;
             transition: all 0.3s;
             border: 1px solid #22c55e;
+            position: relative;
         }
 
         .admin-toggle:hover {
             transform: scale(1.05);
             background: #22c55e;
+        }
+
+        .admin-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
         }
 
         .admin-panel {
@@ -476,6 +407,14 @@
             border-bottom: 2px solid #22c55e;
         }
 
+        .admin-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
         .result-card {
             background: #0f172a;
             border-radius: 12px;
@@ -498,33 +437,6 @@
             font-size: 0.75rem;
         }
 
-        .login-box input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            color: white;
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-        }
-        .divider-line {
-            flex: 1;
-            height: 1px;
-            background: #334155;
-        }
-        .divider-text {
-            padding: 0 10px;
-            color: #94a3b8;
-            font-size: 0.7rem;
-        }
-
-        /* Refresh Button */
         .refresh-btn {
             background: #3b82f6;
             color: white;
@@ -536,17 +448,20 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            margin-left: 10px;
         }
+
         .refresh-btn:hover {
             background: #2563eb;
         }
-        .admin-header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
+
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: white;
         }
 
         @media (max-width: 768px) {
@@ -554,24 +469,21 @@
             .market-name { font-size: 0.85rem; }
             .qr-placeholder { width: 220px; height: 220px; }
             .header h1 { font-size: 1.3rem; }
-            .upi-apps-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
     <div class="header">
         <h1>🎲 RONAK<span>_LIVE_SHOW</span></h1>
     </div>
 
-    <!-- TOP BANNER IMAGE -->
     <div class="top-banner">
         <img src="YOUR_TOP_BANNER_IMAGE_URL_HERE" alt="Top Banner" class="banner-img" id="topBannerImg">
     </div>
 
     <div class="market-grid" id="marketGrid"></div>
 
-    <!-- BOTTOM BANNER IMAGE -->
     <div class="bottom-banner">
         <img src="YOUR_BOTTOM_BANNER_IMAGE_URL_HERE" alt="Bottom Banner" class="banner-img" id="bottomBannerImg">
     </div>
@@ -604,27 +516,9 @@
             📤 Send Screenshot on WhatsApp
         </button>
         
-        <div class="divider">
-            <div class="divider-line"></div>
-            <span class="divider-text">OR PAY WITH UPI APPS</span>
-            <div class="divider-line"></div>
-        </div>
-        
-        <div class="upi-apps-grid">
-            <button onclick="openUpiApp('phonepe')" class="upi-btn phonepe">📱 PhonePe</button>
-            <button onclick="openUpiApp('googlepay')" class="upi-btn googlepay">💳 Google Pay</button>
-            <button onclick="openUpiApp('paytm')" class="upi-btn paytm">🔷 Paytm</button>
-            <button onclick="copyUpiId()" class="upi-btn copyid">📋 Copy UPI ID</button>
-        </div>
-        
-        <div class="upi-id-box">
-            <div class="upi-id-label">UPI ID (Click to copy):</div>
-            <div class="upi-id-value" id="upiIdText" onclick="copyUpiId()">ganeshpatil99@slc</div>
-        </div>
-        
         <div class="instruction">
             <strong>📌 Instructions:</strong><br>
-            1. Pay ₹999 using QR code OR any UPI app above<br>
+            1. Scan QR code & pay ₹999<br>
             2. Take screenshot of payment success<br>
             3. Click "Send Screenshot on WhatsApp" button<br>
             4. Admin will verify and send result
@@ -641,23 +535,8 @@
         <div class="result-image">
             <img id="resultPic" src="" alt="Result Image" style="max-width: 100%; border-radius: 12px;">
         </div>
-        <div class="success-message" id="resultNote"></div>
+        <div class="instruction" id="resultNote" style="margin-top: 15px;"></div>
         <button class="btn-select" onclick="closeResultModal()" style="margin-top: 15px;">Close</button>
-    </div>
-</div>
-
-<!-- Success Message Modal -->
-<div id="successModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeSuccessModal()">&times;</span>
-        <div class="success-message" style="background: #064e3b;">
-            <p>✅✅✅ PAYMENT VERIFIED SUCCESSFULLY! ✅✅✅</p>
-        </div>
-        <div class="instruction" id="successMessage" style="text-align: center; background: #0f172a;">
-            <p style="font-size: 1rem; color: #4ade80;">🎉 Your payment has been confirmed!</p>
-            <p style="margin-top: 10px;">You will receive your market result shortly on WhatsApp.</p>
-        </div>
-        <button class="btn-select" onclick="closeSuccessModal()" style="margin-top: 15px;">OK</button>
     </div>
 </div>
 
@@ -724,30 +603,21 @@
     const markets = ["SRIDEVI", "MILAN DAY", "KALYAN", "SRIDEVI NIGHT", "MILAN NIGHT", "MAIN BAZAR"];
     let adminPassword = "Gani99@@@@";
     
-    // UPI Details
-    const upiId = "ganeshpatil99@slc";
-    const amount = "999";
-    const payeeName = "RONAK LIVE SHOW";
-    const note = "Market Result Payment";
-    
     // Banner Images
     let topBannerImage = localStorage.getItem('topBannerImage') || "https://via.placeholder.com/1200x200/1e293b/22c55e?text=Welcome+to+Ronak+Live+Show";
     let bottomBannerImage = localStorage.getItem('bottomBannerImage') || "https://via.placeholder.com/1200x200/1e293b/22c55e?text=Trusted+Market+Results+Platform";
     
     let marketResults = JSON.parse(localStorage.getItem('marketResults') || '{}');
     let paymentRequests = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
-    let verifiedPayments = JSON.parse(localStorage.getItem('verifiedPayments') || '[]');
     
     let timerInterval = null;
     let currentMarket = null;
     let currentTransactionId = null;
     
-    // Admin session state
     let isAdminLoggedIn = false;
     let activeAdminTab = 'payments';
-    let lastRequestCount = paymentRequests.length;
 
-    // ============ BANNER IMAGE FUNCTIONS ============
+    // ============ BANNER FUNCTIONS ============
     function loadBannerImages() {
         const topImg = document.getElementById('topBannerImg');
         const bottomImg = document.getElementById('bottomBannerImg');
@@ -759,34 +629,17 @@
         const container = document.getElementById('bannerImagesForm');
         container.innerHTML = `
             <div class="result-card" style="flex-direction: column; align-items: stretch;">
-                <h4 style="color: white; margin-bottom: 15px;">📸 Top Banner Image (Under Headline)</h4>
-                <div style="margin-bottom: 15px;">
-                    <label style="color: #94a3b8; font-size: 0.75rem;">Image URL:</label>
-                    <input type="text" id="topBannerUrl" placeholder="Enter image URL" value="${topBannerImage}" style="width: 100%; padding: 10px; margin-top: 5px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
-                </div>
-                <div style="margin-bottom: 15px; text-align: center;">
-                    <img src="${topBannerImage}" alt="Preview" style="max-width: 100%; border-radius: 10px; margin-top: 10px;">
-                </div>
-                <button class="btn-confirm" onclick="updateTopBanner()" style="margin-bottom: 20px;">✅ Update Top Banner</button>
+                <h4 style="color: white;">📸 Top Banner Image</h4>
+                <input type="text" id="topBannerUrl" placeholder="Image URL" value="${topBannerImage}" style="width: 100%; padding: 10px; margin: 10px 0; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
+                <img src="${topBannerImage}" alt="Preview" style="max-width: 100%; border-radius: 10px;">
+                <button class="btn-confirm" onclick="updateTopBanner()" style="margin-top: 10px;">✅ Update Top Banner</button>
                 
                 <hr style="border-color: #334155; margin: 20px 0;">
                 
-                <h4 style="color: white; margin-bottom: 15px;">📸 Bottom Banner Image (After Market List)</h4>
-                <div style="margin-bottom: 15px;">
-                    <label style="color: #94a3b8; font-size: 0.75rem;">Image URL:</label>
-                    <input type="text" id="bottomBannerUrl" placeholder="Enter image URL" value="${bottomBannerImage}" style="width: 100%; padding: 10px; margin-top: 5px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
-                </div>
-                <div style="margin-bottom: 15px; text-align: center;">
-                    <img src="${bottomBannerImage}" alt="Preview" style="max-width: 100%; border-radius: 10px; margin-top: 10px;">
-                </div>
-                <button class="btn-confirm" onclick="updateBottomBanner()">✅ Update Bottom Banner</button>
-                
-                <div class="instruction" style="margin-top: 15px;">
-                    <strong>📌 How to get image URL:</strong><br>
-                    1. Upload image to <strong>imgur.com</strong> or <strong>postimages.org</strong><br>
-                    2. Copy the <strong>direct image link</strong> (ends with .jpg, .png, .jpeg)<br>
-                    3. Paste it above and click Update
-                </div>
+                <h4 style="color: white;">📸 Bottom Banner Image</h4>
+                <input type="text" id="bottomBannerUrl" placeholder="Image URL" value="${bottomBannerImage}" style="width: 100%; padding: 10px; margin: 10px 0; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
+                <img src="${bottomBannerImage}" alt="Preview" style="max-width: 100%; border-radius: 10px;">
+                <button class="btn-confirm" onclick="updateBottomBanner()" style="margin-top: 10px;">✅ Update Bottom Banner</button>
             </div>
         `;
     }
@@ -797,10 +650,8 @@
             topBannerImage = newUrl;
             localStorage.setItem('topBannerImage', topBannerImage);
             document.getElementById('topBannerImg').src = topBannerImage;
-            alert('✅ Top banner updated successfully!');
+            alert('✅ Top banner updated!');
             loadBannerImagesForm();
-        } else {
-            alert('Please enter a valid image URL!');
         }
     }
 
@@ -810,57 +661,9 @@
             bottomBannerImage = newUrl;
             localStorage.setItem('bottomBannerImage', bottomBannerImage);
             document.getElementById('bottomBannerImg').src = bottomBannerImage;
-            alert('✅ Bottom banner updated successfully!');
+            alert('✅ Bottom banner updated!');
             loadBannerImagesForm();
-        } else {
-            alert('Please enter a valid image URL!');
         }
-    }
-
-    // ============ UPI APP FUNCTIONS ============
-    function openUpiApp(app) {
-        let upiLink = "";
-        const encodedPayee = encodeURIComponent(upiId);
-        const encodedName = encodeURIComponent(payeeName);
-        const encodedNote = encodeURIComponent(note);
-        
-        const baseParams = `pa=${encodedPayee}&pn=${encodedName}&am=${amount}&cu=INR&tn=${encodedNote}`;
-        
-        switch(app) {
-            case 'phonepe':
-                upiLink = `phonepe://pay?${baseParams}`;
-                break;
-            case 'googlepay':
-                upiLink = `tez://upi/pay?${baseParams}`;
-                break;
-            case 'paytm':
-                upiLink = `paytmmp://pay?${baseParams}`;
-                break;
-            default:
-                upiLink = `upi://pay?${baseParams}`;
-        }
-        
-        window.location.href = upiLink;
-        
-        setTimeout(() => {
-            window.location.href = `https://upiapp.online/pay?${baseParams}`;
-        }, 500);
-    }
-    
-    function copyUpiId() {
-        navigator.clipboard.writeText(upiId).then(() => {
-            const upiElement = document.getElementById('upiIdText');
-            const originalText = upiElement.innerHTML;
-            upiElement.innerHTML = '✅ Copied!';
-            upiElement.style.color = '#22c55e';
-            setTimeout(() => {
-                upiElement.innerHTML = originalText;
-                upiElement.style.color = '#4ade80';
-            }, 2000);
-            alert(`UPI ID copied: ${upiId}`);
-        }).catch(() => {
-            alert('Failed to copy. Please manually copy: ' + upiId);
-        });
     }
 
     // ============ USER FUNCTIONS ============
@@ -884,11 +687,6 @@
         currentMarket = market;
         document.getElementById('selectedMarket').innerHTML = market;
         currentTransactionId = 'TXN' + Date.now() + Math.random().toString(36).substr(2, 6);
-        document.getElementById('upiIdText').innerHTML = upiId;
-        
-        sessionStorage.setItem('currentTransactionId', currentTransactionId);
-        sessionStorage.setItem('currentMarket', market);
-        
         startTimer(600);
         document.getElementById('paymentModal').style.display = 'flex';
     }
@@ -902,110 +700,44 @@
             return;
         }
         
-        // Create payment request
         const pendingRequest = {
             id: transactionId,
             market: market,
             amount: 999,
-            time: new Date().toLocaleString(),
-            status: 'pending',
-            userAction: 'Waiting for admin verification'
+            time: new Date().toLocaleString()
         };
         
         paymentRequests.push(pendingRequest);
         localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
         
-        // Play notification sound (if supported)
-        playNotificationSound();
+        updateAdminBadge();
         
-        // Update admin badge if admin panel is open
-        updateAdminNotificationBadge();
-        
-        // Show alert to user
-        alert(`✅ Payment request sent to admin!\n\nTransaction ID: ${transactionId}\n\nPlease send your payment screenshot on WhatsApp.\n\nAdmin will verify and send your result.`);
-        
-        // Open WhatsApp
-        const whatsappMessage = `📸 PAYMENT SCREENSHOT%0A%0A📊 Market: ${market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${transactionId}%0A%0A⬇️⬇️⬇️ Send your payment screenshot below ⬇️⬇️⬇️%0A%0A(Attach screenshot here)`;
+        const whatsappMessage = `📸 PAYMENT SCREENSHOT%0A%0A📊 Market: ${market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${transactionId}%0A%0A⬇️ Send your payment screenshot below ⬇️`;
         const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
         window.open(whatsappLink, '_blank');
+        
+        alert(`✅ Request sent! Transaction ID: ${transactionId}\n\nAdmin will verify and send result.`);
         
         closeModal();
         if (timerInterval) clearInterval(timerInterval);
     }
 
-    function playNotificationSound() {
-        try {
-            // Create a simple beep sound using Web Audio API
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            oscillator.frequency.value = 800;
-            gainNode.gain.value = 0.3;
-            oscillator.start();
-            setTimeout(() => {
-                oscillator.stop();
-                audioContext.close();
-            }, 300);
-        } catch(e) {
-            console.log('Sound not supported');
-        }
-    }
-
-    function updateAdminNotificationBadge() {
-        const adminToggle = document.querySelector('.admin-toggle');
-        const requestCount = paymentRequests.length;
-        
-        if (requestCount > 0) {
-            // Remove existing badge
-            const existingBadge = document.querySelector('.admin-badge');
-            if (existingBadge) existingBadge.remove();
-            
-            // Create new badge
-            const badge = document.createElement('span');
-            badge.className = 'admin-badge';
-            badge.innerHTML = requestCount;
-            badge.style.position = 'absolute';
-            badge.style.top = '-5px';
-            badge.style.right = '-5px';
-            badge.style.background = '#ef4444';
-            badge.style.color = 'white';
-            badge.style.borderRadius = '50%';
-            badge.style.width = '20px';
-            badge.style.height = '20px';
-            badge.style.fontSize = '11px';
-            badge.style.display = 'flex';
-            badge.style.alignItems = 'center';
-            badge.style.justifyContent = 'center';
-            badge.style.fontWeight = 'bold';
-            adminToggle.style.position = 'relative';
-            adminToggle.appendChild(badge);
-        } else {
-            const existingBadge = document.querySelector('.admin-badge');
-            if (existingBadge) existingBadge.remove();
-        }
-    }
-
     function startTimer(seconds) {
         if (timerInterval) clearInterval(timerInterval);
-        
         let timeLeft = seconds;
         updateTimerDisplay(timeLeft);
         
         timerInterval = setInterval(() => {
             timeLeft--;
             updateTimerDisplay(timeLeft);
-            
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
                 document.getElementById('timerDisplay').innerHTML = "00:00";
-                document.getElementById('timerWarning').innerHTML = "⚠️ Time expired! Please create new request.";
-                const whatsappBtn = document.getElementById('whatsappBtn');
-                whatsappBtn.style.opacity = '0.5';
-                whatsappBtn.style.pointerEvents = 'none';
+                document.getElementById('timerWarning').innerHTML = "⚠️ Time expired!";
+                document.getElementById('whatsappBtn').style.opacity = '0.5';
+                document.getElementById('whatsappBtn').style.pointerEvents = 'none';
             } else if (timeLeft <= 180) {
-                document.getElementById('timerWarning').innerHTML = "⚠️ Only 3 minutes left! Send screenshot quickly.";
+                document.getElementById('timerWarning').innerHTML = "⚠️ Only 3 minutes left!";
             }
         }, 1000);
     }
@@ -1025,31 +757,30 @@
         document.getElementById('resultModal').style.display = 'none';
     }
 
-    function closeSuccessModal() {
-        document.getElementById('successModal').style.display = 'none';
+    function showResultToUser(marketName, resultImageUrl, resultNote) {
+        document.getElementById('resultMarket').innerHTML = marketName;
+        document.getElementById('resultPic').src = resultImageUrl;
+        document.getElementById('resultNote').innerHTML = resultNote || `🎉 Result for ${marketName}`;
+        document.getElementById('resultModal').style.display = 'flex';
     }
 
-    function showSuccessMessage(message) {
-        document.getElementById('successMessage').innerHTML = `<p style="font-size: 1rem; color: #4ade80;">${message}</p>`;
-        document.getElementById('successModal').style.display = 'flex';
-        setTimeout(() => closeSuccessModal(), 5000);
-    }
-
-    function showResultToUser(marketName) {
-        const result = marketResults[marketName];
-        if (result && result.imageUrl) {
-            document.getElementById('resultMarket').innerHTML = marketName;
-            document.getElementById('resultPic').src = result.imageUrl;
-            document.getElementById('resultNote').innerHTML = result.note || `🎉 Result for ${marketName}`;
-            document.getElementById('resultModal').style.display = 'flex';
-        } else {
-            alert('Result not uploaded yet. Check back soon!');
+    function updateAdminBadge() {
+        const adminToggle = document.querySelector('.admin-toggle');
+        const count = paymentRequests.length;
+        const existingBadge = document.querySelector('.admin-badge');
+        if (existingBadge) existingBadge.remove();
+        
+        if (count > 0) {
+            const badge = document.createElement('span');
+            badge.className = 'admin-badge';
+            badge.innerHTML = count;
+            adminToggle.appendChild(badge);
         }
     }
-    // ============ ADMIN FUNCTIONS ============
+// ============ ADMIN FUNCTIONS ============
 function toggleAdminPanel() {
-    const adminPanel = document.getElementById('adminPanel');
-    if (adminPanel.style.display === 'flex') {
+    const panel = document.getElementById('adminPanel');
+    if (panel.style.display === 'flex') {
         closeAdminPanel();
     } else {
         showAdminLogin();
@@ -1060,7 +791,6 @@ function showAdminLogin() {
     document.getElementById('adminPanel').style.display = 'flex';
     document.getElementById('adminLoginSection').style.display = 'block';
     document.getElementById('adminDashboard').style.display = 'none';
-    document.getElementById('adminPassword').value = '';
 }
 
 function closeAdminPanel() {
@@ -1084,11 +814,10 @@ function checkAdminLogin() {
         loadBannerImagesForm();
         showAdminTab(activeAdminTab);
         
-        // Start real-time refresh every 3 seconds
         if (window.adminRefreshInterval) clearInterval(window.adminRefreshInterval);
         window.adminRefreshInterval = setInterval(() => {
-            if (isAdminLoggedIn && document.getElementById('adminDashboard').style.display === 'block') {
-                checkForNewPayments();
+            if (isAdminLoggedIn) {
+                loadPaymentRequestsList();
             }
         }, 3000);
     } else {
@@ -1096,75 +825,11 @@ function checkAdminLogin() {
     }
 }
 
-// Check for new payments and show notification
-function checkForNewPayments() {
-    const currentRequests = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
-    const oldCount = paymentRequests.length;
-    const newCount = currentRequests.length;
-    
-    if (newCount > oldCount) {
-        // New payment request received!
-        paymentRequests = currentRequests;
-        
-        // Play notification sound
-        playNotificationSound();
-        
-        // Show browser notification
-        if (Notification.permission === 'granted') {
-            new Notification('💰 New Payment Request!', {
-                body: `${newCount - oldCount} new payment request(s) received. Click to verify.`,
-                icon: 'https://i.imgur.com/W4JYgb3.jpeg'
-            });
-        } else if (Notification.permission !== 'denied') {
-            Notification.requestPermission();
-        }
-        
-        // Show visual alert in admin panel
-        showAdminAlert(`🔔 ${newCount - oldCount} new payment request(s)!`);
-        
-        // Refresh the list
-        loadPaymentRequestsList();
-        
-        // Update badge
-        updateAdminNotificationBadge();
-    } else {
-        paymentRequests = currentRequests;
-    }
-}
-
-function showAdminAlert(message) {
-    // Create floating alert
-    const alertDiv = document.createElement('div');
-    alertDiv.innerHTML = message;
-    alertDiv.style.position = 'fixed';
-    alertDiv.style.top = '20px';
-    alertDiv.style.right = '20px';
-    alertDiv.style.background = '#22c55e';
-    alertDiv.style.color = 'white';
-    alertDiv.style.padding = '12px 20px';
-    alertDiv.style.borderRadius = '10px';
-    alertDiv.style.zIndex = '3000';
-    alertDiv.style.fontWeight = 'bold';
-    alertDiv.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
-    alertDiv.style.animation = 'slideInRight 0.5s ease';
-    
-    document.body.appendChild(alertDiv);
-    
-    setTimeout(() => {
-        alertDiv.style.opacity = '0';
-        setTimeout(() => alertDiv.remove(), 500);
-    }, 4000);
-}
-
 function logoutAdmin() {
     isAdminLoggedIn = false;
     localStorage.setItem('adminLoggedIn', 'false');
     localStorage.setItem('adminPanelOpen', 'false');
     if (window.adminRefreshInterval) clearInterval(window.adminRefreshInterval);
-    
-    document.getElementById('adminLoginSection').style.display = 'block';
-    document.getElementById('adminDashboard').style.display = 'none';
-    document.getElementById('adminPassword').value = '';
     closeAdminPanel();
 }
 
@@ -1172,17 +837,12 @@ function refreshAdminPanel() {
     if (isAdminLoggedIn) {
         loadPaymentRequestsList();
         loadResultLinksForm();
-        loadSettingsTab();
-        loadBannerImagesForm();
-        updateAdminNotificationBadge();
-        showAdminAlert('✅ Admin panel refreshed!');
+        alert('✅ Refreshed!');
     }
 }
 
 function showAdminTab(tab) {
     activeAdminTab = tab;
-    localStorage.setItem('activeAdminTab', tab);
-    
     document.getElementById('adminTabResults').style.display = 'none';
     document.getElementById('adminTabPayments').style.display = 'none';
     document.getElementById('adminTabSettings').style.display = 'none';
@@ -1214,7 +874,7 @@ function loadResultLinksForm() {
                 <div style="flex: 1;">
                     <strong style="color: white;">${market}</strong><br>
                     <input type="text" id="img_${market.replace(/ /g, '_')}" 
-                           placeholder="Image URL" 
+                           placeholder="Result Image URL" 
                            value="${currentResult.imageUrl || ''}"
                            style="width: 100%; padding: 8px; margin: 5px 0; background: #0f172a; border: 1px solid #334155; border-radius: 5px; color: white;">
                     <input type="text" id="num_${market.replace(/ /g, '_')}" 
@@ -1252,228 +912,122 @@ function saveResultForMarket(market) {
 function loadPaymentRequestsList() {
     paymentRequests = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
     const container = document.getElementById('paymentRequestsList');
-    
-    // Update badge
-    updateAdminNotificationBadge();
+    updateAdminBadge();
     
     if (paymentRequests.length === 0) {
-        container.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 20px;">📭 No pending payment requests. Wait for users to send screenshots.</p>';
+        container.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 20px;">📭 No pending payments</p>';
         return;
     }
     
-    let html = `<div style="background: #22c55e; color: white; padding: 5px 10px; border-radius: 20px; display: inline-block; margin-bottom: 10px;">📌 ${paymentRequests.length} Pending Request(s)</div>`;
-    html += `<div style="margin-bottom: 15px; font-size: 12px; color: #f59e0b;">🔔 New requests appear automatically!</div>`;
+    let html = `<div style="background: #22c55e; color: white; padding: 5px 10px; border-radius: 20px; display: inline-block; margin-bottom: 10px;">📌 ${paymentRequests.length} Pending</div>`;
     
     paymentRequests.forEach((req, index) => {
         html += `
-            <div class="result-card" style="animation: fadeInUp 0.3s ease;">
+            <div class="result-card">
                 <div>
                     <strong style="color: #22c55e;">💰 ${req.market}</strong><br>
-                    🆔 ID: ${req.id}<br>
-                    ⏰ Time: ${req.time}<br>
-                    💵 Amount: ₹${req.amount}
+                    🆔 ${req.id}<br>
+                    ⏰ ${req.time}
                 </div>
-                <div>
-                    <button class="btn-confirm" onclick="verifyPaymentAndShowSuccess(${index})" style="background: #22c55e; margin-right: 5px;">✅ Verify Payment</button>
-                    <button class="btn-confirm" onclick="deletePaymentRequest(${index})" style="background: #ef4444;">🗑️ Delete</button>
-                </div>
+                <button class="btn-confirm" onclick="confirmPaymentAndSendResult(${index})">✅ Confirm & Send Result</button>
             </div>
         `;
     });
     container.innerHTML = html;
 }
 
-function deletePaymentRequest(index) {
-    if (confirm('Delete this payment request?')) {
-        paymentRequests.splice(index, 1);
-        localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
-        alert('✅ Request deleted!');
-        loadPaymentRequestsList();
-        updateAdminNotificationBadge();
-    }
-}
-
-function verifyPaymentAndShowSuccess(index) {
+// FIXED: This function sends the result link directly to user
+function confirmPaymentAndSendResult(index) {
     const request = paymentRequests[index];
     const result = marketResults[request.market];
     
     if (!result || !result.imageUrl) {
-        if (confirm(`⚠️ Result for ${request.market} is not uploaded yet!\n\nDo you want to verify payment anyway? User will get result once you upload it.`)) {
-            // Proceed without result
-        } else {
-            return;
-        }
+        alert(`❌ Please upload result for ${request.market} first!`);
+        return;
     }
     
-    verifiedPayments.push({
-        id: request.id,
-        market: request.market,
-        verifiedAt: new Date().toLocaleString()
-    });
-    localStorage.setItem('verifiedPayments', JSON.stringify(verifiedPayments));
+    // Send result directly to user via WhatsApp
+    const resultMessage = `✅✅ PAYMENT CONFIRMED! ✅✅%0A%0A📊 Market: ${request.market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${request.id}%0A%0A🎯 YOUR RESULT: %0A${result.imageUrl}%0A%0A📝 ${result.note}%0A%0AThank you for using RONAK_LIVE_SHOW! 🎉`;
     
-    let successMessage = `✅✅ PAYMENT VERIFIED! ✅✅%0A%0A📊 Market: ${request.market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${request.id}%0A%0A🎉 Your payment has been confirmed successfully!%0A%0A`;
-    
-    if (result && result.imageUrl) {
-        successMessage += `🎯 YOUR RESULT: %0A${result.imageUrl}%0A%0A📝 ${result.note || 'Thank you for using RONAK_LIVE_SHOW!'}`;
-    } else {
-        successMessage += `📝 Result will be sent to you shortly. Please wait.`;
-    }
-    
-    successMessage += `%0A%0AThank you for using RONAK_LIVE_SHOW! 🎉`;
-    
-    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${successMessage}`;
+    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${resultMessage}`;
     window.open(whatsappLink, '_blank');
     
+    // Remove from pending
     paymentRequests.splice(index, 1);
     localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
     
-    alert(`✅ Payment verified! Result sent to user via WhatsApp.`);
+    alert(`✅ Payment confirmed! Result link sent to user via WhatsApp.`);
     loadPaymentRequestsList();
-    updateAdminNotificationBadge();
+    updateAdminBadge();
 }
 
 function loadSettingsTab() {
     const container = document.getElementById('settingsTabContent');
     container.innerHTML = `
-        <div class="result-card" style="flex-direction: column; align-items: stretch;">
-            <h4 style="color: white; margin-bottom: 15px;">🔐 Change Admin Password</h4>
-            <div style="margin-bottom: 15px;">
-                <label style="color: #94a3b8; font-size: 0.75rem;">Current Password</label>
-                <input type="password" id="currentPassword" placeholder="Enter current password" style="width: 100%; padding: 10px; margin-top: 5px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
-            </div>
-            <div style="margin-bottom: 15px;">
-                <label style="color: #94a3b8; font-size: 0.75rem;">New Password</label>
-                <input type="password" id="newPassword" placeholder="Enter new password (min 4 characters)" style="width: 100%; padding: 10px; margin-top: 5px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
-            </div>
-            <div style="margin-bottom: 15px;">
-                <label style="color: #94a3b8; font-size: 0.75rem;">Confirm New Password</label>
-                <input type="password" id="confirmNewPassword" placeholder="Confirm new password" style="width: 100%; padding: 10px; margin-top: 5px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
-            </div>
-            <button class="btn-confirm" onclick="changeAdminPassword()" style="margin-bottom: 20px;">✅ Change Password</button>
+        <div class="result-card" style="flex-direction: column;">
+            <h4 style="color: white;">🔐 Change Password</h4>
+            <input type="password" id="currentPassword" placeholder="Current Password" style="width: 100%; padding: 10px; margin: 10px 0; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
+            <input type="password" id="newPassword" placeholder="New Password" style="width: 100%; padding: 10px; margin: 10px 0; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
+            <input type="password" id="confirmNewPassword" placeholder="Confirm Password" style="width: 100%; padding: 10px; margin: 10px 0; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white;">
+            <button class="btn-confirm" onclick="changeAdminPassword()">✅ Change Password</button>
             
             <hr style="border-color: #334155; margin: 20px 0;">
             
-            <h4 style="color: white; margin-bottom: 15px;">🗑️ Clear History & Data</h4>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button class="btn-confirm" onclick="clearPaymentHistory()" style="background: #f59e0b;">📋 Clear Payment History</button>
-                <button class="btn-confirm" onclick="clearResultHistory()" style="background: #ef4444;">🖼️ Clear All Results</button>
-                <button class="btn-confirm" onclick="clearAllData()" style="background: #dc2626;">⚠️ Clear EVERYTHING</button>
-            </div>
-            <div class="instruction" style="margin-top: 15px; font-size: 0.7rem;">
-                <strong>⚠️ Warning:</strong> Clear actions cannot be undone!
-            </div>
+            <h4 style="color: white;">🗑️ Clear Data</h4>
+            <button class="btn-confirm" onclick="clearPaymentHistory()" style="background: #f59e0b;">📋 Clear Payments</button>
+            <button class="btn-confirm" onclick="clearAllResults()" style="background: #ef4444; margin-top: 10px;">🖼️ Clear All Results</button>
         </div>
     `;
 }
 
 function changeAdminPassword() {
-    const currentPassword = document.getElementById('currentPassword').value;
-    const newPassword = document.getElementById('newPassword').value;
-    const confirmPassword = document.getElementById('confirmNewPassword').value;
+    const current = document.getElementById('currentPassword').value;
+    const newPass = document.getElementById('newPassword').value;
+    const confirm = document.getElementById('confirmNewPassword').value;
     
-    if (currentPassword !== adminPassword) {
-        alert('❌ Current password is incorrect!');
+    if (current !== adminPassword) {
+        alert('❌ Current password incorrect!');
         return;
     }
-    if (newPassword.length < 4) {
-        alert('❌ New password must be at least 4 characters long!');
+    if (newPass.length < 4) {
+        alert('❌ Password must be at least 4 characters!');
         return;
     }
-    if (newPassword !== confirmPassword) {
-        alert('❌ New password and confirm password do not match!');
+    if (newPass !== confirm) {
+        alert('❌ Passwords do not match!');
         return;
     }
     
-    adminPassword = newPassword;
+    adminPassword = newPass;
     localStorage.setItem('adminPassword', adminPassword);
-    alert('✅ Password changed successfully!');
-    
-    document.getElementById('currentPassword').value = '';
-    document.getElementById('newPassword').value = '';
-    document.getElementById('confirmNewPassword').value = '';
+    alert('✅ Password changed!');
 }
 
 function clearPaymentHistory() {
-    if (confirm('Clear ALL payment requests?')) {
+    if (confirm('Clear all payment requests?')) {
         paymentRequests = [];
         localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
-        alert('✅ Payment history cleared!');
         loadPaymentRequestsList();
-        updateAdminNotificationBadge();
+        updateAdminBadge();
+        alert('✅ Cleared!');
     }
 }
 
-function clearResultHistory() {
-    if (confirm('Clear ALL saved market results?')) {
+function clearAllResults() {
+    if (confirm('Clear all saved results?')) {
         marketResults = {};
         localStorage.setItem('marketResults', JSON.stringify(marketResults));
-        alert('✅ All results cleared!');
         loadResultLinksForm();
+        alert('✅ Results cleared!');
     }
 }
-
-function clearAllData() {
-    if (confirm('⚠️ DELETE EVERYTHING? This cannot be undone!')) {
-        marketResults = {};
-        paymentRequests = [];
-        verifiedPayments = [];
-        localStorage.setItem('marketResults', JSON.stringify(marketResults));
-        localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
-        localStorage.setItem('verifiedPayments', JSON.stringify(verifiedPayments));
-        alert('✅ All data cleared!');
-        loadResultLinksForm();
-        loadPaymentRequestsList();
-        updateAdminNotificationBadge();
-    }
-            }
-            // ============ CHECK FOR VERIFIED PAYMENTS ============
-        function checkForVerifiedPayments() {
-            const lastVerified = localStorage.getItem('lastVerified');
-            if (lastVerified) {
-                const verified = JSON.parse(lastVerified);
-                if (!verified.shown) {
-                    showSuccessMessage(verified.message);
-                    verified.shown = true;
-                    localStorage.setItem('lastVerified', JSON.stringify(verified));
-                }
-            }
-        }
-
-        function checkResultManually() {
-            const market = prompt('Enter market name (SRIDEVI, MILAN DAY, KALYAN, SRIDEVI NIGHT, MILAN NIGHT, MAIN BAZAR):');
-            if (market && marketResults[market.toUpperCase()]) {
-                showResultToUser(market.toUpperCase());
-            } else {
-                alert('Result not available for this market yet!');
-            }
-        }
-
-        // Request notification permission on load
-        function requestNotificationPermission() {
-            if ('Notification' in window && Notification.permission === 'default') {
-                Notification.requestPermission();
-            }
-        }
-
-        // Update badge on load
-        function updateBadgeOnLoad() {
-            const count = paymentRequests.length;
-            if (count > 0) {
-                updateAdminNotificationBadge();
-            }
-        }
-
-        // ============ AUTO-RESTORE ADMIN SESSION ON PAGE REFRESH ============
+        // ============ INITIALIZATION ============
         function restoreAdminSession() {
             const wasLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
             const wasPanelOpen = localStorage.getItem('adminPanelOpen') === 'true';
-            const savedTab = localStorage.getItem('activeAdminTab');
             
             if (wasLoggedIn && wasPanelOpen) {
                 isAdminLoggedIn = true;
-                activeAdminTab = savedTab || 'payments';
-                
                 document.getElementById('adminPanel').style.display = 'flex';
                 document.getElementById('adminLoginSection').style.display = 'none';
                 document.getElementById('adminDashboard').style.display = 'block';
@@ -1481,27 +1035,32 @@ function clearAllData() {
                 loadPaymentRequestsList();
                 loadSettingsTab();
                 loadBannerImagesForm();
-                showAdminTab(activeAdminTab);
+                showAdminTab('payments');
                 
                 if (window.adminRefreshInterval) clearInterval(window.adminRefreshInterval);
                 window.adminRefreshInterval = setInterval(() => {
-                    if (isAdminLoggedIn && document.getElementById('adminDashboard').style.display === 'block') {
-                        checkForNewPayments();
-                    }
+                    if (isAdminLoggedIn) loadPaymentRequestsList();
                 }, 3000);
             }
-            
-            updateBadgeOnLoad();
+            updateAdminBadge();
+        }
+
+        function checkResultManually() {
+            const market = prompt('Enter market name (SRIDEVI, MILAN DAY, KALYAN, SRIDEVI NIGHT, MILAN NIGHT, MAIN BAZAR):');
+            if (market && marketResults[market.toUpperCase()]) {
+                const r = marketResults[market.toUpperCase()];
+                showResultToUser(market.toUpperCase(), r.imageUrl, r.note);
+            } else {
+                alert('Result not available!');
+            }
         }
 
         // Initialize
         loadMarkets();
         loadBannerImages();
-        checkForVerifiedPayments();
         restoreAdminSession();
-        requestNotificationPermission();
         
-        // Manual result check button
+        // Manual check button
         const checkBtn = document.createElement('div');
         checkBtn.style.position = 'fixed';
         checkBtn.style.bottom = '20px';
@@ -1522,41 +1081,13 @@ function clearAllData() {
         checkBtn.onclick = checkResultManually;
         document.body.appendChild(checkBtn);
 
-        // Add animation CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInRight {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
         window.onclick = function(event) {
-            const paymentModal = document.getElementById('paymentModal');
-            const resultModal = document.getElementById('resultModal');
-            const successModal = document.getElementById('successModal');
-            const adminPanel = document.getElementById('adminPanel');
-            if (event.target === paymentModal) closeModal();
-            if (event.target === resultModal) closeResultModal();
-            if (event.target === successModal) closeSuccessModal();
-            if (event.target === adminPanel && isAdminLoggedIn === false) closeAdminPanel();
+            const pm = document.getElementById('paymentModal');
+            const rm = document.getElementById('resultModal');
+            const ap = document.getElementById('adminPanel');
+            if (event.target === pm) closeModal();
+            if (event.target === rm) closeResultModal();
+            if (event.target === ap && !isAdminLoggedIn) closeAdminPanel();
         }
     </script>
 </body>
