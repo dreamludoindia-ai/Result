@@ -4,72 +4,771 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RONAK_LIVE_SHOW - Market Results</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #e65c00 0%, #F9D423 100%);
+            border-radius: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .market-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .market-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .market-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #e65c00, #F9D423);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .market-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .market-price {
+            font-size: 1.2rem;
+            color: #e65c00;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .market-price span {
+            font-size: 1.5rem;
+        }
+
+        .btn-select {
+            background: linear-gradient(135deg, #e65c00, #F9D423);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-select:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(230,92,0,0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 25px;
+            max-width: 500px;
+            width: 90%;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            animation: zoomIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close-modal:hover {
+            color: #e65c00;
+        }
+
+        .modal-market {
+            color: #e65c00;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .amount {
+            font-size: 2rem;
+            color: #e65c00;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: #f0f0f0;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .qr-placeholder img, .result-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .result-image {
+            margin: 20px 0;
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .instruction {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #888;
+            padding: 30px;
+            font-size: 14px;
+        }
+
+        /* Admin Button */
+        .admin-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-size: 24px;
+        }
+
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .admin-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .result-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-confirm {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .login-box {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.8rem; }
+            .market-name { font-size: 1.4rem; }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>🎲 Welcome to RONAK_LIVE_SHOW 🎲</h1>
-            <p>Your Trusted Market Result Platform | Fast & Secure</p>
-        </div>
-
-        <!-- Market Grid -->
-        <div class="market-grid" id="marketGrid"></div>
-
-        <!-- Status Message -->
-        <div id="statusMsg" class="status-msg"></div>
-
-        <div class="footer">
-            <p>⚠️ For any issues, contact us on WhatsApp | Results will be shown after payment confirmation</p>
-            <p>© 2024 RONAK_LIVE_SHOW - All Rights Reserved</p>
-        </div>
+    <div class="header">
+        <h1>🎲 Welcome to RONAK_LIVE_SHOW 🎲</h1>
+        <p>Your Trusted Market Result Platform | Fast & Secure</p>
     </div>
 
-    <!-- Payment Modal -->
-    <div id="paymentModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2>💰 Complete Payment</h2>
-            <p>Selected Market:</p>
-            <div class="modal-market" id="selectedMarket">-</div>
-            <div class="amount">₹ 999/-</div>
-            
-            <div class="qr-placeholder">
-                <img id="qrImage" src="images/qr-code.jpg" alt="Payment QR Code" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=UPI%3Aronak%40999'">
-            </div>
-            <div class="qr-note">Scan QR code to pay ₹999</div>
-            
-            <a href="#" id="whatsappLink" class="btn-whatsapp" target="_blank">
-                📤 Send Screenshot on WhatsApp
-            </a>
-            
-            <div class="instruction">
-                <strong>📌 Instructions:</strong><br>
-                1. Scan QR code & pay ₹999<br>
-                2. Take screenshot of payment<br>
-                3. Click above button to send screenshot on WhatsApp<br>
-                4. Wait for confirmation & result
-            </div>
+    <div class="market-grid" id="marketGrid"></div>
+
+    <div class="footer">
+        <p>⚠️ For any issues, contact us on WhatsApp | Results will be shown after payment confirmation</p>
+        <p>© 2024 RONAK_LIVE_SHOW - All Rights Reserved</p>
+    </div>
+</div>
+
+<!-- Payment Modal -->
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h2>💰 Complete Payment</h2>
+        <p>Selected Market:</p>
+        <div class="modal-market" id="selectedMarket">-</div>
+        <div class="amount">₹ 999/-</div>
+        
+        <div class="qr-placeholder">
+            <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=UPI%3Aronak%40oksbi%26pn%3DRONAK%20LIVE%20SHOW%26am%3D999" alt="Payment QR Code">
+        </div>
+        <div class="qr-note">Scan QR code to pay ₹999</div>
+        
+        <a href="#" id="whatsappLink" class="btn-whatsapp" target="_blank">
+            📤 Send Screenshot on WhatsApp
+        </a>
+        
+        <div class="instruction">
+            <strong>📌 Instructions:</strong><br>
+            1. Scan QR code & pay ₹999<br>
+            2. Take screenshot of payment<br>
+            3. Click above button to send screenshot on WhatsApp<br>
+            4. Wait for confirmation & result
         </div>
     </div>
+</div>
 
-    <!-- Result Modal -->
-    <div id="resultModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeResultModal()">&times;</span>
-            <h2>🎯 Market Result</h2>
-            <div class="modal-market" id="resultMarket">-</div>
-            <div class="result-image" id="resultImageContainer">
-                <img id="resultPic" src="" alt="Result Image">
+<!-- Result Modal -->
+<div id="resultModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeResultModal()">&times;</span>
+        <h2>🎯 Market Result</h2>
+        <div class="modal-market" id="resultMarket">-</div>
+        <div class="result-image">
+            <img id="resultPic" src="" alt="Result Image" style="max-width: 100%; border-radius: 10px;">
+        </div>
+        <div class="instruction" id="resultNote"></div>
+        <button class="btn-select" onclick="closeResultModal()" style="margin-top: 15px;">Close</button>
+    </div>
+</div>
+
+<!-- Admin Toggle Button -->
+<div class="admin-toggle" onclick="showAdminLogin()">👑</div>
+
+<!-- Admin Panel -->
+<div id="adminPanel" class="admin-panel">
+    <div class="admin-container">
+        <div id="adminLoginSection">
+            <div class="admin-header">
+                <h2>🔐 Admin Login</h2>
             </div>
-            <div class="instruction" id="resultNote">
-                ✅ Payment confirmed! Here is your market result.
+            <div class="login-box">
+                <input type="password" id="adminPassword" placeholder="Enter Password">
+                <button class="btn-select" onclick="checkAdminLogin()">Login</button>
+                <p style="margin-top: 15px; font-size: 12px; color: #888;">Default Password: admin123</p>
             </div>
-            <button class="btn-select" onclick="closeResultModal()" style="margin-top: 15px;">Close</button>
+            <button class="btn-select" onclick="closeAdminPanel()" style="margin-top: 10px; background: #666;">Close</button>
+        </div>
+
+        <div id="adminDashboard" style="display: none;">
+            <div class="admin-header">
+                <h2>🎮 Admin Dashboard</h2>
+                <button onclick="logoutAdmin()" style="background: red; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin-top: 10px;">Logout</button>
+            </div>
+
+            <h3>📤 Upload Result Image Links for Each Market</h3>
+            <div id="resultLinksForm"></div>
+
+            <hr style="margin: 20px 0;">
+
+            <h3>📋 Pending Payment Requests</h3>
+            <div id="paymentRequestsList">Loading...</div>
+
+            <button class="btn-select" onclick="closeAdminPanel()" style="margin-top: 20px; background: #666;">Close Admin Panel</button>
         </div>
     </div>
+</div>
+<script>
+    // ============ CONSTANTS & DATA ============
+    const whatsappNumber = "919113224019";
+    const markets = ["SRIDEVI", "MILAN DAY", "KALYAN", "SRIDEVI NIGHT", "MILAN NIGHT", "MAIN BAZAR"];
+    
+    // Store result image links for each market
+    let marketResults = JSON.parse(localStorage.getItem('marketResults') || '{}');
+    
+    // Store payment requests
+    let paymentRequests = JSON.parse(localStorage.getItem('paymentRequests') || '[]');
+    
+    // Store confirmed payments with result access
+    let confirmedPayments = JSON.parse(localStorage.getItem('confirmedPayments') || '[]');
 
-    <script src="script.js"></script>
+    // ============ USER FUNCTIONS ============
+    function loadMarkets() {
+        const grid = document.getElementById('marketGrid');
+        grid.innerHTML = '';
+        
+        markets.forEach(market => {
+            const card = document.createElement('div');
+            card.className = 'market-card';
+            card.innerHTML = `
+                <div class="market-name">${market}</div>
+                <div class="market-price">💰 Entry: <span>₹999/-</span></div>
+                <button class="btn-select" onclick="openPaymentModal('${market}')">Select Market</button>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function openPaymentModal(market) {
+        document.getElementById('selectedMarket').innerHTML = market;
+        
+        // Create unique transaction ID
+        const transactionId = 'TXN' + Date.now() + Math.random().toString(36).substr(2, 6);
+        
+        const message = `NEW PAYMENT REQUEST%0A%0A📊 Market: ${market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${transactionId}%0A%0A⬇️ Send payment screenshot after scanning QR code%0A⬇️ Reply with "CONFIRM ${transactionId}" after verification`;
+        
+        const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
+        document.getElementById('whatsappLink').href = whatsappLink;
+        
+        // Store pending request
+        const pendingRequest = {
+            id: transactionId,
+            market: market,
+            amount: 999,
+            time: new Date().toLocaleString(),
+            status: 'pending'
+        };
+        
+        paymentRequests.push(pendingRequest);
+        localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
+        
+        document.getElementById('paymentModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('paymentModal').style.display = 'none';
+    }
+
+    function closeResultModal() {
+        document.getElementById('resultModal').style.display = 'none';
+    }
+
+    function showResultToUser(marketName) {
+        const result = marketResults[marketName];
+        if (result && result.imageUrl) {
+            document.getElementById('resultMarket').innerHTML = marketName;
+            document.getElementById('resultPic').src = result.imageUrl;
+            document.getElementById('resultNote').innerHTML = result.note || `🎉 Result for ${marketName} on ${result.date || 'today'}`;
+            document.getElementById('resultModal').style.display = 'flex';
+        } else {
+            alert('Result not uploaded yet for this market. Please check back soon!');
+        }
+    }
+
+    // Check for confirmed payments
+    function checkConfirmedPayments() {
+        const userId = localStorage.getItem('userId');
+        if (!userId) return;
+        
+        const myConfirmed = confirmedPayments.filter(p => p.userId === userId);
+        myConfirmed.forEach(payment => {
+            if (!payment.viewed) {
+                showResultToUser(payment.market);
+                payment.viewed = true;
+                localStorage.setItem('confirmedPayments', JSON.stringify(confirmedPayments));
+            }
+        });
+    }
+    // ============ ADMIN FUNCTIONS ============
+function showAdminLogin() {
+    document.getElementById('adminPanel').style.display = 'block';
+    document.getElementById('adminLoginSection').style.display = 'block';
+    document.getElementById('adminDashboard').style.display = 'none';
+}
+
+function closeAdminPanel() {
+    document.getElementById('adminPanel').style.display = 'none';
+}
+
+function checkAdminLogin() {
+    const password = document.getElementById('adminPassword').value;
+    if (password === 'admin123') {
+        document.getElementById('adminLoginSection').style.display = 'none';
+        document.getElementById('adminDashboard').style.display = 'block';
+        loadResultLinksForm();
+        loadPaymentRequestsList();
+    } else {
+        alert('Wrong password! Use: admin123');
+    }
+}
+
+function logoutAdmin() {
+    document.getElementById('adminLoginSection').style.display = 'block';
+    document.getElementById('adminDashboard').style.display = 'none';
+    document.getElementById('adminPassword').value = '';
+}
+
+// Load form to add result image links for each market
+function loadResultLinksForm() {
+    const container = document.getElementById('resultLinksForm');
+    let html = '';
+    
+    markets.forEach(market => {
+        const currentResult = marketResults[market] || {};
+        html += `
+            <div class="result-card">
+                <div style="flex: 1;">
+                    <strong>${market}</strong><br>
+                    <input type="text" id="img_${market.replace(/ /g, '_')}" 
+                           placeholder="Image URL (direct link to result image)" 
+                           value="${currentResult.imageUrl || ''}"
+                           style="width: 100%; padding: 8px; margin: 5px 0;">
+                    <input type="text" id="date_${market.replace(/ /g, '_')}" 
+                           placeholder="Result Date (e.g., 15-04-2026)"
+                           value="${currentResult.date || ''}"
+                           style="width: 100%; padding: 8px; margin: 5px 0;">
+                    <input type="text" id="num_${market.replace(/ /g, '_')}" 
+                           placeholder="Result Number (e.g., 12345)"
+                           value="${currentResult.number || ''}"
+                           style="width: 100%; padding: 8px; margin: 5px 0;">
+                    <textarea id="note_${market.replace(/ /g, '_')}" 
+                              placeholder="Additional note" 
+                              style="width: 100%; padding: 8px; margin: 5px 0;">${currentResult.note || ''}</textarea>
+                </div>
+                <button class="btn-confirm" onclick="saveResultForMarket('${market}')" style="margin-left: 10px;">💾 Save</button>
+            </div>
+        `;
+    });
+    
+    html += `<div class="instruction" style="margin-top: 15px;">
+                <strong>📌 How to get image URL:</strong><br>
+                1. Upload your result image to <strong>imgur.com</strong> or <strong>postimages.org</strong><br>
+                2. Copy the <strong>direct image link</strong> (ends with .jpg or .png)<br>
+                3. Paste it in the Image URL field above<br>
+                4. Click Save button
+            </div>`;
+    
+    container.innerHTML = html;
+}
+
+function saveResultForMarket(market) {
+    const marketKey = market.replace(/ /g, '_');
+    const imageUrl = document.getElementById(`img_${marketKey}`).value;
+    const date = document.getElementById(`date_${marketKey}`).value;
+    const number = document.getElementById(`num_${marketKey}`).value;
+    const note = document.getElementById(`note_${marketKey}`).value;
+    
+    if (!imageUrl) {
+        alert('Please enter an image URL for the result!');
+        return;
+    }
+    
+    marketResults[market] = {
+        imageUrl: imageUrl,
+        date: date || new Date().toLocaleDateString(),
+        number: number || 'N/A',
+        note: note || `🎉 ${market} Result for ${date || 'today'}: ${number || 'Check image'}`
+    };
+    
+    localStorage.setItem('marketResults', JSON.stringify(marketResults));
+    alert(`✅ Result for ${market} saved successfully!`);
+    loadResultLinksForm();
+}
+            // Load pending payment requests
+        function loadPaymentRequestsList() {
+            const container = document.getElementById('paymentRequestsList');
+            
+            if (paymentRequests.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #888;">No pending payment requests</p>';
+                return;
+            }
+            
+            let html = '';
+            paymentRequests.forEach((req, index) => {
+                const hasResult = marketResults[req.market] && marketResults[req.market].imageUrl;
+                html += `
+                    <div class="result-card">
+                        <div>
+                            <strong>${req.market}</strong><br>
+                            ID: ${req.id}<br>
+                            Amount: ₹${req.amount}<br>
+                            Time: ${req.time}
+                        </div>
+                        <div>
+                            ${hasResult ? 
+                                `<button class="btn-confirm" onclick="confirmPaymentAndShowResult(${index})">✅ Confirm & Show Result</button>` : 
+                                `<button class="btn-confirm" style="background: #ffc107;" onclick="alert('Please upload result image for ${req.market} first!')">⚠️ Upload Result First</button>`
+                            }
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // NEW METHOD: Confirm payment and give user access to result
+        function confirmPaymentAndShowResult(index) {
+            const request = paymentRequests[index];
+            const result = marketResults[request.market];
+            
+            if (!result || !result.imageUrl) {
+                alert(`Please upload result for ${request.market} first!`);
+                return;
+            }
+            
+            // Generate unique user access code
+            const accessCode = 'RESULT_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
+            
+            // Store confirmed payment with result access
+            confirmedPayments.push({
+                id: request.id,
+                market: request.market,
+                userId: accessCode,
+                resultImageUrl: result.imageUrl,
+                resultNote: result.note,
+                confirmedAt: new Date().toLocaleString(),
+                viewed: false
+            });
+            
+            localStorage.setItem('confirmedPayments', JSON.stringify(confirmedPayments));
+            
+            // Create WhatsApp message to send result link to user
+            const siteUrl = window.location.href;
+            const resultLink = `${siteUrl}?result=${accessCode}&market=${encodeURIComponent(request.market)}`;
+            
+            const whatsappMessage = `✅ PAYMENT CONFIRMED! ✅%0A%0A📊 Market: ${request.market}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${request.id}%0A%0A🎯 YOUR RESULT: %0A${result.imageUrl}%0A%0A📝 Note: ${result.note}%0A%0AThank you for using RONAK_LIVE_SHOW! 🎉`;
+            
+            const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+            
+            // Open WhatsApp with result
+            window.open(whatsappLink, '_blank');
+            
+            // Remove from pending requests
+            paymentRequests.splice(index, 1);
+            localStorage.setItem('paymentRequests', JSON.stringify(paymentRequests));
+            
+            alert(`✅ Payment confirmed! Result link sent to user via WhatsApp.`);
+            loadPaymentRequestsList();
+        }
+
+        // Check URL for result access
+        function checkUrlForResult() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const resultCode = urlParams.get('result');
+            const market = urlParams.get('market');
+            
+            if (resultCode && market) {
+                const payment = confirmedPayments.find(p => p.userId === resultCode);
+                if (payment && !payment.viewed) {
+                    showResultToUser(market);
+                    payment.viewed = true;
+                    localStorage.setItem('confirmedPayments', JSON.stringify(confirmedPayments));
+                    // Remove from URL
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            }
+        }
+
+        // Manual result check (for users who have access code)
+        function checkResultWithAccessCode() {
+            const code = prompt('Enter your access code (sent via WhatsApp):');
+            if (code) {
+                const payment = confirmedPayments.find(p => p.userId === code);
+                if (payment) {
+                    showResultToUser(payment.market);
+                    payment.viewed = true;
+                    localStorage.setItem('confirmedPayments', JSON.stringify(confirmedPayments));
+                } else {
+                    alert('Invalid or expired access code!');
+                }
+            }
+        }
+
+        // Initialize
+        loadMarkets();
+        checkUrlForResult();
+        
+        // Add helper button for users to check result
+        const checkResultBtn = document.createElement('div');
+        checkResultBtn.style.position = 'fixed';
+        checkResultBtn.style.bottom = '20px';
+        checkResultBtn.style.left = '20px';
+        checkResultBtn.style.background = '#25D366';
+        checkResultBtn.style.color = 'white';
+        checkResultBtn.style.width = '50px';
+        checkResultBtn.style.height = '50px';
+        checkResultBtn.style.borderRadius = '50%';
+        checkResultBtn.style.display = 'flex';
+        checkResultBtn.style.alignItems = 'center';
+        checkResultBtn.style.justifyContent = 'center';
+        checkResultBtn.style.cursor = 'pointer';
+        checkResultBtn.style.zIndex = '999';
+        checkResultBtn.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
+        checkResultBtn.innerHTML = '🔍';
+        checkResultBtn.title = 'Check Result with Access Code';
+        checkResultBtn.onclick = checkResultWithAccessCode;
+        document.body.appendChild(checkResultBtn);
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            const paymentModal = document.getElementById('paymentModal');
+            const resultModal = document.getElementById('resultModal');
+            const adminPanel = document.getElementById('adminPanel');
+            if (event.target === paymentModal) closeModal();
+            if (event.target === resultModal) closeResultModal();
+            if (event.target === adminPanel) closeAdminPanel();
+        }
+    </script>
 </body>
 </html>
