@@ -1,753 +1,601 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>RONAK LIVE SHOW - Professional Market Results</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Auto UPI Payment | Instant Checkout</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+    }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #0a0a0a;
-            min-height: 100vh;
-            padding: 24px;
-        }
+    body {
+      background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    /* main card container */
+    .payment-container {
+      max-width: 620px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 2.5rem;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.02);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
 
-        /* Header Section */
-        .header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
+    .payment-container:hover {
+      transform: scale(1.01);
+    }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
+    /* header */
+    .gradient-header {
+      background: linear-gradient(98deg, #0f2b3d 0%, #1b4f6e 100%);
+      padding: 1.8rem 2rem;
+      color: white;
+      text-align: center;
+    }
 
-        .logo-icon {
-            font-size: 2rem;
-            background: linear-gradient(135deg, #22c55e, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .gradient-header h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
 
-        .logo span {
-            background: linear-gradient(135deg, #22c55e, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .gradient-header h1:before {
+      content: "💸";
+      font-size: 1.9rem;
+    }
 
-        .tagline {
-            color: #94a3b8;
-            font-size: 0.85rem;
-            margin-top: 8px;
-            font-weight: 500;
-        }
+    .gradient-header p {
+      opacity: 0.85;
+      font-size: 0.9rem;
+      margin-top: 6px;
+      font-weight: 500;
+    }
 
-        /* Banner Images */
-        .top-banner {
-            margin-bottom: 40px;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease;
-        }
+    /* content */
+    .form-section {
+      padding: 2rem 2rem 1.8rem;
+    }
 
-        .top-banner:hover {
-            transform: translateY(-4px);
-        }
+    .amount-selector {
+      background: #f8fafc;
+      border-radius: 2rem;
+      padding: 0.8rem 1.2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid #e2edf2;
+    }
 
-        .bottom-banner {
-            margin-top: 40px;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease;
-        }
+    .amount-label {
+      font-weight: 600;
+      color: #1e2f3e;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+    }
 
-        .bottom-banner:hover {
-            transform: translateY(-4px);
-        }
+    .amount-label span {
+      background: #1b4f6e;
+      color: white;
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      border-radius: 40px;
+    }
 
-        .banner-img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-        }
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      background: linear-gradient(90deg, #2c7a4d, #f4b942);
+      border-radius: 10px;
+      outline: none;
+      margin: 16px 0 12px;
+    }
 
-        /* Section Title */
-        .section-title {
-            text-align: center;
-            margin-bottom: 28px;
-        }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      background: #0f2b3d;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      border: 2px solid white;
+    }
 
-        .section-title h2 {
-            color: white;
-            font-size: 1.6rem;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .amount-value {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
 
-        .section-title p {
-            color: #64748b;
-            font-size: 0.85rem;
-            margin-top: 6px;
-        }
+    .current-amount {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0f2b3d;
+      background: #ffffff;
+      padding: 0.2rem 1rem;
+      border-radius: 60px;
+      letter-spacing: 1px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
 
-        /* Market Grid */
-        .market-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 48px;
-        }
+    .currency {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2c5a74;
+    }
 
-        .market-card {
-            background: #1a1a2e;
-            border-radius: 20px;
-            padding: 24px 16px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
+    .range-limits {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #5e7e93;
+      font-weight: 500;
+    }
 
-        .market-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(34,197,94,0.1), transparent);
-            transition: left 0.5s;
-        }
+    /* proceed button */
+    .proceed-btn {
+      width: 100%;
+      background: linear-gradient(105deg, #0f2b3d 0%, #1f5575 100%);
+      border: none;
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin: 1rem 0 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    }
 
-        .market-card:hover::before {
-            left: 100%;
-        }
+    .proceed-btn:active {
+      transform: scale(0.97);
+    }
 
-        .market-card:hover {
-            transform: translateY(-6px);
-            border-color: #22c55e;
-            box-shadow: 0 20px 30px -12px rgba(34, 197, 94, 0.2);
-        }
+    /* UPI options panel (hidden initially) */
+    .upi-panel {
+      background: #fefefe;
+      border-radius: 2rem;
+      margin-top: 1.6rem;
+      padding: 1rem 0 0.5rem 0;
+      border-top: 2px dashed #cbdde6;
+      transition: all 0.3s ease;
+    }
 
-        .market-icon {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
-        }
+    .upi-title {
+      font-weight: 700;
+      color: #1a4b6e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 0.5rem 0.8rem 0.5rem;
+      font-size: 1rem;
+    }
 
-        .market-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
+    .apps-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 10px 0 16px;
+      justify-content: center;
+    }
 
-        .market-price {
-            font-size: 0.8rem;
-            color: #3b82f6;
-            font-weight: 600;
-            margin: 12px 0;
-        }
+    .app-btn {
+      background: white;
+      border: 1.5px solid #cbdde6;
+      border-radius: 80px;
+      padding: 10px 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #1f3b4c;
+      cursor: pointer;
+      transition: all 0.2s;
+      backdrop-filter: blur(2px);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
 
-        .market-price span {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #22c55e;
-        }
+    .app-btn:hover {
+      background: #f0f6fa;
+      border-color: #1b6b93;
+      transform: translateY(-2px);
+    }
 
-        .select-btn {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            color: white;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-        }
+    .app-icon {
+      font-size: 1.6rem;
+    }
 
-        .select-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
-        }
+    .upi-id-badge {
+      background: #eef3f7;
+      border-radius: 20px;
+      padding: 12px 16px;
+      margin: 12px 0 6px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-left: 4px solid #279b6b;
+    }
 
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+    .upi-id-text {
+      font-family: monospace;
+      font-weight: 600;
+      background: #fff;
+      padding: 5px 12px;
+      border-radius: 40px;
+      word-break: break-all;
+      color: #095a36;
+    }
 
-        .modal-content {
-            background: #1a1a2e;
-            border-radius: 32px;
-            max-width: 480px;
-            width: 100%;
-            padding: 32px 28px;
-            text-align: center;
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            animation: modalPop 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
-        }
+    .copy-badge {
+      background: white;
+      border: none;
+      font-size: 0.7rem;
+      padding: 5px 12px;
+      border-radius: 30px;
+      cursor: pointer;
+    }
 
-        @keyframes modalPop {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
+    .status-msg {
+      font-size: 0.8rem;
+      text-align: center;
+      margin: 12px 0 10px;
+      padding: 6px;
+      border-radius: 60px;
+      color: #166534;
+      background: #e6f7ec;
+    }
 
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 24px;
-            font-size: 28px;
-            cursor: pointer;
-            color: #94a3b8;
-            transition: 0.3s;
-        }
+    hr {
+      margin: 10px 0;
+      border-color: #e2edf2;
+    }
 
-        .close-modal:hover {
-            color: #22c55e;
-        }
+    .footer-note {
+      font-size: 0.7rem;
+      text-align: center;
+      color: #6f8ea3;
+      padding: 1rem 1rem 1.2rem;
+      background: #f9fdfe;
+    }
 
-        .modal-header h2 {
-            color: white;
-            font-size: 1.6rem;
-            font-weight: 700;
-        }
+    .hide {
+      display: none;
+    }
 
-        .modal-market {
-            color: #3b82f6;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 8px 0;
-        }
-
-        .amount {
-            font-size: 2rem;
-            color: #22c55e;
-            font-weight: 800;
-            margin: 12px 0;
-        }
-
-        /* Timer Box */
-        .timer-box {
-            background: #0f0f1a;
-            border-radius: 20px;
-            padding: 16px;
-            margin: 20px 0;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        .timer-label {
-            color: #94a3b8;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .timer-value {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #3b82f6;
-            font-family: monospace;
-            letter-spacing: 3px;
-        }
-
-        .timer-warning {
-            color: #ef4444;
-            font-size: 0.7rem;
-            margin-top: 6px;
-        }
-
-        /* QR Code */
-        .qr-container {
-            background: white;
-            padding: 16px;
-            border-radius: 24px;
-            margin: 20px 0;
-        }
-
-        .qr-container img {
-            width: 100%;
-            max-width: 220px;
-            height: auto;
-            margin: 0 auto;
-            display: block;
-        }
-
-        /* I HAVE PAID Button */
-        .paid-btn {
-            background: linear-gradient(135deg, #22c55e, #059669);
-            color: white;
-            border: none;
-            padding: 16px 24px;
-            border-radius: 60px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 16px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .paid-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
-        }
-
-        /* Instruction Box */
-        .instruction {
-            background: #0f0f1a;
-            border-radius: 16px;
-            padding: 14px;
-            font-size: 0.7rem;
-            text-align: left;
-            margin-top: 20px;
-            color: #94a3b8;
-            border-left: 3px solid #22c55e;
-        }
-
-        .instruction strong {
-            color: #22c55e;
-        }
-
-        /* Result Modal */
-        .result-modal .modal-content {
-            max-width: 420px;
-        }
-
-        .result-image {
-            background: #0f0f1a;
-            border-radius: 20px;
-            padding: 10px;
-            margin: 15px 0;
-        }
-
-        .result-image img {
-            width: 100%;
-            border-radius: 12px;
-        }
-
-        /* Manual Check Button */
-        .check-btn {
-            position: fixed;
-            bottom: 24px;
-            left: 24px;
-            background: #1a1a2e;
-            color: #22c55e;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 99;
-            border: 1px solid #22c55e;
-            font-size: 22px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .check-btn:hover {
-            transform: scale(1.08);
-            background: #22c55e;
-            color: white;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            color: #475569;
-            padding: 40px 20px 20px;
-            font-size: 0.7rem;
-            border-top: 1px solid rgba(71, 85, 105, 0.3);
-            margin-top: 40px;
-        }
-
-        @media (max-width: 768px) {
-            body { padding: 16px; }
-            .market-grid { gap: 12px; }
-            .market-name { font-size: 0.9rem; }
-            .modal-content { padding: 24px 20px; }
-            .logo { font-size: 1.5rem; }
-            .logo-icon { font-size: 1.5rem; }
-        }
-    </style>
+    button {
+      background: none;
+      border: none;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <!-- Header -->
-    <div class="header">
-        <h1 class="logo">
-            <span class="logo-icon">👑</span>
-            RONAK<span>_LIVE_SHOW</span>
-            <span class="logo-icon">⭐</span>
-        </h1>
-        <p class="tagline">Trusted Market Results Platform | Instant Updates | 24/7 Support</p>
+
+<div class="payment-container" id="app">
+  <div class="gradient-header">
+    <h1>Auto UPI Payment</h1>
+    <p>Select amount → Choose UPI app → Auto-filled & pay</p>
+  </div>
+
+  <div class="form-section">
+    <!-- Amount slider 100 to 20000 -->
+    <div class="amount-selector">
+      <div class="amount-label">
+        💰 Payment Amount <span>₹100 – ₹20,000</span>
+      </div>
+      <input type="range" id="amountSlider" min="100" max="20000" value="999" step="1">
+      <div class="amount-value">
+        <span class="current-amount" id="amountDisplay">₹999</span>
+        <span class="currency">INR</span>
+      </div>
+      <div class="range-limits">
+        <span>₹100</span>
+        <span>₹20,000</span>
+      </div>
     </div>
 
-    <!-- Top Banner Image -->
-    <div class="top-banner">
-        <img src="https://i.imgur.com/Pi3A3q5.jpeg" alt="Top Banner" class="banner-img" id="topBanner">
-    </div>
+    <!-- Proceed Button (triggers showing UPI options) -->
+    <button class="proceed-btn" id="proceedBtn">
+      🔄 Proceed to Pay <span id="proceedAmountHint"></span>
+    </button>
 
-    <!-- Section Title -->
-    <div class="section-title">
-        <h2>✨ Select Your Market ✨</h2>
-        <p>Choose a market to get instant results</p>
+    <!-- UPI APPS PANEL (hidden until proceed) -->
+    <div id="upiPanel" class="upi-panel hide">
+      <div class="upi-title">
+        📱 Select UPI App installed on your phone
+      </div>
+      <div class="apps-grid" id="appsGrid">
+        <!-- dynamic but we will hardcode popular indian upi apps with detection attempt -->
+      </div>
+      
+      <!-- Pre-filled UPI ID & Amount section (auto filled) -->
+      <div class="upi-id-badge" id="upiInfoBox">
+        <span>🏦 Pre-filled UPI ID:</span>
+        <strong class="upi-id-text" id="prefilledUpiId">paytmqr2810050501011r80bazrbfpc@paytm</strong>
+        <button id="copyUpiBtn" class="copy-badge">📋 Copy</button>
+      </div>
+      
+      <div class="upi-id-badge" style="border-left-color: #f4b942;">
+        <span>💵 Pre-filled Amount:</span>
+        <strong id="prefilledAmountSpan" style="font-size:1.1rem;">₹0</strong>
+        <span style="font-size:0.7rem;">(auto-filled in UPI link)</span>
+      </div>
+      
+      <div id="paymentStatus" class="status-msg">
+        ✅ Ready: tap any UPI app → pay with prefilled details
+      </div>
     </div>
-
-    <!-- Market Grid -->
-    <div class="market-grid" id="marketGrid"></div>
-
-    <!-- Bottom Banner Image -->
-    <div class="bottom-banner">
-        <img src="https://i.imgur.com/Pi3A3q5.jpeg" alt="Bottom Banner" class="banner-img" id="bottomBanner">
+    <div class="footer-note">
+      ⚡ UPI intent will auto-fill ID & amount. Click any app → redirected to payment.
     </div>
-
-    <!-- Footer -->
-    <div class="footer">
-        <p>© 2024 RONAK LIVE SHOW - All Rights Reserved</p>
-        <p style="margin-top: 6px;">Support: WhatsApp Only | 24/7 Customer Support</p>
-    </div>
+  </div>
 </div>
 
-<!-- Payment Modal -->
-<div id="paymentModal" class="modal">
-    <div class="modal-content" style="position: relative;">
-        <span class="close-modal" onclick="closePaymentModal()">&times;</span>
-        <div class="modal-header">
-            <h2>💰 Complete Payment</h2>
-            <div class="modal-market" id="selectedMarket">-</div>
-            <div class="amount">₹ 999/-</div>
-        </div>
-        
-        <div class="timer-box">
-            <div class="timer-label">⏱️ Complete payment within</div>
-            <div class="timer-value" id="timerDisplay">10:00</div>
-            <div class="timer-warning" id="timerWarning"></div>
-        </div>
-        
-        <div class="qr-container">
-            <img id="qrImage" src="https://i.imgur.com/W4JYgb3.jpeg" alt="Payment QR Code">
-        </div>
-        
-        <button class="paid-btn" onclick="handlePaymentDone()">
-            ✅ I HAVE PAID
-        </button>
-        
-        <div class="instruction">
-            <strong>📌 How to get your result:</strong><br>
-            1️⃣ Scan QR code above & pay ₹999<br>
-            2️⃣ Take screenshot of payment success<br>
-            3️⃣ Click <strong>"I HAVE PAID"</strong> button<br>
-            4️⃣ Send screenshot on WhatsApp<br>
-            5️⃣ You will receive result within 5-10 minutes
-        </div>
-    </div>
-</div>
-
-<!-- Result Modal -->
-<div id="resultModal" class="modal result-modal">
-    <div class="modal-content" style="position: relative;">
-        <span class="close-modal" onclick="closeResultModal()">&times;</span>
-        <div class="modal-header">
-            <h2>🎯 Market Result</h2>
-            <div class="modal-market" id="resultMarketName">-</div>
-        </div>
-        <div class="result-image">
-            <img id="resultImage" src="" alt="Result Image">
-        </div>
-        <div id="resultNote" class="instruction" style="margin-top: 0; text-align: center;"></div>
-        <button class="select-btn" onclick="closeResultModal()" style="margin-top: 20px;">Close</button>
-    </div>
-</div>
-
-<!-- Manual Check Button (Bottom Left) -->
-<div class="check-btn" onclick="checkResultManually()">
-    🔍
-</div>
-    <script>
-        // ============ CONFIGURATION ============
-        const WHATSAPP_NUMBER = "919113224019";
-        const MARKETS = ["SRIDEVI", "MILAN DAY", "KALYAN", "SRIDEVI NIGHT", "MILAN NIGHT", "MAIN BAZAR"];
-        
-        // State variables
-        let currentMarket = null;
-        let currentTransactionId = null;
-        let timerInterval = null;
-        
-        // Get stored results
-        let storedResults = JSON.parse(localStorage.getItem('market_results_data') || '{}');
-
-        // ============ LOAD MARKETS ============
-        function loadMarkets() {
-            const grid = document.getElementById('marketGrid');
-            grid.innerHTML = '';
-            
-            const marketIcons = ["🏆", "🎯", "⭐", "💎", "🔥", "👑"];
-            
-            MARKETS.forEach((market, index) => {
-                const card = document.createElement('div');
-                card.className = 'market-card';
-                card.innerHTML = `
-                    <div class="market-icon">${marketIcons[index % marketIcons.length]}</div>
-                    <div class="market-name">${market}</div>
-                    <div class="market-price">Entry: ₹<span>999</span></div>
-                    <button class="select-btn" onclick="openPaymentModal('${market}')">Select Market</button>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // ============ OPEN PAYMENT MODAL ============
-        function openPaymentModal(market) {
-            currentMarket = market;
-            currentTransactionId = 'TXN_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8).toUpperCase();
-            
-            document.getElementById('selectedMarket').innerHTML = market;
-            document.getElementById('paymentModal').style.display = 'flex';
-            startTimer(600);
-        }
-
-        // ============ TIMER FUNCTION ============
-        function startTimer(seconds) {
-            if (timerInterval) clearInterval(timerInterval);
-            
-            let timeLeft = seconds;
-            const timerDisplay = document.getElementById('timerDisplay');
-            const timerWarning = document.getElementById('timerWarning');
-            
-            function updateTimer() {
-                const mins = Math.floor(timeLeft / 60);
-                const secs = timeLeft % 60;
-                timerDisplay.innerHTML = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-                
-                if (timeLeft <= 180 && timeLeft > 0) {
-                    timerWarning.innerHTML = "⚠️ Only 3 minutes left! Complete payment quickly.";
-                } else if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    timerDisplay.innerHTML = "00:00";
-                    timerWarning.innerHTML = "⏰ Time expired! Please refresh and try again.";
-                    const paidBtn = document.querySelector('.paid-btn');
-                    if(paidBtn) {
-                        paidBtn.style.opacity = '0.5';
-                        paidBtn.style.pointerEvents = 'none';
-                    }
-                }
-                timeLeft--;
+<script>
+  // ----- CONFIGURATION -----
+  // Fixed UPI ID as per requirement: paytmqr2810050501011r80bazrbfpc@paytm
+  const FIXED_UPI_ID = "paytmqr2810050501011r80bazrbfpc@paytm";
+  
+  // DOM elements
+  const slider = document.getElementById('amountSlider');
+  const amountDisplaySpan = document.getElementById('amountDisplay');
+  const proceedBtn = document.getElementById('proceedBtn');
+  const upiPanel = document.getElementById('upiPanel');
+  const prefilledUpiSpan = document.getElementById('prefilledUpiId');
+  const prefilledAmountSpan = document.getElementById('prefilledAmountSpan');
+  const copyUpiBtn = document.getElementById('copyUpiBtn');
+  const proceedAmountHint = document.getElementById('proceedAmountHint');
+  
+  // current selected amount (default 999)
+  let currentAmount = 999;
+  
+  // update amount display + realtime
+  function updateAmount(value) {
+    currentAmount = parseInt(value, 10);
+    amountDisplaySpan.innerText = `₹${currentAmount.toLocaleString('en-IN')}`;
+    if (proceedAmountHint) {
+      proceedAmountHint.innerText = `(₹${currentAmount.toLocaleString('en-IN')})`;
+    }
+    // If UPI panel already visible, update prefilled amount there dynamically
+    if (upiPanel && !upiPanel.classList.contains('hide')) {
+      prefilledAmountSpan.innerText = `₹${currentAmount.toLocaleString('en-IN')}`;
+      // also update any existing pay links? we re-generate apps on click anyway, but also reflect amount in app buttons later
+      refreshUPIAppButtons();
+    }
+  }
+  
+  // slider event
+  slider.addEventListener('input', (e) => {
+    updateAmount(e.target.value);
+  });
+  
+  // generate UPI deep link for a given app package (or generic upi://)
+  // returns a URI that pre-fills pa (payee address) & am (amount) & cu=INR
+  function generateUpiLink(upiIntentMode, packageName = null) {
+    // Standard UPI intent parameters
+    const params = new URLSearchParams();
+    params.append('pa', FIXED_UPI_ID);        // payee VPA
+    params.append('pn', 'Merchant Store');     // payee name
+    params.append('am', currentAmount.toFixed(2));
+    params.append('cu', 'INR');
+    params.append('mode', '00');               // default intent
+    
+    // For native apps: some apps respond better to upi://pay? or paytmmp:// ?
+    // We'll use standard upi://pay? for most intent, and paytm specific if needed.
+    // But the requirement: show upi apps installed on phone, auto pre-filled upi id + amount.
+    // Using "upi://pay?" works for all UPI apps (Google Pay, PhonePe, PayTM, Amazon Pay, etc)
+    // However, for better detection we provide separate click handlers that trigger intent via location.href or iframe.
+    // To ensure "auto prefilled upi id and amount", we embed same params.
+    
+    if (packageName && packageName === 'net.one97.paytm') {
+      // PayTM can use paytmmp://pay? but standard upi:// works too. We'll use consistent upi://pay? for reliability
+      return `upi://pay?${params.toString()}`;
+    } else if (packageName && packageName === 'com.google.android.apps.nbu.pay') {
+      return `upi://pay?${params.toString()}`;
+    } else if (packageName && packageName === 'com.phonepe.app') {
+      return `upi://pay?${params.toString()}`;
+    } else if (packageName && packageName === 'in.amazon.mShop.android.shopping') {
+      return `upi://pay?${params.toString()}`;
+    } else {
+      // generic upi intent
+      return `upi://pay?${params.toString()}`;
+    }
+  }
+  
+  // Detect if an app is installed on Android (via user agent + custom scheme intent fallback)
+  // For web on mobile, we cannot fully detect but we can attempt to use intent:// for android
+  // We'll provide smart UPI links that try to open the app, if not installed play store fallback.
+  // For GitHub Pages simplicity, we provide "click to pay" that tries to open UPI intent, 
+  // and shows a helpful toast. Since it's a web page, we cannot guarantee detection of installed apps,
+  // but we present common UPI apps and use intent out-of-the-box that triggers installed app.
+  // According to spec: "show options upi app installed there phone" -> we show popular apps, user selects the one they have.
+  
+  function getAppList() {
+    return [
+      { name: "Google Pay", icon: "📱", package: "com.google.android.apps.nbu.pay", scheme: "gpay://", upiFallback: true },
+      { name: "PhonePe", icon: "📲", package: "com.phonepe.app", scheme: "phonepe://", upiFallback: true },
+      { name: "PayTM", icon: "🔷", package: "net.one97.paytm", scheme: "paytmmp://", upiFallback: true },
+      { name: "Amazon Pay", icon: "📦", package: "in.amazon.mShop.android.shopping", scheme: "amazonpay://", upiFallback: true },
+      { name: "BHIM", icon: "🇮🇳", package: "in.org.npci.upiapp", scheme: "bhim://", upiFallback: true },
+      { name: "Other UPI", icon: "⚡", package: null, scheme: "upi://", upiFallback: true }
+    ];
+  }
+  
+  // refresh the UI buttons for UPI apps (so they reflect latest amount)
+  function refreshUPIAppButtons() {
+    const appsGrid = document.getElementById('appsGrid');
+    if (!appsGrid) return;
+    const apps = getAppList();
+    appsGrid.innerHTML = '';
+    apps.forEach(app => {
+      const btn = document.createElement('button');
+      btn.className = 'app-btn';
+      btn.innerHTML = `<span class="app-icon">${app.icon}</span><span>${app.name}</span>`;
+      // attach click handler to trigger payment with current amount & fixed UPI ID
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        triggerUpiPayment(app);
+      });
+      appsGrid.appendChild(btn);
+    });
+  }
+  
+  // trigger upi payment with the selected app
+  function triggerUpiPayment(app) {
+    if (!currentAmount || currentAmount < 100 || currentAmount > 20000) {
+      showStatusMessage("⚠️ Please select amount between ₹100 to ₹20,000", "error");
+      return;
+    }
+    
+    // Build UPI link with latest amount and fixed upi id
+    const upiParams = new URLSearchParams();
+    upiParams.append('pa', FIXED_UPI_ID);
+    upiParams.append('pn', 'AutoMerchant');
+    upiParams.append('am', currentAmount.toFixed(2));
+    upiParams.append('cu', 'INR');
+    upiParams.append('tn', `Payment of ₹${currentAmount}`);
+    
+    let upiDeepLink = '';
+    // Use package-specific intent if possible for better opening experience on Android.
+    const isAndroid = /android/i.test(navigator.userAgent);
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    
+    if (isAndroid && app.package) {
+      // Android intent:// syntax for opening specific app if installed, fallback to play store
+      // intent://pay?pa=xxx#Intent;scheme=upi;package=com.example;end;
+      // But more reliable: upi://pay? parameters with fallback.
+      // We'll use standard upi:// intent and let Android choose the app. But to target specific app,
+      // we can use "intent://" with package. safer: use upi:// and if user selects specific app, they trust.
+      // Given requirement shows "options upi app installed there phone", but we just offer buttons for major apps.
+      // Better: use intent:// scheme with package name so that if app not installed google play opens.
+      const intentUrl = `intent://pay?pa=${encodeURIComponent(FIXED_UPI_ID)}&pn=Merchant&am=${currentAmount}&cu=INR#Intent;scheme=upi;package=${app.package};end`;
+      upiDeepLink = intentUrl;
+    } else if (isIOS && app.name === 'PayTM') {
+      // For iOS use paytm:// or upi scheme
+      upiDeepLink = `paytm://upi/pay?pa=${encodeURIComponent(FIXED_UPI_ID)}&am=${currentAmount}&cu=INR`;
+    } else {
+      // generic upi:// for all platforms (works great on both)
+      upiDeepLink = `upi://pay?${upiParams.toString()}`;
+    }
+    
+    // Fallback to standard upi if intent fails for some reason, but try best
+    // Show status and attempt redirect
+    showStatusMessage(`⏳ Opening ${app.name} with ₹${currentAmount} pre-filled...`, "info");
+    
+    // attempt to open link
+    window.location.href = upiDeepLink;
+    
+    // Fallback timer: if after 1.5s still on page, show instruction to install app
+    setTimeout(() => {
+      showStatusMessage(`⚠️ If ${app.name} didn't open, ensure app is installed or try another UPI app.`, "warning");
+    }, 1800);
+  }
+  
+  function showStatusMessage(msg, type = "info") {
+    const statusDiv = document.getElementById('paymentStatus');
+    if (statusDiv) {
+      statusDiv.innerHTML = msg;
+      statusDiv.style.background = type === "error" ? "#fee2e2" : (type === "warning" ? "#fff3e0" : "#e6f7ec");
+      statusDiv.style.color = type === "error" ? "#b91c1c" : (type === "warning" ? "#b45309" : "#166534");
+      setTimeout(() => {
+        if (document.getElementById('paymentStatus') && !statusDiv.innerHTML.includes("✅")) {
+          // Keep message but revert after 4 sec if not overwritten
+          setTimeout(() => {
+            if (statusDiv.innerHTML === msg) {
+              statusDiv.innerHTML = "✅ Ready: tap any UPI app → pay with prefilled details";
+              statusDiv.style.background = "#e6f7ec";
+              statusDiv.style.color = "#166534";
             }
-            
-            updateTimer();
-            timerInterval = setInterval(() => {
-                if (timeLeft >= 0) {
-                    updateTimer();
-                } else {
-                    clearInterval(timerInterval);
-                }
-            }, 1000);
+          }, 3500);
         }
-
-        // ============ HANDLE PAYMENT DONE ============
-        function handlePaymentDone() {
-            if (!currentMarket || !currentTransactionId) {
-                alert('Please select a market first!');
-                return;
-            }
-            
-            // Store payment request in localStorage for tracking
-            let paymentRequests = JSON.parse(localStorage.getItem('payment_requests_list') || '[]');
-            paymentRequests.push({
-                id: currentTransactionId,
-                market: currentMarket,
-                amount: 999,
-                time: new Date().toLocaleString(),
-                status: 'pending'
-            });
-            localStorage.setItem('payment_requests_list', JSON.stringify(paymentRequests));
-            
-            // Create WhatsApp message
-            const whatsappMessage = `🔔 NEW PAYMENT REQUEST 🔔%0A%0A📊 Market: ${currentMarket}%0A💰 Amount: ₹999%0A🆔 Transaction ID: ${currentTransactionId}%0A📅 Time: ${new Date().toLocaleString()}%0A%0A⬇️⬇️⬇️ Send payment screenshot below ⬇️⬇️⬇️%0A%0A(Attach your payment screenshot here)`;
-            
-            const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`;
-            window.open(whatsappLink, '_blank');
-            
-            // Show confirmation to user
-            alert(`✅ Request Sent Successfully!\n\n📊 Market: ${currentMarket}\n🆔 ID: ${currentTransactionId}\n\n📸 Please send your payment screenshot on WhatsApp.\n\nYou will receive your result within 5-10 minutes.`);
-            
-            // Close modal and cleanup
-            closePaymentModal();
-            if (timerInterval) clearInterval(timerInterval);
-        }
-
-        // ============ CLOSE MODALS ============
-        function closePaymentModal() {
-            if (timerInterval) clearInterval(timerInterval);
-            document.getElementById('paymentModal').style.display = 'none';
-            currentMarket = null;
-            currentTransactionId = null;
-        }
-
-        function closeResultModal() {
-            document.getElementById('resultModal').style.display = 'none';
-        }
-
-        // ============ CHECK RESULT MANUALLY ============
-        function checkResultManually() {
-            const market = prompt("Enter market name:\n\nSRIDEVI\nMILAN DAY\nKALYAN\nSRIDEVI NIGHT\nMILAN NIGHT\nMAIN BAZAR");
-            
-            if (!market) return;
-            
-            const upperMarket = market.toUpperCase();
-            const result = storedResults[upperMarket];
-            
-            if (result && result.imageUrl) {
-                document.getElementById('resultMarketName').innerHTML = upperMarket;
-                document.getElementById('resultImage').src = result.imageUrl;
-                document.getElementById('resultNote').innerHTML = result.note || `🎉 ${upperMarket} Result`;
-                document.getElementById('resultModal').style.display = 'flex';
-            } else {
-                alert(`❌ Result not available for ${upperMarket} yet.\n\nPlease check back later.`);
-            }
-        }
-
-        // ============ LOAD BANNER IMAGES ============
-        function loadBanners() {
-            // Banners already set in HTML, but keep for localStorage updates
-            const topBanner = localStorage.getItem('top_banner_image');
-            const bottomBanner = localStorage.getItem('bottom_banner_image');
-            
-            if (topBanner) {
-                document.getElementById('topBanner').src = topBanner;
-            }
-            if (bottomBanner) {
-                document.getElementById('bottomBanner').src = bottomBanner;
-            }
-        }
-
-        // ============ CHECK FOR RESULT ON PAGE LOAD ============
-        function checkUrlForResult() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const resultData = urlParams.get('result');
-            
-            if (resultData) {
-                try {
-                    const result = JSON.parse(atob(resultData));
-                    if (result.imageUrl) {
-                        document.getElementById('resultMarketName').innerHTML = result.market;
-                        document.getElementById('resultImage').src = result.imageUrl;
-                        document.getElementById('resultNote').innerHTML = result.note;
-                        document.getElementById('resultModal').style.display = 'flex';
-                        window.history.replaceState({}, document.title, window.location.pathname);
-                    }
-                } catch(e) {}
-            }
-        }
-
-        // ============ UPDATE STORED RESULTS ============
-        function updateStoredResults() {
-            storedResults = JSON.parse(localStorage.getItem('market_results_data') || '{}');
-        }
-
-        // ============ SET BANNER IMAGES (For Admin use via Console) ============
-        window.setTopBanner = function(url) {
-            localStorage.setItem('top_banner_image', url);
-            document.getElementById('topBanner').src = url;
-            alert('✅ Top banner updated!');
-        };
-
-        window.setBottomBanner = function(url) {
-            localStorage.setItem('bottom_banner_image', url);
-            document.getElementById('bottomBanner').src = url;
-            alert('✅ Bottom banner updated!');
-        };
-
-        window.setMarketResult = function(market, imageUrl, resultNumber) {
-            const upperMarket = market.toUpperCase();
-            storedResults[upperMarket] = {
-                imageUrl: imageUrl,
-                number: resultNumber || 'N/A',
-                note: `🎉 ${upperMarket} Result: ${resultNumber || 'Check image'}`
-            };
-            localStorage.setItem('market_results_data', JSON.stringify(storedResults));
-            alert(`✅ Result for ${upperMarket} saved!`);
-        };
-
-        // ============ INITIALIZE ============
-        function init() {
-            loadMarkets();
-            loadBanners();
-            updateStoredResults();
-            checkUrlForResult();
-            
-            // Listen for storage changes
-            window.addEventListener('storage', function(e) {
-                if (e.key === 'market_results_data') {
-                    updateStoredResults();
-                }
-            });
-        }
-
-        // Start the app
-        init();
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const paymentModal = document.getElementById('paymentModal');
-            const resultModal = document.getElementById('resultModal');
-            if (event.target === paymentModal) closePaymentModal();
-            if (event.target === resultModal) closeResultModal();
-        }
-    </script>
+      }, 4000);
+    }
+  }
+  
+  // Proceed button action: show UPI panel, update all fields, and auto-fill amount/upi
+  function onProceed() {
+    let amount = currentAmount;
+    if (amount < 100) {
+      showStatusMessage("❌ Minimum amount is ₹100. Adjust slider.", "error");
+      return;
+    }
+    if (amount > 20000) {
+      showStatusMessage("❌ Maximum amount is ₹20,000. Adjust slider.", "error");
+      return;
+    }
+    
+    // Show UPI panel if hidden
+    if (upiPanel.classList.contains('hide')) {
+      upiPanel.classList.remove('hide');
+    }
+    
+    // Update the pre-filled amount display and UPI ID display (already fixed)
+    prefilledUpiSpan.innerText = FIXED_UPI_ID;
+    prefilledAmountSpan.innerText = `₹${amount.toLocaleString('en-IN')}`;
+    
+    // Regenerate UPI app buttons so they use latest amount
+    refreshUPIAppButtons();
+    
+    // show smooth status
+    showStatusMessage(`✅ Amount ₹${amount.toLocaleString('en-IN')} ready. Choose your UPI app below.`, "info");
+    
+    // Scroll slightly to show options
+    upiPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  
+  // copy UPI id to clipboard
+  copyUpiBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(FIXED_UPI_ID);
+      showStatusMessage("📋 UPI ID copied to clipboard!", "info");
+      const originalText = copyUpiBtn.innerText;
+      copyUpiBtn.innerText = "✅ Copied!";
+      setTimeout(() => { copyUpiBtn.innerText = originalText; }, 1500);
+    } catch (err) {
+      showStatusMessage("⚠️ Could not copy manually", "error");
+    }
+  });
+  
+  // Initialize: set default amount, proceed button, prefill upi id globally
+  function init() {
+    updateAmount(slider.value);
+    prefilledUpiSpan.innerText = FIXED_UPI_ID;
+    // set proceed event
+    proceedBtn.addEventListener('click', onProceed);
+    // initial state: panel hidden, but ensure default amount shows
+    // Add any initial values
+    if (proceedAmountHint) proceedAmountHint.innerText = `(₹${currentAmount.toLocaleString('en-IN')})`;
+  }
+  
+  init();
+</script>
 </body>
 </html>
