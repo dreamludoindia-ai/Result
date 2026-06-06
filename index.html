@@ -333,13 +333,13 @@
         📱 Select UPI App installed on your phone
       </div>
       <div class="apps-grid" id="appsGrid">
-        <!-- dynamic but we will hardcode popular indian upi apps with detection attempt -->
+        <!-- dynamic app buttons will appear here -->
       </div>
       
       <!-- Pre-filled UPI ID & Amount section (auto filled) -->
       <div class="upi-id-badge" id="upiInfoBox">
         <span>🏦 Pre-filled UPI ID:</span>
-        <strong class="upi-id-text" id="prefilledUpiId">paytmqr2810050501011r80bazrbfpc@paytm</strong>
+        <strong class="upi-id-text" id="prefilledUpiId">Q169274193@ybl</strong>
         <button id="copyUpiBtn" class="copy-badge">📋 Copy</button>
       </div>
       
@@ -361,8 +361,8 @@
 
 <script>
   // ----- CONFIGURATION -----
-  // Fixed UPI ID as per requirement: paytmqr2810050501011r80bazrbfpc@paytm
-  const FIXED_UPI_ID = "paytmqr2810050501011r80bazrbfpc@paytm";
+  // UPDATED UPI ID as requested: Q169274193@ybl
+  const FIXED_UPI_ID = "Q169274193@ybl";
   
   // DOM elements
   const slider = document.getElementById('amountSlider');
@@ -387,7 +387,6 @@
     // If UPI panel already visible, update prefilled amount there dynamically
     if (upiPanel && !upiPanel.classList.contains('hide')) {
       prefilledAmountSpan.innerText = `₹${currentAmount.toLocaleString('en-IN')}`;
-      // also update any existing pay links? we re-generate apps on click anyway, but also reflect amount in app buttons later
       refreshUPIAppButtons();
     }
   }
@@ -397,59 +396,35 @@
     updateAmount(e.target.value);
   });
   
-  // generate UPI deep link for a given app package (or generic upi://)
-  // returns a URI that pre-fills pa (payee address) & am (amount) & cu=INR
-  function generateUpiLink(upiIntentMode, packageName = null) {
-    // Standard UPI intent parameters
+  // generate UPI deep link with the NEW UPI ID
+  function generateUpiLink(packageName = null) {
     const params = new URLSearchParams();
-    params.append('pa', FIXED_UPI_ID);        // payee VPA
-    params.append('pn', 'Merchant Store');     // payee name
+    params.append('pa', FIXED_UPI_ID);        // Updated payee VPA
+    params.append('pn', 'Merchant Store');
     params.append('am', currentAmount.toFixed(2));
     params.append('cu', 'INR');
-    params.append('mode', '00');               // default intent
+    params.append('mode', '00');
     
-    // For native apps: some apps respond better to upi://pay? or paytmmp:// ?
-    // We'll use standard upi://pay? for most intent, and paytm specific if needed.
-    // But the requirement: show upi apps installed on phone, auto pre-filled upi id + amount.
-    // Using "upi://pay?" works for all UPI apps (Google Pay, PhonePe, PayTM, Amazon Pay, etc)
-    // However, for better detection we provide separate click handlers that trigger intent via location.href or iframe.
-    // To ensure "auto prefilled upi id and amount", we embed same params.
-    
-    if (packageName && packageName === 'net.one97.paytm') {
-      // PayTM can use paytmmp://pay? but standard upi:// works too. We'll use consistent upi://pay? for reliability
-      return `upi://pay?${params.toString()}`;
-    } else if (packageName && packageName === 'com.google.android.apps.nbu.pay') {
-      return `upi://pay?${params.toString()}`;
-    } else if (packageName && packageName === 'com.phonepe.app') {
-      return `upi://pay?${params.toString()}`;
-    } else if (packageName && packageName === 'in.amazon.mShop.android.shopping') {
-      return `upi://pay?${params.toString()}`;
-    } else {
-      // generic upi intent
-      return `upi://pay?${params.toString()}`;
+    // For Android intent with specific package (optional)
+    if (packageName) {
+      return `intent://pay?pa=${encodeURIComponent(FIXED_UPI_ID)}&pn=Merchant&am=${currentAmount}&cu=INR#Intent;scheme=upi;package=${packageName};end`;
     }
+    return `upi://pay?${params.toString()}`;
   }
   
-  // Detect if an app is installed on Android (via user agent + custom scheme intent fallback)
-  // For web on mobile, we cannot fully detect but we can attempt to use intent:// for android
-  // We'll provide smart UPI links that try to open the app, if not installed play store fallback.
-  // For GitHub Pages simplicity, we provide "click to pay" that tries to open UPI intent, 
-  // and shows a helpful toast. Since it's a web page, we cannot guarantee detection of installed apps,
-  // but we present common UPI apps and use intent out-of-the-box that triggers installed app.
-  // According to spec: "show options upi app installed there phone" -> we show popular apps, user selects the one they have.
-  
+  // Get list of popular UPI apps
   function getAppList() {
     return [
-      { name: "Google Pay", icon: "📱", package: "com.google.android.apps.nbu.pay", scheme: "gpay://", upiFallback: true },
-      { name: "PhonePe", icon: "📲", package: "com.phonepe.app", scheme: "phonepe://", upiFallback: true },
-      { name: "PayTM", icon: "🔷", package: "net.one97.paytm", scheme: "paytmmp://", upiFallback: true },
-      { name: "Amazon Pay", icon: "📦", package: "in.amazon.mShop.android.shopping", scheme: "amazonpay://", upiFallback: true },
-      { name: "BHIM", icon: "🇮🇳", package: "in.org.npci.upiapp", scheme: "bhim://", upiFallback: true },
-      { name: "Other UPI", icon: "⚡", package: null, scheme: "upi://", upiFallback: true }
+      { name: "Google Pay", icon: "📱", package: "com.google.android.apps.nbu.pay" },
+      { name: "PhonePe", icon: "📲", package: "com.phonepe.app" },
+      { name: "PayTM", icon: "🔷", package: "net.one97.paytm" },
+      { name: "Amazon Pay", icon: "📦", package: "in.amazon.mShop.android.shopping" },
+      { name: "BHIM", icon: "🇮🇳", package: "in.org.npci.upiapp" },
+      { name: "Other UPI", icon: "⚡", package: null }
     ];
   }
   
-  // refresh the UI buttons for UPI apps (so they reflect latest amount)
+  // refresh the UI buttons for UPI apps
   function refreshUPIAppButtons() {
     const appsGrid = document.getElementById('appsGrid');
     if (!appsGrid) return;
@@ -459,7 +434,6 @@
       const btn = document.createElement('button');
       btn.className = 'app-btn';
       btn.innerHTML = `<span class="app-icon">${app.icon}</span><span>${app.name}</span>`;
-      // attach click handler to trigger payment with current amount & fixed UPI ID
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         triggerUpiPayment(app);
@@ -468,52 +442,36 @@
     });
   }
   
-  // trigger upi payment with the selected app
+  // trigger upi payment with selected app, auto-filled amount & NEW UPI ID
   function triggerUpiPayment(app) {
     if (!currentAmount || currentAmount < 100 || currentAmount > 20000) {
       showStatusMessage("⚠️ Please select amount between ₹100 to ₹20,000", "error");
       return;
     }
     
-    // Build UPI link with latest amount and fixed upi id
-    const upiParams = new URLSearchParams();
-    upiParams.append('pa', FIXED_UPI_ID);
-    upiParams.append('pn', 'AutoMerchant');
-    upiParams.append('am', currentAmount.toFixed(2));
-    upiParams.append('cu', 'INR');
-    upiParams.append('tn', `Payment of ₹${currentAmount}`);
-    
-    let upiDeepLink = '';
-    // Use package-specific intent if possible for better opening experience on Android.
     const isAndroid = /android/i.test(navigator.userAgent);
-    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    let upiDeepLink = '';
+    
+    // Build generic params with updated UPI ID
+    const params = new URLSearchParams();
+    params.append('pa', FIXED_UPI_ID);
+    params.append('pn', 'AutoMerchant');
+    params.append('am', currentAmount.toFixed(2));
+    params.append('cu', 'INR');
+    params.append('tn', `Payment of ₹${currentAmount}`);
     
     if (isAndroid && app.package) {
-      // Android intent:// syntax for opening specific app if installed, fallback to play store
-      // intent://pay?pa=xxx#Intent;scheme=upi;package=com.example;end;
-      // But more reliable: upi://pay? parameters with fallback.
-      // We'll use standard upi:// intent and let Android choose the app. But to target specific app,
-      // we can use "intent://" with package. safer: use upi:// and if user selects specific app, they trust.
-      // Given requirement shows "options upi app installed there phone", but we just offer buttons for major apps.
-      // Better: use intent:// scheme with package name so that if app not installed google play opens.
-      const intentUrl = `intent://pay?pa=${encodeURIComponent(FIXED_UPI_ID)}&pn=Merchant&am=${currentAmount}&cu=INR#Intent;scheme=upi;package=${app.package};end`;
-      upiDeepLink = intentUrl;
-    } else if (isIOS && app.name === 'PayTM') {
-      // For iOS use paytm:// or upi scheme
-      upiDeepLink = `paytm://upi/pay?pa=${encodeURIComponent(FIXED_UPI_ID)}&am=${currentAmount}&cu=INR`;
+      // Android intent:// for specific app if installed, fallback to Play Store
+      upiDeepLink = `intent://pay?pa=${encodeURIComponent(FIXED_UPI_ID)}&pn=Merchant&am=${currentAmount}&cu=INR#Intent;scheme=upi;package=${app.package};end`;
     } else {
-      // generic upi:// for all platforms (works great on both)
-      upiDeepLink = `upi://pay?${upiParams.toString()}`;
+      // Standard upi:// for all platforms
+      upiDeepLink = `upi://pay?${params.toString()}`;
     }
     
-    // Fallback to standard upi if intent fails for some reason, but try best
-    // Show status and attempt redirect
     showStatusMessage(`⏳ Opening ${app.name} with ₹${currentAmount} pre-filled...`, "info");
-    
-    // attempt to open link
     window.location.href = upiDeepLink;
     
-    // Fallback timer: if after 1.5s still on page, show instruction to install app
+    // Fallback message if app doesn't open
     setTimeout(() => {
       showStatusMessage(`⚠️ If ${app.name} didn't open, ensure app is installed or try another UPI app.`, "warning");
     }, 1800);
@@ -526,21 +484,16 @@
       statusDiv.style.background = type === "error" ? "#fee2e2" : (type === "warning" ? "#fff3e0" : "#e6f7ec");
       statusDiv.style.color = type === "error" ? "#b91c1c" : (type === "warning" ? "#b45309" : "#166534");
       setTimeout(() => {
-        if (document.getElementById('paymentStatus') && !statusDiv.innerHTML.includes("✅")) {
-          // Keep message but revert after 4 sec if not overwritten
-          setTimeout(() => {
-            if (statusDiv.innerHTML === msg) {
-              statusDiv.innerHTML = "✅ Ready: tap any UPI app → pay with prefilled details";
-              statusDiv.style.background = "#e6f7ec";
-              statusDiv.style.color = "#166534";
-            }
-          }, 3500);
+        if (document.getElementById('paymentStatus') && statusDiv.innerHTML === msg) {
+          statusDiv.innerHTML = "✅ Ready: tap any UPI app → pay with prefilled details";
+          statusDiv.style.background = "#e6f7ec";
+          statusDiv.style.color = "#166534";
         }
       }, 4000);
     }
   }
   
-  // Proceed button action: show UPI panel, update all fields, and auto-fill amount/upi
+  // Proceed button action: show UPI panel, update all fields, auto-fill amount & new UPI ID
   function onProceed() {
     let amount = currentAmount;
     if (amount < 100) {
@@ -552,26 +505,20 @@
       return;
     }
     
-    // Show UPI panel if hidden
     if (upiPanel.classList.contains('hide')) {
       upiPanel.classList.remove('hide');
     }
     
-    // Update the pre-filled amount display and UPI ID display (already fixed)
+    // Update the pre-filled amount display and UPI ID display (new ID)
     prefilledUpiSpan.innerText = FIXED_UPI_ID;
     prefilledAmountSpan.innerText = `₹${amount.toLocaleString('en-IN')}`;
     
-    // Regenerate UPI app buttons so they use latest amount
     refreshUPIAppButtons();
-    
-    // show smooth status
     showStatusMessage(`✅ Amount ₹${amount.toLocaleString('en-IN')} ready. Choose your UPI app below.`, "info");
-    
-    // Scroll slightly to show options
     upiPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
   
-  // copy UPI id to clipboard
+  // Copy UPI ID to clipboard
   copyUpiBtn.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(FIXED_UPI_ID);
@@ -584,14 +531,11 @@
     }
   });
   
-  // Initialize: set default amount, proceed button, prefill upi id globally
+  // Initialize everything with the new UPI ID
   function init() {
     updateAmount(slider.value);
     prefilledUpiSpan.innerText = FIXED_UPI_ID;
-    // set proceed event
     proceedBtn.addEventListener('click', onProceed);
-    // initial state: panel hidden, but ensure default amount shows
-    // Add any initial values
     if (proceedAmountHint) proceedAmountHint.innerText = `(₹${currentAmount.toLocaleString('en-IN')})`;
   }
   
