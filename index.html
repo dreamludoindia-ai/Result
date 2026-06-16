@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
-  <title>Royal · Kalyan Markets</title>
+  <title>Kalyan · Royal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,700&family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
@@ -15,413 +15,450 @@
     }
 
     body {
-      background: #0b080e;
+      background: #0a070e;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: 'Inter', sans-serif;
-      padding: 0.8rem;
-      background-image: radial-gradient(circle at 20% 30%, #1f1728 0%, #0a0710 90%);
+      padding: 1rem;
+      background-image: radial-gradient(circle at 30% 20%, #1a1228 0%, #08050d 90%);
     }
 
     .panel {
-      max-width: 520px;
+      max-width: 560px;
       width: 100%;
       background: #110d1a;
-      background-image: linear-gradient(145deg, #1a1327 0%, #0e0b16 100%);
-      border-radius: 1.8rem 1.8rem 1.5rem 1.5rem;
-      padding: 1rem 1.2rem 1.5rem;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 0 1px #d4af3750, 0 0 30px #b8860b20;
+      background-image: linear-gradient(160deg, #1a1327 0%, #0e0b16 100%);
+      border-radius: 2.2rem 2.2rem 1.8rem 1.8rem;
+      padding: 1.8rem 2rem 2.2rem;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.95), inset 0 0 0 1px #d4af3760, 0 0 40px #b8860b25;
       border: 1px solid #d4af3750;
       position: relative;
       transition: all 0.2s;
     }
+
+    /* Royal 3D gold border */
     .panel::before {
       content: '';
       position: absolute;
       inset: -2px;
-      border-radius: 2rem;
-      padding: 2px;
-      background: linear-gradient(135deg, #d4af37, #b8860b, #d4af37, #8b6914);
+      border-radius: 2.4rem;
+      padding: 2.5px;
+      background: linear-gradient(135deg, #d4af37, #b8860b, #d4af37, #8b6914, #d4af37);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.7;
     }
+
     .panel::after {
       content: '';
       position: absolute;
-      inset: 6px;
-      border-radius: 1.4rem;
-      box-shadow: inset 0 8px 20px rgba(0,0,0,0.8), inset 0 -4px 12px rgba(212,175,55,0.08);
+      inset: 8px;
+      border-radius: 1.8rem;
+      box-shadow: inset 0 10px 30px rgba(0,0,0,0.9), inset 0 -6px 20px rgba(212,175,55,0.06);
       pointer-events: none;
     }
 
-    .top-royal {
+    /* RS + WEEKLY + FEES row */
+    .top-badge {
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: #0b0813;
-      padding: 0.15rem 0.8rem 0.15rem 1.2rem;
-      border-radius: 40px;
-      margin-bottom: 0.7rem;
+      padding: 0.4rem 1.5rem 0.4rem 2rem;
+      border-radius: 60px;
+      margin-bottom: 1.2rem;
       border: 1px solid #d4af3740;
-      box-shadow: inset 0 2px 6px #00000080, 0 0 12px #b8860b10;
+      box-shadow: inset 0 2px 8px #00000080, 0 0 15px #b8860b10;
       position: relative;
       z-index: 2;
     }
-    .top-royal .royal-title {
-      font-family: 'Playfair Display', serif;
+
+    .top-badge .rs {
+      font-family: 'Orbitron', monospace;
       font-weight: 700;
-      font-size: 0.85rem;
-      font-style: italic;
+      font-size: 1.6rem;
+      letter-spacing: 2px;
       color: #ecd8a5;
-      text-shadow: 0 0 10px #d4af37, 0 0 25px #b8860b30;
-      letter-spacing: 0.5px;
+      text-shadow: 0 0 12px #d4af37, 0 0 30px #b8860b30;
     }
-    .top-royal .weekly-badge {
+
+    .top-badge .weekly {
       font-family: 'Orbitron', monospace;
       font-weight: 600;
-      font-size: 0.55rem;
-      letter-spacing: 1.5px;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
       color: #c9b8e6;
       background: #1f1730;
-      padding: 0.1rem 0.7rem;
-      border-radius: 20px;
+      padding: 0.15rem 1rem;
+      border-radius: 30px;
       border: 1px solid #d4af3760;
       text-transform: uppercase;
     }
-    .top-royal .fees-badge {
+
+    .top-badge .fees {
       font-family: 'Orbitron', monospace;
       font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
+      font-size: 1.7rem;
+      letter-spacing: 2px;
       color: #ecd8a5;
-      text-shadow: 0 0 8px #d4af37, 0 0 20px #b8860b20;
+      text-shadow: 0 0 12px #d4af37, 0 0 30px #b8860b30;
     }
 
+    /* Code + KALYAN row */
     .code-block {
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: #0b0813;
-      padding: 0.2rem 0.8rem 0.2rem 1.2rem;
-      border-radius: 40px;
-      margin-bottom: 0.7rem;
+      padding: 0.4rem 1.2rem 0.4rem 2rem;
+      border-radius: 60px;
+      margin-bottom: 1.2rem;
       border: 1px solid #d4af3740;
-      box-shadow: inset 0 2px 8px #00000080, 0 0 10px #b8860b10;
+      box-shadow: inset 0 2px 10px #00000080, 0 0 15px #b8860b10;
       position: relative;
       z-index: 2;
     }
+
     .code-block .big-code {
       font-family: 'Orbitron', monospace;
       font-weight: 900;
-      font-size: 1.2rem;
-      letter-spacing: 2px;
+      font-size: 2rem;
+      letter-spacing: 4px;
       color: #f5e7d0;
-      text-shadow: 0 0 6px #d4af37, 0 0 20px #d4af3730;
+      text-shadow: 0 0 10px #d4af37, 0 0 30px #d4af3740;
     }
+
     .code-block .label-kalyan {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: 2rem;
       font-style: italic;
       background: linear-gradient(145deg, #f5d77b, #b8860b);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: 0 0 30px #d4af3760;
-      letter-spacing: 2px;
+      text-shadow: 0 0 40px #d4af3760;
+      letter-spacing: 3px;
     }
 
+    /* Hint text */
     .hint-text {
       font-family: 'Inter', sans-serif;
       font-weight: 600;
-      font-size: 0.55rem;
-      letter-spacing: 0.2px;
+      font-size: 0.85rem;
+      letter-spacing: 0.3px;
       color: #d0c8e0;
       background: #15101f;
-      padding: 0.15rem 0.8rem;
-      border-radius: 30px;
+      padding: 0.4rem 1.5rem;
+      border-radius: 40px;
       display: inline-block;
-      margin-bottom: 0.7rem;
-      border-left: 2px solid #d4af37;
-      box-shadow: inset 0 2px 4px #00000060;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #d4af37;
+      box-shadow: inset 0 2px 6px #00000060;
       width: 100%;
       text-align: center;
       position: relative;
       z-index: 2;
     }
 
-    .markets-grid {
+    /* Row 1: 3 numbers */
+    .number-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0.4rem;
-      margin-bottom: 0.8rem;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
       position: relative;
       z-index: 2;
     }
-    .market-item {
+
+    .number-grid .num-item {
       background: #0d0a16;
       font-family: 'Orbitron', monospace;
-      font-weight: 600;
-      font-size: 0.7rem;
+      font-weight: 700;
+      font-size: 2.4rem;
       text-align: center;
-      padding: 0.3rem 0.1rem;
-      border-radius: 20px;
-      color: #d4cce8;
+      padding: 0.5rem 0.2rem;
+      border-radius: 24px;
+      color: #f5e7d0;
       border: 1px solid #d4af3730;
-      box-shadow: 0 4px 0 #0a0710, 0 6px 12px rgba(0,0,0,0.6), inset 0 -2px 4px rgba(212,175,55,0.1);
+      box-shadow: 0 5px 0 #06040a, 0 8px 20px rgba(0,0,0,0.7), inset 0 -3px 6px rgba(212,175,55,0.08);
       background: #100d1c;
-      transition: all 0.05s ease;
-      letter-spacing: 0.5px;
-      position: relative;
       transform: translateY(-2px);
+      letter-spacing: 2px;
+      transition: all 0.05s;
     }
-    .market-item::after {
+
+    .number-grid .num-item::after {
       content: '';
       position: absolute;
-      top: 2px;
-      left: 8px;
-      right: 8px;
-      height: 30%;
-      background: linear-gradient(180deg, rgba(212,175,55,0.15) 0%, transparent 100%);
+      top: 3px;
+      left: 15%;
+      right: 15%;
+      height: 25%;
+      background: linear-gradient(180deg, rgba(212,175,55,0.12) 0%, transparent 100%);
       border-radius: 20px;
       pointer-events: none;
     }
-    .market-item span {
-      display: block;
-      font-size: 0.45rem;
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      color: #b09ec8;
-      letter-spacing: 0.3px;
-      margin-top: 1px;
-      opacity: 0.8;
-    }
-    .market-item:hover {
-      border-color: #d4af3760;
-      box-shadow: 0 2px 0 #0a0710, 0 8px 20px rgba(212,175,55,0.15);
-      transform: translateY(-3px);
+
+    .number-grid .num-item {
+      position: relative;
     }
 
+    /* Row 2: 6 numbers */
     .grid-row-2 {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 0.3rem;
-      margin-bottom: 0.7rem;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
       position: relative;
       z-index: 2;
     }
+
     .grid-row-2 .num-sm {
       background: #0b0813;
       font-family: 'Orbitron', monospace;
       font-weight: 600;
-      font-size: 0.7rem;
+      font-size: 1.2rem;
       text-align: center;
-      padding: 0.2rem 0.1rem;
-      border-radius: 20px;
+      padding: 0.4rem 0.1rem;
+      border-radius: 24px;
       color: #d4cce8;
       border: 1px solid #d4af3720;
-      box-shadow: 0 3px 0 #06040a, 0 4px 10px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 0 #06040a, 0 6px 14px rgba(0,0,0,0.6);
       letter-spacing: 1px;
       background: #0d0a16;
     }
 
+    /* Row 3: 4-digit numbers */
     .grid-row-3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0.4rem;
-      margin-bottom: 0.8rem;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
       position: relative;
       z-index: 2;
     }
+
     .grid-row-3 .num-lg {
       background: #0b0813;
       font-family: 'Orbitron', monospace;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 2rem;
       text-align: center;
-      padding: 0.2rem 0.1rem;
-      border-radius: 20px;
+      padding: 0.5rem 0.1rem;
+      border-radius: 24px;
       color: #f5e7d0;
       border: 1px solid #d4af3730;
-      box-shadow: 0 4px 0 #06040a, 0 6px 16px rgba(0,0,0,0.6), inset 0 -2px 4px rgba(212,175,55,0.05);
-      letter-spacing: 2px;
+      box-shadow: 0 5px 0 #06040a, 0 8px 24px rgba(0,0,0,0.7), inset 0 -3px 6px rgba(212,175,55,0.05);
+      letter-spacing: 3px;
       background: #0f0c1a;
       transform: translateY(-2px);
+      position: relative;
     }
 
+    .grid-row-3 .num-lg::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 12%;
+      right: 12%;
+      height: 25%;
+      background: linear-gradient(180deg, rgba(212,175,55,0.10) 0%, transparent 100%);
+      border-radius: 20px;
+      pointer-events: none;
+    }
+
+    /* Footer */
     .footer-line {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       background: #0b0813;
-      padding: 0.2rem 0.8rem;
-      border-radius: 40px;
+      padding: 0.4rem 1.5rem;
+      border-radius: 60px;
       border: 1px solid #d4af3730;
-      margin-top: 0.2rem;
-      box-shadow: inset 0 2px 6px #00000080;
+      box-shadow: inset 0 2px 8px #00000080;
       position: relative;
       z-index: 2;
     }
+
     .footer-line .raj {
       font-family: 'Inter', sans-serif;
       font-weight: 700;
-      font-size: 0.6rem;
+      font-size: 0.85rem;
       color: #d4cce8;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.5px;
     }
+
     .footer-line .raj span {
       color: #d4af37;
+      font-weight: 700;
     }
+
     .footer-line .phone {
       font-family: 'Orbitron', monospace;
       font-weight: 600;
-      font-size: 0.65rem;
+      font-size: 1rem;
       color: #ecd8a5;
-      letter-spacing: 1px;
-      text-shadow: 0 0 6px #d4af3730;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #d4af3730;
     }
+
     .footer-line .web {
       font-family: 'Inter', sans-serif;
       font-weight: 600;
-      font-size: 0.5rem;
+      font-size: 0.7rem;
       color: #b09ec8;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.5px;
       border-bottom: 1px dashed #d4af3750;
     }
 
+    /* Admin */
     .admin-toggle {
-      margin-top: 0.8rem;
+      margin-top: 1.2rem;
       text-align: right;
       position: relative;
       z-index: 2;
     }
+
     .admin-toggle button {
       background: #1f1730;
       border: 1px solid #d4af3740;
       color: #c9b8e6;
       font-family: 'Inter', sans-serif;
       font-weight: 600;
-      font-size: 0.55rem;
-      padding: 0.2rem 0.9rem;
-      border-radius: 30px;
+      font-size: 0.7rem;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
       cursor: pointer;
       transition: 0.2s;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
       backdrop-filter: blur(4px);
       background: #0b0813b0;
     }
+
     .admin-toggle button:hover {
       background: #d4af3720;
       color: #ecd8a5;
       border-color: #d4af37;
-      box-shadow: 0 0 20px #d4af3720;
+      box-shadow: 0 0 25px #d4af3720;
     }
 
     .admin-panel {
-      margin-top: 0.7rem;
+      margin-top: 1rem;
       background: #0f0b1ab0;
       backdrop-filter: blur(8px);
-      padding: 0.8rem 1rem;
-      border-radius: 24px;
+      padding: 1.2rem 1.5rem;
+      border-radius: 30px;
       border: 1px solid #d4af3730;
       display: none;
       grid-template-columns: 1fr 1fr;
-      gap: 0.4rem 0.8rem;
-      box-shadow: inset 0 0 20px #00000080;
+      gap: 0.6rem 1.2rem;
+      box-shadow: inset 0 0 25px #00000080;
       position: relative;
       z-index: 5;
     }
+
     .admin-panel.open {
       display: grid;
     }
+
     .admin-panel label {
-      font-size: 0.5rem;
+      font-size: 0.6rem;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
       color: #b09ec8;
       font-weight: 600;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
+
     .admin-panel label input {
       background: #0b0813;
       border: 1px solid #d4af3740;
-      padding: 0.2rem 0.5rem;
-      border-radius: 20px;
+      padding: 0.3rem 0.7rem;
+      border-radius: 30px;
       color: #f5e7d0;
       font-family: 'Orbitron', monospace;
-      font-size: 0.55rem;
+      font-size: 0.7rem;
       outline: none;
       transition: 0.2s;
     }
+
     .admin-panel label input:focus {
       border-color: #d4af37;
-      box-shadow: 0 0 15px #d4af3715;
+      box-shadow: 0 0 20px #d4af3715;
     }
+
     .admin-panel .apply-btn {
       grid-column: 1 / -1;
       background: #d4af3730;
       border: 1px solid #d4af37;
       color: #ecd8a5;
       font-weight: 700;
-      padding: 0.3rem;
-      border-radius: 40px;
-      font-size: 0.6rem;
-      letter-spacing: 1.5px;
+      padding: 0.6rem;
+      border-radius: 60px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
       cursor: pointer;
       transition: 0.2s;
-      margin-top: 0.1rem;
+      margin-top: 0.2rem;
       backdrop-filter: blur(4px);
     }
+
     .admin-panel .apply-btn:hover {
       background: #d4af3760;
-      box-shadow: 0 0 25px #d4af3720;
+      box-shadow: 0 0 30px #d4af3720;
     }
 
-    @media (max-width: 480px) {
-      .panel { padding: 0.8rem; }
-      .code-block .big-code { font-size: 0.95rem; letter-spacing: 1px; }
-      .code-block .label-kalyan { font-size: 0.95rem; }
-      .market-item { font-size: 0.6rem; }
-      .grid-row-2 .num-sm { font-size: 0.6rem; }
-      .grid-row-3 .num-lg { font-size: 0.9rem; }
-      .top-royal .royal-title { font-size: 0.7rem; }
-      .top-royal .fees-badge { font-size: 0.7rem; }
+    @media (max-width: 500px) {
+      .panel { padding: 1.2rem; }
+      .top-badge .rs { font-size: 1.2rem; }
+      .top-badge .fees { font-size: 1.3rem; }
+      .top-badge .weekly { font-size: 0.7rem; }
+      .code-block .big-code { font-size: 1.3rem; letter-spacing: 2px; }
+      .code-block .label-kalyan { font-size: 1.4rem; }
+      .number-grid .num-item { font-size: 1.8rem; }
+      .grid-row-2 .num-sm { font-size: 0.9rem; }
+      .grid-row-3 .num-lg { font-size: 1.4rem; }
+      .footer-line .phone { font-size: 0.75rem; }
+      .admin-panel { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 <div class="panel" id="mainPanel">
 
-  <div class="top-royal">
-    <span class="royal-title" id="royalTitle">✦ Royal</span>
-    <span class="weekly-badge" id="weeklyDisplay">WEEKLY</span>
-    <span class="fees-badge" id="feesDisplay">3000/-</span>
+  <!-- RS + WEEKLY + FEES -->
+  <div class="top-badge">
+    <span class="rs" id="rsDisplay">RS.</span>
+    <span class="weekly" id="weeklyDisplay">WEEKLY</span>
+    <span class="fees" id="feesDisplay">3000/-</span>
   </div>
 
+  <!-- Code + KALYAN -->
   <div class="code-block">
     <span class="big-code" id="codeDisplay">93014 01044</span>
     <span class="label-kalyan" id="kalyanDisplay">KALYAN</span>
   </div>
 
+  <!-- Hint -->
   <div class="hint-text" id="hintDisplay">(एस आपन दूर क्लोज - जोडी की पट्टी अवश्य करें )</div>
 
-  <div class="markets-grid" id="marketsGrid">
-    <div class="market-item" id="m1">MUMBAI <span>मुंबई</span></div>
-    <div class="market-item" id="m2">DELHI <span>दिल्ली</span></div>
-    <div class="market-item" id="m3">KOLKATA <span>कोलकाता</span></div>
-    <div class="market-item" id="m4">CHENNAI <span>चेन्नई</span></div>
-    <div class="market-item" id="m5">BANGALORE <span>बेंगलुरु</span></div>
-    <div class="market-item" id="m6">HYDERABAD <span>हैदराबाद</span></div>
+  <!-- Row 1: 3 8 1 -->
+  <div class="number-grid" id="row1Grid">
+    <div class="num-item" id="r1c1">3</div>
+    <div class="num-item" id="r1c2">8</div>
+    <div class="num-item" id="r1c3">1</div>
   </div>
 
+  <!-- Row 2: 6 numbers -->
   <div class="grid-row-2" id="row2Grid">
     <div class="num-sm" id="r2c1">355</div>
     <div class="num-sm" id="r2c2">580</div>
@@ -431,124 +468,134 @@
     <div class="num-sm" id="r2c6">560</div>
   </div>
 
+  <!-- Row 3: 4-digit numbers -->
   <div class="grid-row-3" id="row3Grid">
     <div class="num-lg" id="r3c1">3833</div>
     <div class="num-lg" id="r3c2">8388</div>
     <div class="num-lg" id="r3c3">1116</div>
   </div>
 
+  <!-- Footer -->
   <div class="footer-line">
     <span class="raj">पो. <span>राज सर</span> - <span id="footerPhone">9301401044</span></span>
     <span class="web" id="footerWeb">WWW.KALYANSUBHANK.COM</span>
   </div>
 
+  <!-- Admin Toggle -->
   <div class="admin-toggle">
     <button id="adminToggleBtn">⚜️ ADMIN</button>
   </div>
 
+  <!-- Admin Panel -->
   <div class="admin-panel" id="adminPanel">
-    <label>ROYAL TITLE <input type="text" id="adminTitle" value="✦ Royal"></label>
+    <label>RS <input type="text" id="adminRs" value="RS."></label>
     <label>WEEKLY <input type="text" id="adminWeekly" value="WEEKLY"></label>
     <label>FEES <input type="text" id="adminFees" value="3000/-"></label>
     <label>CODE <input type="text" id="adminCode" value="93014 01044"></label>
     <label>KALYAN <input type="text" id="adminKalyan" value="KALYAN"></label>
     <label>HINT <input type="text" id="adminHint" value="(एस आपन दूर क्लोज - जोडी की पट्टी अवश्य करें )"></label>
-    <label>MARKET 1 <input type="text" id="adminM1" value="MUMBAI"></label>
-    <label>MARKET 2 <input type="text" id="adminM2" value="DELHI"></label>
-    <label>MARKET 3 <input type="text" id="adminM3" value="KOLKATA"></label>
-    <label>MARKET 4 <input type="text" id="adminM4" value="CHENNAI"></label>
-    <label>MARKET 5 <input type="text" id="adminM5" value="BANGALORE"></label>
-    <label>MARKET 6 <input type="text" id="adminM6" value="HYDERABAD"></label>
+    <label>R1C1 <input type="text" id="adminR1c1" value="3"></label>
+    <label>R1C2 <input type="text" id="adminR1c2" value="8"></label>
+    <label>R1C3 <input type="text" id="adminR1c3" value="1"></label>
     <label>R2 (6 nums) <input type="text" id="adminR2" value="355,580,350,558,227,560"></label>
     <label>R3 (3 nums) <input type="text" id="adminR3" value="3833,8388,1116"></label>
     <label>FOOTER PHONE <input type="text" id="adminPhone" value="9301401044"></label>
     <label>WEBSITE <input type="text" id="adminWeb" value="WWW.KALYANSUBHANK.COM"></label>
-    <button class="apply-btn" id="applyAdminBtn">⟳ APPLY</button>
+    <button class="apply-btn" id="applyAdminBtn">⟳ APPLY CHANGES</button>
   </div>
 </div>
 
 <script>
   (function() {
-    const panel = document.getElementById('adminPanel');
+    const adminPanel = document.getElementById('adminPanel');
     const toggleBtn = document.getElementById('adminToggleBtn');
 
     toggleBtn.addEventListener('click', function() {
-      panel.classList.toggle('open');
-      toggleBtn.textContent = panel.classList.contains('open') ? '✕ CLOSE' : '⚜️ ADMIN';
-      if (panel.classList.contains('open')) syncAdminFromDisplay();
+      adminPanel.classList.toggle('open');
+      toggleBtn.textContent = adminPanel.classList.contains('open') ? '✕ CLOSE' : '⚜️ ADMIN';
+      if (adminPanel.classList.contains('open')) syncAdminFromDisplay();
     });
 
-    const titleDisplay = document.getElementById('royalTitle');
+    // DOM refs
+    const rsDisplay = document.getElementById('rsDisplay');
     const weeklyDisplay = document.getElementById('weeklyDisplay');
     const feesDisplay = document.getElementById('feesDisplay');
     const codeDisplay = document.getElementById('codeDisplay');
     const kalyanDisplay = document.getElementById('kalyanDisplay');
     const hintDisplay = document.getElementById('hintDisplay');
-    const m1 = document.getElementById('m1'), m2 = document.getElementById('m2'), m3 = document.getElementById('m3');
-    const m4 = document.getElementById('m4'), m5 = document.getElementById('m5'), m6 = document.getElementById('m6');
-    const r2c1 = document.getElementById('r2c1'), r2c2 = document.getElementById('r2c2'), r2c3 = document.getElementById('r2c3');
-    const r2c4 = document.getElementById('r2c4'), r2c5 = document.getElementById('r2c5'), r2c6 = document.getElementById('r2c6');
-    const r3c1 = document.getElementById('r3c1'), r3c2 = document.getElementById('r3c2'), r3c3 = document.getElementById('r3c3');
-    const footerPhone = document.getElementById('footerPhone'), footerWeb = document.getElementById('footerWeb');
+    const r1c1 = document.getElementById('r1c1');
+    const r1c2 = document.getElementById('r1c2');
+    const r1c3 = document.getElementById('r1c3');
+    const r2c1 = document.getElementById('r2c1');
+    const r2c2 = document.getElementById('r2c2');
+    const r2c3 = document.getElementById('r2c3');
+    const r2c4 = document.getElementById('r2c4');
+    const r2c5 = document.getElementById('r2c5');
+    const r2c6 = document.getElementById('r2c6');
+    const r3c1 = document.getElementById('r3c1');
+    const r3c2 = document.getElementById('r3c2');
+    const r3c3 = document.getElementById('r3c3');
+    const footerPhone = document.getElementById('footerPhone');
+    const footerWeb = document.getElementById('footerWeb');
 
-    const adminTitle = document.getElementById('adminTitle');
+    // Admin inputs
+    const adminRs = document.getElementById('adminRs');
     const adminWeekly = document.getElementById('adminWeekly');
     const adminFees = document.getElementById('adminFees');
     const adminCode = document.getElementById('adminCode');
     const adminKalyan = document.getElementById('adminKalyan');
     const adminHint = document.getElementById('adminHint');
-    const adminM1 = document.getElementById('adminM1'), adminM2 = document.getElementById('adminM2'), adminM3 = document.getElementById('adminM3');
-    const adminM4 = document.getElementById('adminM4'), adminM5 = document.getElementById('adminM5'), adminM6 = document.getElementById('adminM6');
-    const adminR2 = document.getElementById('adminR2'), adminR3 = document.getElementById('adminR3');
-    const adminPhone = document.getElementById('adminPhone'), adminWeb = document.getElementById('adminWeb');
+    const adminR1c1 = document.getElementById('adminR1c1');
+    const adminR1c2 = document.getElementById('adminR1c2');
+    const adminR1c3 = document.getElementById('adminR1c3');
+    const adminR2 = document.getElementById('adminR2');
+    const adminR3 = document.getElementById('adminR3');
+    const adminPhone = document.getElementById('adminPhone');
+    const adminWeb = document.getElementById('adminWeb');
 
     function applyChanges() {
-      titleDisplay.textContent = adminTitle.value || '✦ Royal';
+      rsDisplay.textContent = adminRs.value || 'RS.';
       weeklyDisplay.textContent = adminWeekly.value || 'WEEKLY';
       feesDisplay.textContent = adminFees.value || '3000/-';
       codeDisplay.textContent = adminCode.value || '93014 01044';
       kalyanDisplay.textContent = adminKalyan.value || 'KALYAN';
       hintDisplay.textContent = adminHint.value || '(एस आपन दूर क्लोज - जोडी की पट्टी अवश्य करें )';
 
-      const setMarket = (el, val) => {
-        const span = el.querySelector('span');
-        el.innerHTML = `${val || 'MARKET'} `;
-        if (span) el.appendChild(span);
-        else el.innerHTML += '<span> </span>';
-      };
-      setMarket(m1, adminM1.value);
-      setMarket(m2, adminM2.value);
-      setMarket(m3, adminM3.value);
-      setMarket(m4, adminM4.value);
-      setMarket(m5, adminM5.value);
-      setMarket(m6, adminM6.value);
+      r1c1.textContent = adminR1c1.value || '3';
+      r1c2.textContent = adminR1c2.value || '8';
+      r1c3.textContent = adminR1c3.value || '1';
 
       const r2vals = adminR2.value.split(',').map(s => s.trim());
       if (r2vals.length >= 6) {
-        r2c1.textContent = r2vals[0]; r2c2.textContent = r2vals[1]; r2c3.textContent = r2vals[2];
-        r2c4.textContent = r2vals[3]; r2c5.textContent = r2vals[4]; r2c6.textContent = r2vals[5];
+        r2c1.textContent = r2vals[0] || '355';
+        r2c2.textContent = r2vals[1] || '580';
+        r2c3.textContent = r2vals[2] || '350';
+        r2c4.textContent = r2vals[3] || '558';
+        r2c5.textContent = r2vals[4] || '227';
+        r2c6.textContent = r2vals[5] || '560';
       }
+
       const r3vals = adminR3.value.split(',').map(s => s.trim());
       if (r3vals.length >= 3) {
-        r3c1.textContent = r3vals[0]; r3c2.textContent = r3vals[1]; r3c3.textContent = r3vals[2];
+        r3c1.textContent = r3vals[0] || '3833';
+        r3c2.textContent = r3vals[1] || '8388';
+        r3c3.textContent = r3vals[2] || '1116';
       }
+
       footerPhone.textContent = adminPhone.value || '9301401044';
       footerWeb.textContent = adminWeb.value || 'WWW.KALYANSUBHANK.COM';
     }
 
     function syncAdminFromDisplay() {
-      adminTitle.value = titleDisplay.textContent;
+      adminRs.value = rsDisplay.textContent;
       adminWeekly.value = weeklyDisplay.textContent;
       adminFees.value = feesDisplay.textContent;
       adminCode.value = codeDisplay.textContent;
       adminKalyan.value = kalyanDisplay.textContent;
       adminHint.value = hintDisplay.textContent;
-      adminM1.value = m1.textContent.replace('मुंबई','').trim();
-      adminM2.value = m2.textContent.replace('दिल्ली','').trim();
-      adminM3.value = m3.textContent.replace('कोलकाता','').trim();
-      adminM4.value = m4.textContent.replace('चेन्नई','').trim();
-      adminM5.value = m5.textContent.replace('बेंगलुरु','').trim();
-      adminM6.value = m6.textContent.replace('हैदराबाद','').trim();
+      adminR1c1.value = r1c1.textContent;
+      adminR1c2.value = r1c2.textContent;
+      adminR1c3.value = r1c3.textContent;
       adminR2.value = `${r2c1.textContent},${r2c2.textContent},${r2c3.textContent},${r2c4.textContent},${r2c5.textContent},${r2c6.textContent}`;
       adminR3.value = `${r3c1.textContent},${r3c2.textContent},${r3c3.textContent}`;
       adminPhone.value = footerPhone.textContent;
@@ -557,7 +604,7 @@
 
     document.getElementById('applyAdminBtn').addEventListener('click', applyChanges);
     window.addEventListener('load', syncAdminFromDisplay);
-    panel.classList.remove('open');
+    adminPanel.classList.remove('open');
     toggleBtn.textContent = '⚜️ ADMIN';
   })();
 </script>
