@@ -2,544 +2,563 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Auto UPI Payment | Instant Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <title>Kalyan · digital panel</title>
+  <!-- Font & base style -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: system-ui, 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
     }
 
     body {
-      background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+      background: #0b0e14;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1.5rem;
-    }
-
-    /* main card container */
-    .payment-container {
-      max-width: 620px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.98);
-      border-radius: 2.5rem;
-      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.02);
-      overflow: hidden;
-      transition: transform 0.2s ease;
-    }
-
-    .payment-container:hover {
-      transform: scale(1.01);
-    }
-
-    /* header */
-    .gradient-header {
-      background: linear-gradient(98deg, #0f2b3d 0%, #1b4f6e 100%);
-      padding: 1.8rem 2rem;
-      color: white;
-      text-align: center;
-    }
-
-    .gradient-header h1 {
-      font-size: 1.9rem;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .gradient-header h1:before {
-      content: "💸";
-      font-size: 1.9rem;
-    }
-
-    .gradient-header p {
-      opacity: 0.85;
-      font-size: 0.9rem;
-      margin-top: 6px;
-      font-weight: 500;
-    }
-
-    /* content */
-    .form-section {
-      padding: 2rem 2rem 1.8rem;
-    }
-
-    .amount-selector {
-      background: #f8fafc;
-      border-radius: 2rem;
-      padding: 0.8rem 1.2rem;
-      margin-bottom: 1.8rem;
-      border: 1px solid #e2edf2;
-    }
-
-    .amount-label {
-      font-weight: 600;
-      color: #1e2f3e;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 1rem;
-    }
-
-    .amount-label span {
-      background: #1b4f6e;
-      color: white;
-      font-size: 0.75rem;
-      padding: 2px 10px;
-      border-radius: 40px;
-    }
-
-    input[type="range"] {
-      width: 100%;
-      height: 6px;
-      -webkit-appearance: none;
-      background: linear-gradient(90deg, #2c7a4d, #f4b942);
-      border-radius: 10px;
-      outline: none;
-      margin: 16px 0 12px;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 22px;
-      height: 22px;
-      background: #0f2b3d;
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      border: 2px solid white;
-    }
-
-    .amount-value {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .current-amount {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #0f2b3d;
-      background: #ffffff;
-      padding: 0.2rem 1rem;
-      border-radius: 60px;
-      letter-spacing: 1px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
-
-    .currency {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #2c5a74;
-    }
-
-    .range-limits {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      color: #5e7e93;
-      font-weight: 500;
-    }
-
-    /* proceed button */
-    .proceed-btn {
-      width: 100%;
-      background: linear-gradient(105deg, #0f2b3d 0%, #1f5575 100%);
-      border: none;
+      font-family: 'Inter', sans-serif;
       padding: 1rem;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: white;
-      border-radius: 60px;
-      cursor: pointer;
+    }
+
+    /* main card – digital / led style */
+    .panel {
+      max-width: 820px;
+      width: 100%;
+      background: #141a24;
+      background-image: radial-gradient(circle at 20% 30%, #1f2a3a 0%, #0d121b 90%);
+      border-radius: 3rem 3rem 2.5rem 2.5rem;
+      padding: 2.2rem 2.2rem 2.8rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 0 1px rgba(255,215,0,0.15);
+      border: 1px solid #f0b83a30;
       transition: all 0.2s;
-      margin: 1rem 0 1rem;
+    }
+
+    /* header row: RS + weekly + fees */
+    .top-badge {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
-    }
-
-    .proceed-btn:active {
-      transform: scale(0.97);
-    }
-
-    /* UPI options panel (hidden initially) */
-    .upi-panel {
-      background: #fefefe;
-      border-radius: 2rem;
-      margin-top: 1.6rem;
-      padding: 1rem 0 0.5rem 0;
-      border-top: 2px dashed #cbdde6;
-      transition: all 0.3s ease;
-    }
-
-    .upi-title {
-      font-weight: 700;
-      color: #1a4b6e;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 0 0.5rem 0.8rem 0.5rem;
-      font-size: 1rem;
-    }
-
-    .apps-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin: 10px 0 16px;
-      justify-content: center;
-    }
-
-    .app-btn {
-      background: white;
-      border: 1.5px solid #cbdde6;
-      border-radius: 80px;
-      padding: 10px 24px;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #1f3b4c;
-      cursor: pointer;
-      transition: all 0.2s;
-      backdrop-filter: blur(2px);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-    }
-
-    .app-btn:hover {
-      background: #f0f6fa;
-      border-color: #1b6b93;
-      transform: translateY(-2px);
-    }
-
-    .app-icon {
-      font-size: 1.6rem;
-    }
-
-    .upi-id-badge {
-      background: #eef3f7;
-      border-radius: 20px;
-      padding: 12px 16px;
-      margin: 12px 0 6px;
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-      border-left: 4px solid #279b6b;
-    }
-
-    .upi-id-text {
-      font-family: monospace;
-      font-weight: 600;
-      background: #fff;
-      padding: 5px 12px;
-      border-radius: 40px;
-      word-break: break-all;
-      color: #095a36;
-    }
-
-    .copy-badge {
-      background: white;
-      border: none;
-      font-size: 0.7rem;
-      padding: 5px 12px;
-      border-radius: 30px;
-      cursor: pointer;
-    }
-
-    .status-msg {
-      font-size: 0.8rem;
-      text-align: center;
-      margin: 12px 0 10px;
-      padding: 6px;
+      align-items: center;
+      background: #0c111b;
+      padding: 0.7rem 1.8rem;
       border-radius: 60px;
-      color: #166534;
-      background: #e6f7ec;
+      margin-bottom: 1.8rem;
+      border: 1px solid #f5c54240;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.6), 0 0 10px #f0b83a10;
     }
 
-    hr {
-      margin: 10px 0;
-      border-color: #e2edf2;
+    .top-badge .rs {
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      color: #f5d77b;
+      text-shadow: 0 0 8px #f5b83a, 0 0 20px #f5b83a30;
     }
 
-    .footer-note {
-      font-size: 0.7rem;
+    .top-badge .weekly {
+      font-family: 'Orbitron', monospace;
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      color: #b7cbee;
+      background: #1f2a3e;
+      padding: 0.2rem 1.2rem;
+      border-radius: 40px;
+      border: 1px solid #f5c54260;
+      text-transform: uppercase;
+    }
+
+    .top-badge .fees {
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 1.9rem;
+      letter-spacing: 3px;
+      color: #f5d77b;
+      text-shadow: 0 0 8px #f0b83a, 0 0 20px #f0b83a30;
+    }
+
+    /* main number / code row */
+    .code-block {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0b0f18;
+      padding: 0.8rem 1.8rem;
+      border-radius: 80px;
+      margin-bottom: 2rem;
+      border: 1px solid #f5c54250;
+      box-shadow: inset 0 4px 12px #00000080, 0 0 15px #f5b83a15;
+    }
+
+    .code-block .big-code {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 2.6rem;
+      letter-spacing: 6px;
+      color: #f5e7c8;
+      text-shadow: 0 0 6px #f5b83a, 0 0 20px #f5b83a40;
+    }
+
+    .code-block .label-kalyan {
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 4px;
+      background: linear-gradient(145deg, #f5d77b, #dba42b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 20px #f5b83a60;
+    }
+
+    /* sub text : एस आपन दूर क्लोज - जोडी की पट्टी अवश्य करें */
+    .hint-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      color: #d0dff0;
+      background: #1e2738;
+      padding: 0.6rem 1.5rem;
+      border-radius: 60px;
+      display: inline-block;
+      margin-bottom: 1.8rem;
+      border-left: 4px solid #f5b83a;
+      box-shadow: inset 0 2px 4px #00000060;
+      backdrop-filter: blur(2px);
+      width: 100%;
       text-align: center;
-      color: #6f8ea3;
-      padding: 1rem 1rem 1.2rem;
-      background: #f9fdfe;
     }
 
-    .hide {
+    /* number grid – 3 columns */
+    .number-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .number-grid .num-item {
+      background: #0d131f;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 2.2rem;
+      text-align: center;
+      padding: 0.6rem 0.2rem;
+      border-radius: 20px;
+      color: #f5e7c8;
+      border: 1px solid #f5c54240;
+      box-shadow: inset 0 2px 8px #00000080, 0 0 8px #f5b83a20;
+      letter-spacing: 2px;
+      transition: 0.1s ease;
+      background: #111b2b;
+    }
+
+    /* second row : three numbers (355 580 350 ...) */
+    .grid-row-2 {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .grid-row-2 .num-sm {
+      background: #0a101c;
+      font-family: 'Orbitron', monospace;
+      font-weight: 600;
+      font-size: 1.3rem;
+      text-align: center;
+      padding: 0.5rem 0.2rem;
+      border-radius: 30px;
+      color: #d4e2ff;
+      border: 1px solid #f5b83a30;
+      box-shadow: inset 0 2px 6px #000000;
+      letter-spacing: 1px;
+    }
+
+    /* bottom row: three 4-digit numbers */
+    .grid-row-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .grid-row-3 .num-lg {
+      background: #0a101c;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 2.2rem;
+      text-align: center;
+      padding: 0.7rem 0.2rem;
+      border-radius: 30px;
+      color: #f5e7c8;
+      border: 1px solid #f5b83a40;
+      box-shadow: inset 0 2px 8px #000000, 0 0 12px #f5b83a20;
+      letter-spacing: 3px;
+    }
+
+    /* footer line: पो. राज सर + number + website */
+    .footer-line {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      background: #0c111f;
+      padding: 0.8rem 1.8rem;
+      border-radius: 60px;
+      border: 1px solid #f5b83a30;
+      margin-top: 0.8rem;
+      box-shadow: inset 0 2px 8px #00000080;
+    }
+
+    .footer-line .raj {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #e8dcc8;
+      letter-spacing: 1px;
+    }
+    .footer-line .raj span {
+      color: #f5c542;
+      font-weight: 700;
+    }
+    .footer-line .phone {
+      font-family: 'Orbitron', monospace;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #f5d77b;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #f0b83a60;
+    }
+    .footer-line .web {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #b0c7e8;
+      letter-spacing: 0.5px;
+      border-bottom: 1px dashed #f5b83a60;
+    }
+
+    /* ---------- ADMIN PANEL ---------- */
+    .admin-toggle {
+      margin-top: 2rem;
+      text-align: right;
+    }
+    .admin-toggle button {
+      background: #1f2a3e;
+      border: 1px solid #f5b83a40;
+      color: #b7cbee;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 0.4rem 1.4rem;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s;
+      letter-spacing: 1px;
+      backdrop-filter: blur(4px);
+      background: #0d1628b0;
+    }
+    .admin-toggle button:hover {
+      background: #f5b83a20;
+      color: #f5d77b;
+      border-color: #f5b83a;
+      box-shadow: 0 0 20px #f5b83a20;
+    }
+
+    .admin-panel {
+      margin-top: 1.2rem;
+      background: #0f172ad0;
+      backdrop-filter: blur(8px);
+      padding: 1.5rem 1.8rem;
+      border-radius: 40px;
+      border: 1px solid #f5c54230;
       display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem 1.5rem;
+      box-shadow: inset 0 0 20px #00000080;
+    }
+    .admin-panel.open {
+      display: grid;
+    }
+    .admin-panel label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #b7cbee;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .admin-panel label input {
+      background: #0b101e;
+      border: 1px solid #f5b83a50;
+      padding: 0.5rem 0.8rem;
+      border-radius: 30px;
+      color: #f5e7c8;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.9rem;
+      outline: none;
+      transition: 0.2s;
+    }
+    .admin-panel label input:focus {
+      border-color: #f5b83a;
+      box-shadow: 0 0 20px #f5b83a20;
+    }
+    .admin-panel .apply-btn {
+      grid-column: 1 / -1;
+      background: #f5b83a30;
+      border: 1px solid #f5b83a;
+      color: #f5e7c8;
+      font-weight: 700;
+      padding: 0.7rem;
+      border-radius: 60px;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 0.4rem;
+      backdrop-filter: blur(4px);
+    }
+    .admin-panel .apply-btn:hover {
+      background: #f5b83a60;
+      box-shadow: 0 0 30px #f5b83a40;
     }
 
-    button {
-      background: none;
-      border: none;
+    /* digital glow */
+    .glow-text {
+      text-shadow: 0 0 6px #f5b83a, 0 0 20px #f5b83a40;
+    }
+
+    @media (max-width: 600px) {
+      .panel { padding: 1.5rem; }
+      .top-badge { flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
+      .code-block { flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+      .number-grid .num-item { font-size: 1.8rem; }
+      .grid-row-2 .num-sm { font-size: 1rem; }
+      .grid-row-3 .num-lg { font-size: 1.6rem; }
+      .footer-line { flex-direction: column; gap: 0.4rem; align-items: center; }
+      .admin-panel { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
+<div class="panel" id="mainPanel">
 
-<div class="payment-container" id="app">
-  <div class="gradient-header">
-    <h1>Auto UPI Payment</h1>
-    <p>Select amount → Choose UPI app → Auto-filled & pay</p>
+  <!-- top: RS / WEEKLY / FEES -->
+  <div class="top-badge">
+    <span class="rs" id="rsDisplay">RS.</span>
+    <span class="weekly" id="weeklyDisplay">WEEKLY</span>
+    <span class="fees" id="feesDisplay">3000/-</span>
   </div>
 
-  <div class="form-section">
-    <!-- Amount slider 100 to 20000 -->
-    <div class="amount-selector">
-      <div class="amount-label">
-        💰 Payment Amount <span>₹100 – ₹20,000</span>
-      </div>
-      <input type="range" id="amountSlider" min="100" max="20000" value="999" step="1">
-      <div class="amount-value">
-        <span class="current-amount" id="amountDisplay">₹999</span>
-        <span class="currency">INR</span>
-      </div>
-      <div class="range-limits">
-        <span>₹100</span>
-        <span>₹20,000</span>
-      </div>
-    </div>
+  <!-- code + KALYAN -->
+  <div class="code-block">
+    <span class="big-code" id="codeDisplay">93014 01044</span>
+    <span class="label-kalyan" id="kalyanDisplay">KALYAN</span>
+  </div>
 
-    <!-- Proceed Button (triggers showing UPI options) -->
-    <button class="proceed-btn" id="proceedBtn">
-      🔄 Proceed to Pay <span id="proceedAmountHint"></span>
-    </button>
+  <!-- hint text -->
+  <div class="hint-text" id="hintDisplay">(एस आपन दूर क्लोज - जोडी की पट्टी अवश्य करें )</div>
 
-    <!-- UPI APPS PANEL (hidden until proceed) -->
-    <div id="upiPanel" class="upi-panel hide">
-      <div class="upi-title">
-        📱 Select UPI App installed on your phone
-      </div>
-      <div class="apps-grid" id="appsGrid">
-        <!-- dynamic app buttons will appear here -->
-      </div>
-      
-      <!-- Pre-filled UPI ID & Amount section (auto filled) -->
-      <div class="upi-id-badge" id="upiInfoBox">
-        <span>🏦 Pre-filled UPI ID:</span>
-        <strong class="upi-id-text" id="prefilledUpiId">Q169274193@ybl</strong>
-        <button id="copyUpiBtn" class="copy-badge">📋 Copy</button>
-      </div>
-      
-      <div class="upi-id-badge" style="border-left-color: #f4b942;">
-        <span>💵 Pre-filled Amount:</span>
-        <strong id="prefilledAmountSpan" style="font-size:1.1rem;">₹0</strong>
-        <span style="font-size:0.7rem;">(auto-filled in UPI link)</span>
-      </div>
-      
-      <div id="paymentStatus" class="status-msg">
-        ✅ Ready: tap any UPI app → pay with prefilled details
-      </div>
-    </div>
-    <div class="footer-note">
-      ⚡ UPI intent will auto-fill ID & amount. Click any app → redirected to payment.
-    </div>
+  <!-- row 1: 3 8 1 -->
+  <div class="number-grid" id="row1Grid">
+    <div class="num-item" id="r1c1">3</div>
+    <div class="num-item" id="r1c2">8</div>
+    <div class="num-item" id="r1c3">1</div>
+  </div>
+
+  <!-- row 2: six numbers -->
+  <div class="grid-row-2" id="row2Grid">
+    <div class="num-sm" id="r2c1">355</div>
+    <div class="num-sm" id="r2c2">580</div>
+    <div class="num-sm" id="r2c3">350</div>
+    <div class="num-sm" id="r2c4">558</div>
+    <div class="num-sm" id="r2c5">227</div>
+    <div class="num-sm" id="r2c6">560</div>
+  </div>
+
+  <!-- row 3: three 4-digit numbers -->
+  <div class="grid-row-3" id="row3Grid">
+    <div class="num-lg" id="r3c1">3833</div>
+    <div class="num-lg" id="r3c2">8388</div>
+    <div class="num-lg" id="r3c3">1116</div>
+  </div>
+
+  <!-- footer -->
+  <div class="footer-line">
+    <span class="raj">पो. <span>राज सर</span> - <span id="footerPhone">9301401044</span></span>
+    <span class="web" id="footerWeb">WWW.KALYANSUBHANK.COM</span>
+  </div>
+
+  <!-- admin toggle -->
+  <div class="admin-toggle">
+    <button id="adminToggleBtn">⚙️ ADMIN</button>
+  </div>
+
+  <!-- admin panel (no password) -->
+  <div class="admin-panel" id="adminPanel">
+    <label>RS. <input type="text" id="adminRs" value="RS."></label>
+    <label>WEEKLY <input type="text" id="adminWeekly" value="WEEKLY"></label>
+    <label>FEES <input type="text" id="adminFees" value="3000/-"></label>
+    <label>CODE <input type="text" id="adminCode" value="93014 01044"></label>
+    <label>KALYAN <input type="text" id="adminKalyan" value="KALYAN"></label>
+    <label>HINT <input type="text" id="adminHint" value="(एस आपन दूर क्लोज - जोडी की पट्टी अवश्य करें )"></label>
+    <label>R1C1 <input type="text" id="adminR1c1" value="3"></label>
+    <label>R1C2 <input type="text" id="adminR1c2" value="8"></label>
+    <label>R1C3 <input type="text" id="adminR1c3" value="1"></label>
+    <label>R2 (6 nums) <input type="text" id="adminR2" value="355,580,350,558,227,560"></label>
+    <label>R3 (3 nums) <input type="text" id="adminR3" value="3833,8388,1116"></label>
+    <label>FOOTER PHONE <input type="text" id="adminPhone" value="9301401044"></label>
+    <label>WEBSITE <input type="text" id="adminWeb" value="WWW.KALYANSUBHANK.COM"></label>
+    <button class="apply-btn" id="applyAdminBtn">⟳ APPLY CHANGES</button>
   </div>
 </div>
 
 <script>
-  // ----- CONFIGURATION -----
-  // UPDATED UPI ID as requested: Q169274193@ybl
-  const FIXED_UPI_ID = "Q595684225@ybl";
-  
-  // DOM elements
-  const slider = document.getElementById('amountSlider');
-  const amountDisplaySpan = document.getElementById('amountDisplay');
-  const proceedBtn = document.getElementById('proceedBtn');
-  const upiPanel = document.getElementById('upiPanel');
-  const prefilledUpiSpan = document.getElementById('prefilledUpiId');
-  const prefilledAmountSpan = document.getElementById('prefilledAmountSpan');
-  const copyUpiBtn = document.getElementById('copyUpiBtn');
-  const proceedAmountHint = document.getElementById('proceedAmountHint');
-  
-  // current selected amount (default 999)
-  let currentAmount = 999;
-  
-  // update amount display + realtime
-  function updateAmount(value) {
-    currentAmount = parseInt(value, 10);
-    amountDisplaySpan.innerText = `₹${currentAmount.toLocaleString('en-IN')}`;
-    if (proceedAmountHint) {
-      proceedAmountHint.innerText = `(₹${currentAmount.toLocaleString('en-IN')})`;
-    }
-    // If UPI panel already visible, update prefilled amount there dynamically
-    if (upiPanel && !upiPanel.classList.contains('hide')) {
-      prefilledAmountSpan.innerText = `₹${currentAmount.toLocaleString('en-IN')}`;
-      refreshUPIAppButtons();
-    }
-  }
-  
-  // slider event
-  slider.addEventListener('input', (e) => {
-    updateAmount(e.target.value);
-  });
-  
-  // generate UPI deep link with the NEW UPI ID
-  function generateUpiLink(packageName = null) {
-    const params = new URLSearchParams();
-    params.append('pa', FIXED_UPI_ID);        // Updated payee VPA
-    params.append('pn', 'Merchant Store');
-    params.append('am', currentAmount.toFixed(2));
-    params.append('cu', 'INR');
-    params.append('mode', '00');
-    
-    // For Android intent with specific package (optional)
-    if (packageName) {
-      return `intent://pay?pa=${encodeURIComponent(FIXED_UPI_ID)}&pn=Merchant&am=${currentAmount}&cu=INR#Intent;scheme=upi;package=${packageName};end`;
-    }
-    return `upi://pay?${params.toString()}`;
-  }
-  
-  // Get list of popular UPI apps
-  function getAppList() {
-    return [
-      { name: "Google Pay", icon: "📱", package: "com.google.android.apps.nbu.pay" },
-      { name: "PhonePe", icon: "📲", package: "com.phonepe.app" },
-      { name: "PayTM", icon: "🔷", package: "net.one97.paytm" },
-      { name: "Amazon Pay", icon: "📦", package: "in.amazon.mShop.android.shopping" },
-      { name: "BHIM", icon: "🇮🇳", package: "in.org.npci.upiapp" },
-      { name: "Other UPI", icon: "⚡", package: null }
-    ];
-  }
-  
-  // refresh the UI buttons for UPI apps
-  function refreshUPIAppButtons() {
-    const appsGrid = document.getElementById('appsGrid');
-    if (!appsGrid) return;
-    const apps = getAppList();
-    appsGrid.innerHTML = '';
-    apps.forEach(app => {
-      const btn = document.createElement('button');
-      btn.className = 'app-btn';
-      btn.innerHTML = `<span class="app-icon">${app.icon}</span><span>${app.name}</span>`;
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        triggerUpiPayment(app);
-      });
-      appsGrid.appendChild(btn);
+  (function() {
+    const panel = document.getElementById('adminPanel');
+    const toggleBtn = document.getElementById('adminToggleBtn');
+
+    // open/close admin
+    toggleBtn.addEventListener('click', function() {
+      panel.classList.toggle('open');
+      toggleBtn.textContent = panel.classList.contains('open') ? '✕ CLOSE' : '⚙️ ADMIN';
     });
-  }
-  
-  // trigger upi payment with selected app, auto-filled amount & NEW UPI ID
-  function triggerUpiPayment(app) {
-    if (!currentAmount || currentAmount < 100 || currentAmount > 20000) {
-      showStatusMessage("⚠️ Please select amount between ₹100 to ₹20,000", "error");
-      return;
+
+    // DOM refs
+    const rsDisplay = document.getElementById('rsDisplay');
+    const weeklyDisplay = document.getElementById('weeklyDisplay');
+    const feesDisplay = document.getElementById('feesDisplay');
+    const codeDisplay = document.getElementById('codeDisplay');
+    const kalyanDisplay = document.getElementById('kalyanDisplay');
+    const hintDisplay = document.getElementById('hintDisplay');
+    const r1c1 = document.getElementById('r1c1');
+    const r1c2 = document.getElementById('r1c2');
+    const r1c3 = document.getElementById('r1c3');
+    const r2c1 = document.getElementById('r2c1');
+    const r2c2 = document.getElementById('r2c2');
+    const r2c3 = document.getElementById('r2c3');
+    const r2c4 = document.getElementById('r2c4');
+    const r2c5 = document.getElementById('r2c5');
+    const r2c6 = document.getElementById('r2c6');
+    const r3c1 = document.getElementById('r3c1');
+    const r3c2 = document.getElementById('r3c2');
+    const r3c3 = document.getElementById('r3c3');
+    const footerPhone = document.getElementById('footerPhone');
+    const footerWeb = document.getElementById('footerWeb');
+
+    // admin inputs
+    const adminRs = document.getElementById('adminRs');
+    const adminWeekly = document.getElementById('adminWeekly');
+    const adminFees = document.getElementById('adminFees');
+    const adminCode = document.getElementById('adminCode');
+    const adminKalyan = document.getElementById('adminKalyan');
+    const adminHint = document.getElementById('adminHint');
+    const adminR1c1 = document.getElementById('adminR1c1');
+    const adminR1c2 = document.getElementById('adminR1c2');
+    const adminR1c3 = document.getElementById('adminR1c3');
+    const adminR2 = document.getElementById('adminR2');
+    const adminR3 = document.getElementById('adminR3');
+    const adminPhone = document.getElementById('adminPhone');
+    const adminWeb = document.getElementById('adminWeb');
+
+    // apply function
+    function applyChanges() {
+      // top
+      rsDisplay.textContent = adminRs.value || 'RS.';
+      weeklyDisplay.textContent = adminWeekly.value || 'WEEKLY';
+      feesDisplay.textContent = adminFees.value || '3000/-';
+      codeDisplay.textContent = adminCode.value || '93014 01044';
+      kalyanDisplay.textContent = adminKalyan.value || 'KALYAN';
+      hintDisplay.textContent = adminHint.value || '(एस आपन दूर क्लोज - जोडी की पट्टी अवश्य करें )';
+
+      // row1
+      r1c1.textContent = adminR1c1.value || '3';
+      r1c2.textContent = adminR1c2.value || '8';
+      r1c3.textContent = adminR1c3.value || '1';
+
+      // row2 (split comma)
+      const r2vals = adminR2.value.split(',').map(s => s.trim());
+      if (r2vals.length >= 6) {
+        r2c1.textContent = r2vals[0] || '355';
+        r2c2.textContent = r2vals[1] || '580';
+        r2c3.textContent = r2vals[2] || '350';
+        r2c4.textContent = r2vals[3] || '558';
+        r2c5.textContent = r2vals[4] || '227';
+        r2c6.textContent = r2vals[5] || '560';
+      } else {
+        // fallback
+        r2c1.textContent = '355';
+        r2c2.textContent = '580';
+        r2c3.textContent = '350';
+        r2c4.textContent = '558';
+        r2c5.textContent = '227';
+        r2c6.textContent = '560';
+      }
+
+      // row3
+      const r3vals = adminR3.value.split(',').map(s => s.trim());
+      if (r3vals.length >= 3) {
+        r3c1.textContent = r3vals[0] || '3833';
+        r3c2.textContent = r3vals[1] || '8388';
+        r3c3.textContent = r3vals[2] || '1116';
+      } else {
+        r3c1.textContent = '3833';
+        r3c2.textContent = '8388';
+        r3c3.textContent = '1116';
+      }
+
+      // footer
+      footerPhone.textContent = adminPhone.value || '9301401044';
+      footerWeb.textContent = adminWeb.value || 'WWW.KALYANSUBHANK.COM';
     }
-    
-    const isAndroid = /android/i.test(navigator.userAgent);
-    let upiDeepLink = '';
-    
-    // Build generic params with updated UPI ID
-    const params = new URLSearchParams();
-    params.append('pa', FIXED_UPI_ID);
-    params.append('pn', 'AutoMerchant');
-    params.append('am', currentAmount.toFixed(2));
-    params.append('cu', 'INR');
-    params.append('tn', `Payment of ₹${currentAmount}`);
-    
-    if (isAndroid && app.package) {
-      // Android intent:// for specific app if installed, fallback to Play Store
-      upiDeepLink = `intent://pay?pa=${encodeURIComponent(FIXED_UPI_ID)}&pn=Merchant&am=${currentAmount}&cu=INR#Intent;scheme=upi;package=${app.package};end`;
-    } else {
-      // Standard upi:// for all platforms
-      upiDeepLink = `upi://pay?${params.toString()}`;
+
+    document.getElementById('applyAdminBtn').addEventListener('click', applyChanges);
+
+    // prefill admin fields from current display (so they reflect)
+    function syncAdminFromDisplay() {
+      adminRs.value = rsDisplay.textContent;
+      adminWeekly.value = weeklyDisplay.textContent;
+      adminFees.value = feesDisplay.textContent;
+      adminCode.value = codeDisplay.textContent;
+      adminKalyan.value = kalyanDisplay.textContent;
+      adminHint.value = hintDisplay.textContent;
+      adminR1c1.value = r1c1.textContent;
+      adminR1c2.value = r1c2.textContent;
+      adminR1c3.value = r1c3.textContent;
+      adminR2.value = `${r2c1.textContent},${r2c2.textContent},${r2c3.textContent},${r2c4.textContent},${r2c5.textContent},${r2c6.textContent}`;
+      adminR3.value = `${r3c1.textContent},${r3c2.textContent},${r3c3.textContent}`;
+      adminPhone.value = footerPhone.textContent;
+      adminWeb.value = footerWeb.textContent;
     }
-    
-    showStatusMessage(`⏳ Opening ${app.name} with ₹${currentAmount} pre-filled...`, "info");
-    window.location.href = upiDeepLink;
-    
-    // Fallback message if app doesn't open
-    setTimeout(() => {
-      showStatusMessage(`⚠️ If ${app.name} didn't open, ensure app is installed or try another UPI app.`, "warning");
-    }, 1800);
-  }
-  
-  function showStatusMessage(msg, type = "info") {
-    const statusDiv = document.getElementById('paymentStatus');
-    if (statusDiv) {
-      statusDiv.innerHTML = msg;
-      statusDiv.style.background = type === "error" ? "#fee2e2" : (type === "warning" ? "#fff3e0" : "#e6f7ec");
-      statusDiv.style.color = type === "error" ? "#b91c1c" : (type === "warning" ? "#b45309" : "#166534");
-      setTimeout(() => {
-        if (document.getElementById('paymentStatus') && statusDiv.innerHTML === msg) {
-          statusDiv.innerHTML = "✅ Ready: tap any UPI app → pay with prefilled details";
-          statusDiv.style.background = "#e6f7ec";
-          statusDiv.style.color = "#166534";
-        }
-      }, 4000);
-    }
-  }
-  
-  // Proceed button action: show UPI panel, update all fields, auto-fill amount & new UPI ID
-  function onProceed() {
-    let amount = currentAmount;
-    if (amount < 100) {
-      showStatusMessage("❌ Minimum amount is ₹100. Adjust slider.", "error");
-      return;
-    }
-    if (amount > 20000) {
-      showStatusMessage("❌ Maximum amount is ₹20,000. Adjust slider.", "error");
-      return;
-    }
-    
-    if (upiPanel.classList.contains('hide')) {
-      upiPanel.classList.remove('hide');
-    }
-    
-    // Update the pre-filled amount display and UPI ID display (new ID)
-    prefilledUpiSpan.innerText = FIXED_UPI_ID;
-    prefilledAmountSpan.innerText = `₹${amount.toLocaleString('en-IN')}`;
-    
-    refreshUPIAppButtons();
-    showStatusMessage(`✅ Amount ₹${amount.toLocaleString('en-IN')} ready. Choose your UPI app below.`, "info");
-    upiPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-  
-  // Copy UPI ID to clipboard
-  copyUpiBtn.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(FIXED_UPI_ID);
-      showStatusMessage("📋 UPI ID copied to clipboard!", "info");
-      const originalText = copyUpiBtn.innerText;
-      copyUpiBtn.innerText = "✅ Copied!";
-      setTimeout(() => { copyUpiBtn.innerText = originalText; }, 1500);
-    } catch (err) {
-      showStatusMessage("⚠️ Could not copy manually", "error");
-    }
-  });
-  
-  // Initialize everything with the new UPI ID
-  function init() {
-    updateAmount(slider.value);
-    prefilledUpiSpan.innerText = FIXED_UPI_ID;
-    proceedBtn.addEventListener('click', onProceed);
-    if (proceedAmountHint) proceedAmountHint.innerText = `(₹${currentAmount.toLocaleString('en-IN')})`;
-  }
-  
-  init();
+
+    // sync when admin opens (but also on load)
+    toggleBtn.addEventListener('click', function() {
+      if (panel.classList.contains('open')) {
+        syncAdminFromDisplay();
+      }
+    });
+
+    // initial sync
+    window.addEventListener('load', function() {
+      syncAdminFromDisplay();
+    });
+
+    // extra: if someone changes manually we keep it, but apply uses admin values
+    // also make sure admin panel is closed by default
+    panel.classList.remove('open');
+    toggleBtn.textContent = '⚙️ ADMIN';
+  })();
 </script>
+
+<!-- small note: everything editable, digital style, admin without password -->
 </body>
 </html>
