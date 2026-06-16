@@ -1,612 +1,584 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
-  <title>Kalyan · Royal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,700&family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SRIDEVI · MILAN DAY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      background: #0a070e;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Inter', sans-serif;
-      padding: 1rem;
-      background-image: radial-gradient(circle at 30% 20%, #1a1228 0%, #08050d 90%);
-    }
+        body {
+            background: #0b0e14;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            background-image: radial-gradient(circle at 50% 0%, #1a1f2e 0%, #080b10 100%);
+        }
 
-    .panel {
-      max-width: 560px;
-      width: 100%;
-      background: #110d1a;
-      background-image: linear-gradient(160deg, #1a1327 0%, #0e0b16 100%);
-      border-radius: 2.2rem 2.2rem 1.8rem 1.8rem;
-      padding: 1.8rem 2rem 2.2rem;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.95), inset 0 0 0 1px #d4af3760, 0 0 40px #b8860b25;
-      border: 1px solid #d4af3750;
-      position: relative;
-      transition: all 0.2s;
-    }
+        .container {
+            max-width: 720px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
 
-    /* Royal 3D gold border */
-    .panel::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: 2.4rem;
-      padding: 2.5px;
-      background: linear-gradient(135deg, #d4af37, #b8860b, #d4af37, #8b6914, #d4af37);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      opacity: 0.7;
-    }
+        /* ========== CARD ========== */
+        .card {
+            background: #111827;
+            border-radius: 1.5rem;
+            padding: 1.5rem 1.8rem 1.8rem;
+            border: 1px solid #2a3346;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .panel::after {
-      content: '';
-      position: absolute;
-      inset: 8px;
-      border-radius: 1.8rem;
-      box-shadow: inset 0 10px 30px rgba(0,0,0,0.9), inset 0 -6px 20px rgba(212,175,55,0.06);
-      pointer-events: none;
-    }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b);
+            opacity: 0.6;
+        }
 
-    /* RS + WEEKLY + FEES row */
-    .top-badge {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #0b0813;
-      padding: 0.4rem 1.5rem 0.4rem 2rem;
-      border-radius: 60px;
-      margin-bottom: 1.2rem;
-      border: 1px solid #d4af3740;
-      box-shadow: inset 0 2px 8px #00000080, 0 0 15px #b8860b10;
-      position: relative;
-      z-index: 2;
-    }
+        /* ========== HEADER ========== */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid #1e293b;
+        }
 
-    .top-badge .rs {
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 1.6rem;
-      letter-spacing: 2px;
-      color: #ecd8a5;
-      text-shadow: 0 0 12px #d4af37, 0 0 30px #b8860b30;
-    }
+        .card-header .title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #fbbf24;
+            text-shadow: 0 0 20px rgba(251, 191, 36, 0.15);
+        }
 
-    .top-badge .weekly {
-      font-family: 'Orbitron', monospace;
-      font-weight: 600;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
-      color: #c9b8e6;
-      background: #1f1730;
-      padding: 0.15rem 1rem;
-      border-radius: 30px;
-      border: 1px solid #d4af3760;
-      text-transform: uppercase;
-    }
+        .card-header .datetime {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #94a3b8;
+            letter-spacing: 0.3px;
+            background: #1e293b;
+            padding: 0.2rem 0.9rem;
+            border-radius: 20px;
+            border: 1px solid #2a3346;
+        }
 
-    .top-badge .fees {
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 1.7rem;
-      letter-spacing: 2px;
-      color: #ecd8a5;
-      text-shadow: 0 0 12px #d4af37, 0 0 30px #b8860b30;
-    }
+        .card-header .live-badge {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #22c55e;
+            background: #052e16;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid #22c55e40;
+            animation: pulse 1.8s ease-in-out infinite;
+        }
 
-    /* Code + KALYAN row */
-    .code-block {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #0b0813;
-      padding: 0.4rem 1.2rem 0.4rem 2rem;
-      border-radius: 60px;
-      margin-bottom: 1.2rem;
-      border: 1px solid #d4af3740;
-      box-shadow: inset 0 2px 10px #00000080, 0 0 15px #b8860b10;
-      position: relative;
-      z-index: 2;
-    }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
 
-    .code-block .big-code {
-      font-family: 'Orbitron', monospace;
-      font-weight: 900;
-      font-size: 2rem;
-      letter-spacing: 4px;
-      color: #f5e7d0;
-      text-shadow: 0 0 10px #d4af37, 0 0 30px #d4af3740;
-    }
+        /* ========== OTC ROW ========== */
+        .otc-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.7rem;
+            padding: 0.4rem 0.8rem;
+            background: #0f172a;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+        }
 
-    .code-block .label-kalyan {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 2rem;
-      font-style: italic;
-      background: linear-gradient(145deg, #f5d77b, #b8860b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 0 40px #d4af3760;
-      letter-spacing: 3px;
-    }
+        .otc-row .label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #94a3b8;
+            letter-spacing: 1px;
+            min-width: 32px;
+        }
 
-    /* Hint text */
-    .hint-text {
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 0.85rem;
-      letter-spacing: 0.3px;
-      color: #d0c8e0;
-      background: #15101f;
-      padding: 0.4rem 1.5rem;
-      border-radius: 40px;
-      display: inline-block;
-      margin-bottom: 1.5rem;
-      border-left: 4px solid #d4af37;
-      box-shadow: inset 0 2px 6px #00000060;
-      width: 100%;
-      text-align: center;
-      position: relative;
-      z-index: 2;
-    }
+        .otc-row .numbers {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
 
-    /* Row 1: 3 numbers */
-    .number-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.8rem;
-      margin-bottom: 1.2rem;
-      position: relative;
-      z-index: 2;
-    }
+        .otc-row .numbers .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            background: #0b0f1a;
+            padding: 0.1rem 0.6rem;
+            border-radius: 6px;
+            border: 1px solid #2a3346;
+            min-width: 28px;
+            text-align: center;
+        }
 
-    .number-grid .num-item {
-      background: #0d0a16;
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 2.4rem;
-      text-align: center;
-      padding: 0.5rem 0.2rem;
-      border-radius: 24px;
-      color: #f5e7d0;
-      border: 1px solid #d4af3730;
-      box-shadow: 0 5px 0 #06040a, 0 8px 20px rgba(0,0,0,0.7), inset 0 -3px 6px rgba(212,175,55,0.08);
-      background: #100d1c;
-      transform: translateY(-2px);
-      letter-spacing: 2px;
-      transition: all 0.05s;
-    }
+        .otc-row .arrow {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: 1rem;
+        }
 
-    .number-grid .num-item::after {
-      content: '';
-      position: absolute;
-      top: 3px;
-      left: 15%;
-      right: 15%;
-      height: 25%;
-      background: linear-gradient(180deg, rgba(212,175,55,0.12) 0%, transparent 100%);
-      border-radius: 20px;
-      pointer-events: none;
-    }
+        /* ========== JODI ROW ========== */
+        .jodi-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.7rem;
+            padding: 0.4rem 0.8rem;
+            background: #0f172a;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+        }
 
-    .number-grid .num-item {
-      position: relative;
-    }
+        .jodi-row .label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #94a3b8;
+            letter-spacing: 1px;
+            min-width: 32px;
+        }
 
-    /* Row 2: 6 numbers */
-    .grid-row-2 {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 0.5rem;
-      margin-bottom: 1.2rem;
-      position: relative;
-      z-index: 2;
-    }
+        .jodi-row .numbers {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
 
-    .grid-row-2 .num-sm {
-      background: #0b0813;
-      font-family: 'Orbitron', monospace;
-      font-weight: 600;
-      font-size: 1.2rem;
-      text-align: center;
-      padding: 0.4rem 0.1rem;
-      border-radius: 24px;
-      color: #d4cce8;
-      border: 1px solid #d4af3720;
-      box-shadow: 0 4px 0 #06040a, 0 6px 14px rgba(0,0,0,0.6);
-      letter-spacing: 1px;
-      background: #0d0a16;
-    }
+        .jodi-row .numbers .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            background: #0b0f1a;
+            padding: 0.1rem 0.6rem;
+            border-radius: 6px;
+            border: 1px solid #2a3346;
+            min-width: 32px;
+            text-align: center;
+        }
 
-    /* Row 3: 4-digit numbers */
-    .grid-row-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.8rem;
-      margin-bottom: 1.5rem;
-      position: relative;
-      z-index: 2;
-    }
+        .jodi-row .arrow {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: 1rem;
+        }
 
-    .grid-row-3 .num-lg {
-      background: #0b0813;
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 2rem;
-      text-align: center;
-      padding: 0.5rem 0.1rem;
-      border-radius: 24px;
-      color: #f5e7d0;
-      border: 1px solid #d4af3730;
-      box-shadow: 0 5px 0 #06040a, 0 8px 24px rgba(0,0,0,0.7), inset 0 -3px 6px rgba(212,175,55,0.05);
-      letter-spacing: 3px;
-      background: #0f0c1a;
-      transform: translateY(-2px);
-      position: relative;
-    }
+        /* ========== PANEL ROW ========== */
+        .panel-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.5rem 0.8rem;
+            background: #0f172a;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+            margin-top: 0.2rem;
+        }
 
-    .grid-row-3 .num-lg::after {
-      content: '';
-      position: absolute;
-      top: 3px;
-      left: 12%;
-      right: 12%;
-      height: 25%;
-      background: linear-gradient(180deg, rgba(212,175,55,0.10) 0%, transparent 100%);
-      border-radius: 20px;
-      pointer-events: none;
-    }
+        .panel-row .label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #94a3b8;
+            letter-spacing: 1px;
+            min-width: 42px;
+        }
 
-    /* Footer */
-    .footer-line {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      background: #0b0813;
-      padding: 0.4rem 1.5rem;
-      border-radius: 60px;
-      border: 1px solid #d4af3730;
-      box-shadow: inset 0 2px 8px #00000080;
-      position: relative;
-      z-index: 2;
-    }
+        .panel-row .numbers {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
 
-    .footer-line .raj {
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: #d4cce8;
-      letter-spacing: 0.5px;
-    }
+        .panel-row .numbers .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fbbf24;
+            background: #0b0f1a;
+            padding: 0.1rem 0.6rem;
+            border-radius: 6px;
+            border: 1px solid #fbbf2430;
+            min-width: 36px;
+            text-align: center;
+        }
 
-    .footer-line .raj span {
-      color: #d4af37;
-      font-weight: 700;
-    }
+        /* ========== ADMIN ========== */
+        .admin-toggle {
+            text-align: right;
+            margin-top: 0.2rem;
+        }
 
-    .footer-line .phone {
-      font-family: 'Orbitron', monospace;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #ecd8a5;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px #d4af3730;
-    }
+        .admin-toggle button {
+            background: #1e293b;
+            border: 1px solid #2a3346;
+            color: #94a3b8;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.65rem;
+            padding: 0.3rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.2s;
+            letter-spacing: 0.5px;
+        }
 
-    .footer-line .web {
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 0.7rem;
-      color: #b09ec8;
-      letter-spacing: 0.5px;
-      border-bottom: 1px dashed #d4af3750;
-    }
+        .admin-toggle button:hover {
+            background: #2a3346;
+            color: #e2e8f0;
+            border-color: #fbbf2440;
+        }
 
-    /* Admin */
-    .admin-toggle {
-      margin-top: 1.2rem;
-      text-align: right;
-      position: relative;
-      z-index: 2;
-    }
+        .admin-panel {
+            margin-top: 1rem;
+            background: #0f172a;
+            backdrop-filter: blur(8px);
+            padding: 1.2rem 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid #1e293b;
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem 1rem;
+            box-shadow: inset 0 0 30px #00000060;
+        }
 
-    .admin-toggle button {
-      background: #1f1730;
-      border: 1px solid #d4af3740;
-      color: #c9b8e6;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 0.7rem;
-      padding: 0.3rem 1.2rem;
-      border-radius: 40px;
-      cursor: pointer;
-      transition: 0.2s;
-      letter-spacing: 1px;
-      backdrop-filter: blur(4px);
-      background: #0b0813b0;
-    }
+        .admin-panel.open {
+            display: grid;
+        }
 
-    .admin-toggle button:hover {
-      background: #d4af3720;
-      color: #ecd8a5;
-      border-color: #d4af37;
-      box-shadow: 0 0 25px #d4af3720;
-    }
+        .admin-panel label {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #94a3b8;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
 
-    .admin-panel {
-      margin-top: 1rem;
-      background: #0f0b1ab0;
-      backdrop-filter: blur(8px);
-      padding: 1.2rem 1.5rem;
-      border-radius: 30px;
-      border: 1px solid #d4af3730;
-      display: none;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem 1.2rem;
-      box-shadow: inset 0 0 25px #00000080;
-      position: relative;
-      z-index: 5;
-    }
+        .admin-panel label input {
+            background: #0b0f1a;
+            border: 1px solid #1e293b;
+            padding: 0.25rem 0.6rem;
+            border-radius: 8px;
+            color: #e2e8f0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            outline: none;
+            transition: 0.2s;
+        }
 
-    .admin-panel.open {
-      display: grid;
-    }
+        .admin-panel label input:focus {
+            border-color: #fbbf24;
+            box-shadow: 0 0 15px #fbbf2410;
+        }
 
-    .admin-panel label {
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: #b09ec8;
-      font-weight: 600;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
+        .admin-panel .apply-btn {
+            grid-column: 1 / -1;
+            background: #fbbf2420;
+            border: 1px solid #fbbf24;
+            color: #fbbf24;
+            font-weight: 700;
+            padding: 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.2rem;
+        }
 
-    .admin-panel label input {
-      background: #0b0813;
-      border: 1px solid #d4af3740;
-      padding: 0.3rem 0.7rem;
-      border-radius: 30px;
-      color: #f5e7d0;
-      font-family: 'Orbitron', monospace;
-      font-size: 0.7rem;
-      outline: none;
-      transition: 0.2s;
-    }
+        .admin-panel .apply-btn:hover {
+            background: #fbbf2440;
+            box-shadow: 0 0 30px #fbbf2410;
+        }
 
-    .admin-panel label input:focus {
-      border-color: #d4af37;
-      box-shadow: 0 0 20px #d4af3715;
-    }
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 550px) {
+            .card {
+                padding: 1rem 1.2rem 1.4rem;
+            }
+            .card-header .title {
+                font-size: 1rem;
+            }
+            .card-header .datetime {
+                font-size: 0.55rem;
+                padding: 0.15rem 0.6rem;
+            }
+            .otc-row .numbers .num {
+                font-size: 0.85rem;
+                min-width: 22px;
+                padding: 0.05rem 0.4rem;
+            }
+            .jodi-row .numbers .num {
+                font-size: 0.75rem;
+                min-width: 26px;
+                padding: 0.05rem 0.4rem;
+            }
+            .panel-row .numbers .num {
+                font-size: 0.75rem;
+                min-width: 30px;
+                padding: 0.05rem 0.4rem;
+            }
+            .admin-panel {
+                grid-template-columns: 1fr;
+                padding: 0.8rem 1rem;
+            }
+        }
 
-    .admin-panel .apply-btn {
-      grid-column: 1 / -1;
-      background: #d4af3730;
-      border: 1px solid #d4af37;
-      color: #ecd8a5;
-      font-weight: 700;
-      padding: 0.6rem;
-      border-radius: 60px;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      cursor: pointer;
-      transition: 0.2s;
-      margin-top: 0.2rem;
-      backdrop-filter: blur(4px);
-    }
-
-    .admin-panel .apply-btn:hover {
-      background: #d4af3760;
-      box-shadow: 0 0 30px #d4af3720;
-    }
-
-    @media (max-width: 500px) {
-      .panel { padding: 1.2rem; }
-      .top-badge .rs { font-size: 1.2rem; }
-      .top-badge .fees { font-size: 1.3rem; }
-      .top-badge .weekly { font-size: 0.7rem; }
-      .code-block .big-code { font-size: 1.3rem; letter-spacing: 2px; }
-      .code-block .label-kalyan { font-size: 1.4rem; }
-      .number-grid .num-item { font-size: 1.8rem; }
-      .grid-row-2 .num-sm { font-size: 0.9rem; }
-      .grid-row-3 .num-lg { font-size: 1.4rem; }
-      .footer-line .phone { font-size: 0.75rem; }
-      .admin-panel { grid-template-columns: 1fr; }
-    }
-  </style>
+        @media (max-width: 400px) {
+            .card-header {
+                flex-wrap: wrap;
+                gap: 0.3rem;
+            }
+            .otc-row,
+            .jodi-row,
+            .panel-row {
+                flex-wrap: wrap;
+                padding: 0.3rem 0.6rem;
+            }
+            .otc-row .label,
+            .jodi-row .label,
+            .panel-row .label {
+                min-width: 100%;
+                font-size: 0.55rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="panel" id="mainPanel">
+    <div class="container">
+        <!-- ===== CARD 1: SRIDEVI ===== -->
+        <div class="card" id="card1">
+            <div class="card-header">
+                <span class="title" id="title1">SRIDEVI</span>
+                <span class="datetime" id="datetime1">16/06/2026 10:35 AM</span>
+                <span class="live-badge">● LIVE</span>
+            </div>
 
-  <!-- RS + WEEKLY + FEES -->
-  <div class="top-badge">
-    <span class="rs" id="rsDisplay">RS.</span>
-    <span class="weekly" id="weeklyDisplay">WEEKLY</span>
-    <span class="fees" id="feesDisplay">3000/-</span>
-  </div>
+            <!-- OTC -->
+            <div class="otc-row">
+                <span class="label">OTC</span>
+                <span class="arrow">→</span>
+                <div class="numbers" id="otc1">
+                    <span class="num">9</span>
+                    <span class="num">0</span>
+                    <span class="num">5</span>
+                    <span class="num">4</span>
+                </div>
+            </div>
 
-  <!-- Code + KALYAN -->
-  <div class="code-block">
-    <span class="big-code" id="codeDisplay">93014 01044</span>
-    <span class="label-kalyan" id="kalyanDisplay">KALYAN</span>
-  </div>
+            <!-- Jodi -->
+            <div class="jodi-row">
+                <span class="label">Jodi</span>
+                <span class="arrow">→</span>
+                <div class="numbers" id="jodi1">
+                    <span class="num">91</span>
+                    <span class="num">92</span>
+                    <span class="num">07</span>
+                    <span class="num">06</span>
+                    <span class="num">51</span>
+                    <span class="num">57</span>
+                    <span class="num">42</span>
+                    <span class="num">46</span>
+                </div>
+            </div>
 
-  <!-- Hint -->
-  <div class="hint-text" id="hintDisplay">(एस आपन दूर क्लोज - जोडी की पट्टी अवश्य करें )</div>
+            <!-- Panel -->
+            <div class="panel-row">
+                <span class="label">Panel</span>
+                <span class="arrow">→</span>
+                <div class="numbers" id="panel1">
+                    <span class="num">889</span>
+                    <span class="num">127</span>
+                    <span class="num">469</span>
+                    <span class="num">568</span>
+                    <span class="num">370</span>
+                    <span class="num">690</span>
+                    <span class="num">149</span>
+                    <span class="num">257</span>
+                    <span class="num">239</span>
+                </div>
+            </div>
+        </div>
 
-  <!-- Row 1: 3 8 1 -->
-  <div class="number-grid" id="row1Grid">
-    <div class="num-item" id="r1c1">3</div>
-    <div class="num-item" id="r1c2">8</div>
-    <div class="num-item" id="r1c3">1</div>
-  </div>
+        <!-- ===== CARD 2: MILAN DAY ===== -->
+        <div class="card" id="card2">
+            <div class="card-header">
+                <span class="title" id="title2">MILAN DAY</span>
+                <span class="datetime" id="datetime2">11/6/2026 1:35 PM</span>
+                <span class="live-badge">● LIVE</span>
+            </div>
 
-  <!-- Row 2: 6 numbers -->
-  <div class="grid-row-2" id="row2Grid">
-    <div class="num-sm" id="r2c1">355</div>
-    <div class="num-sm" id="r2c2">580</div>
-    <div class="num-sm" id="r2c3">350</div>
-    <div class="num-sm" id="r2c4">558</div>
-    <div class="num-sm" id="r2c5">227</div>
-    <div class="num-sm" id="r2c6">560</div>
-  </div>
+            <!-- OTC -->
+            <div class="otc-row">
+                <span class="label">OTC</span>
+                <span class="arrow">→</span>
+                <div class="numbers" id="otc2">
+                    <span class="num">3</span>
+                    <span class="num">8</span>
+                    <span class="num">9</span>
+                    <span class="num">1</span>
+                </div>
+            </div>
 
-  <!-- Row 3: 4-digit numbers -->
-  <div class="grid-row-3" id="row3Grid">
-    <div class="num-lg" id="r3c1">3833</div>
-    <div class="num-lg" id="r3c2">8388</div>
-    <div class="num-lg" id="r3c3">1116</div>
-  </div>
+            <!-- Jodi -->
+            <div class="jodi-row">
+                <span class="label">Jodi</span>
+                <span class="arrow">→</span>
+                <div class="numbers" id="jodi2">
+                    <span class="num">30</span>
+                    <span class="num">34</span>
+                    <span class="num">96</span>
+                    <span class="num">95</span>
+                    <span class="num">87</span>
+                    <span class="num">86</span>
+                    <span class="num">14</span>
+                    <span class="num">17</span>
+                </div>
+            </div>
 
-  <!-- Footer -->
-  <div class="footer-line">
-    <span class="raj">पो. <span>राज सर</span> - <span id="footerPhone">9301401044</span></span>
-    <span class="web" id="footerWeb">WWW.KALYANSUBHANK.COM</span>
-  </div>
+            <!-- Panel -->
+            <div class="panel-row">
+                <span class="label">Panel</span>
+                <span class="arrow">→</span>
+                <div class="numbers" id="panel2">
+                    <span class="num">247</span>
+                    <span class="num">490</span>
+                    <span class="num">125</span>
+                    <span class="num">279</span>
+                    <span class="num">234</span>
+                    <span class="num">379</span>
+                    <span class="num">245</span>
+                    <span class="num">489</span>
+                </div>
+            </div>
+        </div>
 
-  <!-- Admin Toggle -->
-  <div class="admin-toggle">
-    <button id="adminToggleBtn">⚜️ ADMIN</button>
-  </div>
+        <!-- ===== ADMIN ===== -->
+        <div class="admin-toggle">
+            <button id="adminToggleBtn">⚙️ ADMIN</button>
+        </div>
 
-  <!-- Admin Panel -->
-  <div class="admin-panel" id="adminPanel">
-    <label>RS <input type="text" id="adminRs" value="RS."></label>
-    <label>WEEKLY <input type="text" id="adminWeekly" value="WEEKLY"></label>
-    <label>FEES <input type="text" id="adminFees" value="3000/-"></label>
-    <label>CODE <input type="text" id="adminCode" value="93014 01044"></label>
-    <label>KALYAN <input type="text" id="adminKalyan" value="KALYAN"></label>
-    <label>HINT <input type="text" id="adminHint" value="(एस आपन दूर क्लोज - जोडी की पट्टी अवश्य करें )"></label>
-    <label>R1C1 <input type="text" id="adminR1c1" value="3"></label>
-    <label>R1C2 <input type="text" id="adminR1c2" value="8"></label>
-    <label>R1C3 <input type="text" id="adminR1c3" value="1"></label>
-    <label>R2 (6 nums) <input type="text" id="adminR2" value="355,580,350,558,227,560"></label>
-    <label>R3 (3 nums) <input type="text" id="adminR3" value="3833,8388,1116"></label>
-    <label>FOOTER PHONE <input type="text" id="adminPhone" value="9301401044"></label>
-    <label>WEBSITE <input type="text" id="adminWeb" value="WWW.KALYANSUBHANK.COM"></label>
-    <button class="apply-btn" id="applyAdminBtn">⟳ APPLY CHANGES</button>
-  </div>
-</div>
+        <div class="admin-panel" id="adminPanel">
+            <label>Title 1 <input type="text" id="aTitle1" value="SRIDEVI"></label>
+            <label>Date/Time 1 <input type="text" id="aDatetime1" value="16/06/2026 10:35 AM"></label>
+            <label>OTC 1 (space separated) <input type="text" id="aOtc1" value="9 0 5 4"></label>
+            <label>Jodi 1 (space separated) <input type="text" id="aJodi1" value="91 92 07 06 51 57 42 46"></label>
+            <label>Panel 1 (space separated) <input type="text" id="aPanel1" value="889 127 469 568 370 690 149 257 239"></label>
 
-<script>
-  (function() {
-    const adminPanel = document.getElementById('adminPanel');
-    const toggleBtn = document.getElementById('adminToggleBtn');
+            <label>Title 2 <input type="text" id="aTitle2" value="MILAN DAY"></label>
+            <label>Date/Time 2 <input type="text" id="aDatetime2" value="11/6/2026 1:35 PM"></label>
+            <label>OTC 2 (space separated) <input type="text" id="aOtc2" value="3 8 9 1"></label>
+            <label>Jodi 2 (space separated) <input type="text" id="aJodi2" value="30 34 96 95 87 86 14 17"></label>
+            <label>Panel 2 (space separated) <input type="text" id="aPanel2" value="247 490 125 279 234 379 245 489"></label>
 
-    toggleBtn.addEventListener('click', function() {
-      adminPanel.classList.toggle('open');
-      toggleBtn.textContent = adminPanel.classList.contains('open') ? '✕ CLOSE' : '⚜️ ADMIN';
-      if (adminPanel.classList.contains('open')) syncAdminFromDisplay();
-    });
+            <button class="apply-btn" id="applyBtn">⟳ APPLY CHANGES</button>
+        </div>
+    </div>
 
-    // DOM refs
-    const rsDisplay = document.getElementById('rsDisplay');
-    const weeklyDisplay = document.getElementById('weeklyDisplay');
-    const feesDisplay = document.getElementById('feesDisplay');
-    const codeDisplay = document.getElementById('codeDisplay');
-    const kalyanDisplay = document.getElementById('kalyanDisplay');
-    const hintDisplay = document.getElementById('hintDisplay');
-    const r1c1 = document.getElementById('r1c1');
-    const r1c2 = document.getElementById('r1c2');
-    const r1c3 = document.getElementById('r1c3');
-    const r2c1 = document.getElementById('r2c1');
-    const r2c2 = document.getElementById('r2c2');
-    const r2c3 = document.getElementById('r2c3');
-    const r2c4 = document.getElementById('r2c4');
-    const r2c5 = document.getElementById('r2c5');
-    const r2c6 = document.getElementById('r2c6');
-    const r3c1 = document.getElementById('r3c1');
-    const r3c2 = document.getElementById('r3c2');
-    const r3c3 = document.getElementById('r3c3');
-    const footerPhone = document.getElementById('footerPhone');
-    const footerWeb = document.getElementById('footerWeb');
+    <script>
+        (function() {
+            const adminPanel = document.getElementById('adminPanel');
+            const toggleBtn = document.getElementById('adminToggleBtn');
 
-    // Admin inputs
-    const adminRs = document.getElementById('adminRs');
-    const adminWeekly = document.getElementById('adminWeekly');
-    const adminFees = document.getElementById('adminFees');
-    const adminCode = document.getElementById('adminCode');
-    const adminKalyan = document.getElementById('adminKalyan');
-    const adminHint = document.getElementById('adminHint');
-    const adminR1c1 = document.getElementById('adminR1c1');
-    const adminR1c2 = document.getElementById('adminR1c2');
-    const adminR1c3 = document.getElementById('adminR1c3');
-    const adminR2 = document.getElementById('adminR2');
-    const adminR3 = document.getElementById('adminR3');
-    const adminPhone = document.getElementById('adminPhone');
-    const adminWeb = document.getElementById('adminWeb');
+            toggleBtn.addEventListener('click', function() {
+                adminPanel.classList.toggle('open');
+                toggleBtn.textContent = adminPanel.classList.contains('open') ? '✕ CLOSE' : '⚙️ ADMIN';
+                if (adminPanel.classList.contains('open')) syncAdmin();
+            });
 
-    function applyChanges() {
-      rsDisplay.textContent = adminRs.value || 'RS.';
-      weeklyDisplay.textContent = adminWeekly.value || 'WEEKLY';
-      feesDisplay.textContent = adminFees.value || '3000/-';
-      codeDisplay.textContent = adminCode.value || '93014 01044';
-      kalyanDisplay.textContent = adminKalyan.value || 'KALYAN';
-      hintDisplay.textContent = adminHint.value || '(एस आपन दूर क्लोज - जोडी की पट्टी अवश्य करें )';
+            // Helper to update a numbers container
+            function updateNumbers(containerId, values) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                container.innerHTML = values.map(v => `<span class="num">${v.trim()}</span>`).join('');
+            }
 
-      r1c1.textContent = adminR1c1.value || '3';
-      r1c2.textContent = adminR1c2.value || '8';
-      r1c3.textContent = adminR1c3.value || '1';
+            function applyChanges() {
+                // Card 1
+                document.getElementById('title1').textContent = document.getElementById('aTitle1').value || 'SRIDEVI';
+                document.getElementById('datetime1').textContent = document.getElementById('aDatetime1').value || '16/06/2026 10:35 AM';
 
-      const r2vals = adminR2.value.split(',').map(s => s.trim());
-      if (r2vals.length >= 6) {
-        r2c1.textContent = r2vals[0] || '355';
-        r2c2.textContent = r2vals[1] || '580';
-        r2c3.textContent = r2vals[2] || '350';
-        r2c4.textContent = r2vals[3] || '558';
-        r2c5.textContent = r2vals[4] || '227';
-        r2c6.textContent = r2vals[5] || '560';
-      }
+                const otc1 = document.getElementById('aOtc1').value.split(/\s+/).filter(s => s);
+                updateNumbers('otc1', otc1.length ? otc1 : ['9', '0', '5', '4']);
 
-      const r3vals = adminR3.value.split(',').map(s => s.trim());
-      if (r3vals.length >= 3) {
-        r3c1.textContent = r3vals[0] || '3833';
-        r3c2.textContent = r3vals[1] || '8388';
-        r3c3.textContent = r3vals[2] || '1116';
-      }
+                const jodi1 = document.getElementById('aJodi1').value.split(/\s+/).filter(s => s);
+                updateNumbers('jodi1', jodi1.length ? jodi1 : ['91', '92', '07', '06', '51', '57', '42', '46']);
 
-      footerPhone.textContent = adminPhone.value || '9301401044';
-      footerWeb.textContent = adminWeb.value || 'WWW.KALYANSUBHANK.COM';
-    }
+                const panel1 = document.getElementById('aPanel1').value.split(/\s+/).filter(s => s);
+                updateNumbers('panel1', panel1.length ? panel1 : ['889', '127', '469', '568', '370', '690', '149', '257', '239']);
 
-    function syncAdminFromDisplay() {
-      adminRs.value = rsDisplay.textContent;
-      adminWeekly.value = weeklyDisplay.textContent;
-      adminFees.value = feesDisplay.textContent;
-      adminCode.value = codeDisplay.textContent;
-      adminKalyan.value = kalyanDisplay.textContent;
-      adminHint.value = hintDisplay.textContent;
-      adminR1c1.value = r1c1.textContent;
-      adminR1c2.value = r1c2.textContent;
-      adminR1c3.value = r1c3.textContent;
-      adminR2.value = `${r2c1.textContent},${r2c2.textContent},${r2c3.textContent},${r2c4.textContent},${r2c5.textContent},${r2c6.textContent}`;
-      adminR3.value = `${r3c1.textContent},${r3c2.textContent},${r3c3.textContent}`;
-      adminPhone.value = footerPhone.textContent;
-      adminWeb.value = footerWeb.textContent;
-    }
+                // Card 2
+                document.getElementById('title2').textContent = document.getElementById('aTitle2').value || 'MILAN DAY';
+                document.getElementById('datetime2').textContent = document.getElementById('aDatetime2').value || '11/6/2026 1:35 PM';
 
-    document.getElementById('applyAdminBtn').addEventListener('click', applyChanges);
-    window.addEventListener('load', syncAdminFromDisplay);
-    adminPanel.classList.remove('open');
-    toggleBtn.textContent = '⚜️ ADMIN';
-  })();
-</script>
+                const otc2 = document.getElementById('aOtc2').value.split(/\s+/).filter(s => s);
+                updateNumbers('otc2', otc2.length ? otc2 : ['3', '8', '9', '1']);
+
+                const jodi2 = document.getElementById('aJodi2').value.split(/\s+/).filter(s => s);
+                updateNumbers('jodi2', jodi2.length ? jodi2 : ['30', '34', '96', '95', '87', '86', '14', '17']);
+
+                const panel2 = document.getElementById('aPanel2').value.split(/\s+/).filter(s => s);
+                updateNumbers('panel2', panel2.length ? panel2 : ['247', '490', '125', '279', '234', '379', '245', '489']);
+            }
+
+            function syncAdmin() {
+                document.getElementById('aTitle1').value = document.getElementById('title1').textContent;
+                document.getElementById('aDatetime1').value = document.getElementById('datetime1').textContent;
+
+                const getNumbers = (id) => {
+                    const els = document.getElementById(id).querySelectorAll('.num');
+                    return Array.from(els).map(el => el.textContent).join(' ');
+                };
+                document.getElementById('aOtc1').value = getNumbers('otc1');
+                document.getElementById('aJodi1').value = getNumbers('jodi1');
+                document.getElementById('aPanel1').value = getNumbers('panel1');
+
+                document.getElementById('aTitle2').value = document.getElementById('title2').textContent;
+                document.getElementById('aDatetime2').value = document.getElementById('datetime2').textContent;
+                document.getElementById('aOtc2').value = getNumbers('otc2');
+                document.getElementById('aJodi2').value = getNumbers('jodi2');
+                document.getElementById('aPanel2').value = getNumbers('panel2');
+            }
+
+            document.getElementById('applyBtn').addEventListener('click', applyChanges);
+            window.addEventListener('load', function() {
+                adminPanel.classList.remove('open');
+                toggleBtn.textContent = '⚙️ ADMIN';
+            });
+        })();
+    </script>
 </body>
 </html>
