@@ -70,6 +70,8 @@
             letter-spacing: 1px;
             color: #fbbf24;
             text-shadow: 0 0 20px rgba(251, 191, 36, 0.15);
+            text-align: center;
+            flex: 1;
         }
 
         .card-header .datetime {
@@ -101,16 +103,17 @@
             50% { opacity: 0.5; }
         }
 
+        /* ===== CENTERED ROWS ===== */
         .otc-row {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.4rem;
             margin-bottom: 0.7rem;
             padding: 0.5rem 1rem;
             background: #0f172a;
             border-radius: 12px;
             border: 1px solid #1e293b;
-            flex-wrap: wrap;
         }
 
         .otc-row .label {
@@ -118,45 +121,39 @@
             font-weight: 700;
             text-transform: uppercase;
             color: #94a3b8;
-            letter-spacing: 1px;
-            min-width: 34px;
+            letter-spacing: 1.5px;
         }
 
         .otc-row .numbers {
             display: flex;
-            gap: 0.6rem;
+            gap: 0.8rem;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .otc-row .numbers .num {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 700;
             color: #e2e8f0;
             background: #0b0f1a;
-            padding: 0.1rem 0.8rem;
+            padding: 0.1rem 1rem;
             border-radius: 8px;
             border: 1px solid #2a3346;
-            min-width: 36px;
+            min-width: 44px;
             text-align: center;
-        }
-
-        .otc-row .arrow {
-            color: #fbbf24;
-            font-weight: 700;
-            font-size: 1.1rem;
         }
 
         .jodi-row {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.4rem;
             margin-bottom: 0.7rem;
             padding: 0.5rem 1rem;
             background: #0f172a;
             border-radius: 12px;
             border: 1px solid #1e293b;
-            flex-wrap: wrap;
         }
 
         .jodi-row .label {
@@ -164,45 +161,39 @@
             font-weight: 700;
             text-transform: uppercase;
             color: #94a3b8;
-            letter-spacing: 1px;
-            min-width: 34px;
+            letter-spacing: 1.5px;
         }
 
         .jodi-row .numbers {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .jodi-row .numbers .num {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: #e2e8f0;
             background: #0b0f1a;
-            padding: 0.1rem 0.7rem;
+            padding: 0.1rem 0.8rem;
             border-radius: 8px;
             border: 1px solid #2a3346;
-            min-width: 40px;
+            min-width: 48px;
             text-align: center;
-        }
-
-        .jodi-row .arrow {
-            color: #fbbf24;
-            font-weight: 700;
-            font-size: 1.1rem;
         }
 
         .panel-row {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.4rem;
             padding: 0.5rem 1rem;
             background: #0f172a;
             border-radius: 12px;
             border: 1px solid #1e293b;
             margin-top: 0.1rem;
-            flex-wrap: wrap;
         }
 
         .panel-row .label {
@@ -210,33 +201,27 @@
             font-weight: 700;
             text-transform: uppercase;
             color: #94a3b8;
-            letter-spacing: 1px;
-            min-width: 44px;
+            letter-spacing: 1.5px;
         }
 
         .panel-row .numbers {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .panel-row .numbers .num {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: #fbbf24;
             background: #0b0f1a;
-            padding: 0.1rem 0.7rem;
+            padding: 0.1rem 0.8rem;
             border-radius: 8px;
             border: 1px solid #fbbf2430;
-            min-width: 44px;
+            min-width: 52px;
             text-align: center;
-        }
-
-        .panel-row .arrow {
-            color: #fbbf24;
-            font-weight: 700;
-            font-size: 1.1rem;
         }
 
         .admin-toggle {
@@ -360,19 +345,19 @@
                 padding: 0.15rem 0.7rem;
             }
             .otc-row .numbers .num {
-                font-size: 1.2rem;
-                min-width: 30px;
-                padding: 0.05rem 0.6rem;
+                font-size: 1.6rem;
+                min-width: 36px;
+                padding: 0.05rem 0.7rem;
             }
             .jodi-row .numbers .num {
-                font-size: 1rem;
-                min-width: 34px;
-                padding: 0.05rem 0.5rem;
+                font-size: 1.2rem;
+                min-width: 40px;
+                padding: 0.05rem 0.6rem;
             }
             .panel-row .numbers .num {
-                font-size: 1rem;
-                min-width: 36px;
-                padding: 0.05rem 0.5rem;
+                font-size: 1.2rem;
+                min-width: 42px;
+                padding: 0.05rem 0.6rem;
             }
             .admin-panel {
                 grid-template-columns: 1fr;
@@ -384,32 +369,30 @@
             .card-header {
                 flex-wrap: wrap;
                 gap: 0.3rem;
+                justify-content: center;
+            }
+            .card-header .title {
+                width: 100%;
+                text-align: center;
             }
             .otc-row,
             .jodi-row,
             .panel-row {
-                flex-wrap: wrap;
                 padding: 0.4rem 0.7rem;
             }
-            .otc-row .label,
-            .jodi-row .label,
-            .panel-row .label {
-                min-width: 100%;
-                font-size: 0.6rem;
-            }
             .otc-row .numbers .num {
-                font-size: 1rem;
-                min-width: 26px;
-                padding: 0.05rem 0.4rem;
+                font-size: 1.3rem;
+                min-width: 30px;
+                padding: 0.05rem 0.5rem;
             }
             .jodi-row .numbers .num {
-                font-size: 0.85rem;
-                min-width: 28px;
+                font-size: 1rem;
+                min-width: 34px;
                 padding: 0.05rem 0.4rem;
             }
             .panel-row .numbers .num {
-                font-size: 0.85rem;
-                min-width: 30px;
+                font-size: 1rem;
+                min-width: 36px;
                 padding: 0.05rem 0.4rem;
             }
         }
@@ -427,7 +410,6 @@
 
             <div class="otc-row">
                 <span class="label" id="otcLabel1">OTC</span>
-                <span class="arrow">→</span>
                 <div class="numbers" id="otc1">
                     <span class="num">9</span>
                     <span class="num">0</span>
@@ -438,7 +420,6 @@
 
             <div class="jodi-row">
                 <span class="label" id="jodiLabel1">Jodi</span>
-                <span class="arrow">→</span>
                 <div class="numbers" id="jodi1">
                     <span class="num">91</span>
                     <span class="num">92</span>
@@ -453,7 +434,6 @@
 
             <div class="panel-row">
                 <span class="label" id="panelLabel1">Panel</span>
-                <span class="arrow">→</span>
                 <div class="numbers" id="panel1">
                     <span class="num">889</span>
                     <span class="num">127</span>
@@ -478,7 +458,6 @@
 
             <div class="otc-row">
                 <span class="label" id="otcLabel2">OTC</span>
-                <span class="arrow">→</span>
                 <div class="numbers" id="otc2">
                     <span class="num">3</span>
                     <span class="num">8</span>
@@ -489,7 +468,6 @@
 
             <div class="jodi-row">
                 <span class="label" id="jodiLabel2">Jodi</span>
-                <span class="arrow">→</span>
                 <div class="numbers" id="jodi2">
                     <span class="num">30</span>
                     <span class="num">34</span>
@@ -504,7 +482,6 @@
 
             <div class="panel-row">
                 <span class="label" id="panelLabel2">Panel</span>
-                <span class="arrow">→</span>
                 <div class="numbers" id="panel2">
                     <span class="num">247</span>
                     <span class="num">490</span>
@@ -579,7 +556,6 @@
             const adminPanel = $('adminPanel');
             const toggleBtn = $('adminToggleBtn');
 
-            // Display elements
             const title1 = $('title1'),
                 datetime1 = $('datetime1'),
                 live1 = $('live1'),
@@ -593,7 +569,6 @@
                 jodiLabel2 = $('jodiLabel2'),
                 panelLabel2 = $('panelLabel2');
 
-            // Admin inputs
             const aTitle1 = $('aTitle1'),
                 aDatetime1 = $('aDatetime1'),
                 aLive1 = $('aLive1'),
