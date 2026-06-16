@@ -31,7 +31,6 @@
             gap: 1.2rem;
         }
 
-        /* ========== CARD ========== */
         .card {
             background: #111827;
             border-radius: 1.5rem;
@@ -54,7 +53,6 @@
             opacity: 0.6;
         }
 
-        /* ========== HEADER ========== */
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -103,7 +101,6 @@
             50% { opacity: 0.5; }
         }
 
-        /* ========== OTC ROW ========== */
         .otc-row {
             display: flex;
             align-items: center;
@@ -150,7 +147,6 @@
             font-size: 1rem;
         }
 
-        /* ========== JODI ROW ========== */
         .jodi-row {
             display: flex;
             align-items: center;
@@ -197,7 +193,6 @@
             font-size: 1rem;
         }
 
-        /* ========== PANEL ROW ========== */
         .panel-row {
             display: flex;
             align-items: center;
@@ -238,7 +233,6 @@
             text-align: center;
         }
 
-        /* ========== ADMIN ========== */
         .admin-toggle {
             text-align: right;
             margin-top: 0.2rem;
@@ -329,7 +323,6 @@
             box-shadow: 0 0 30px #fbbf2410;
         }
 
-        /* ========== RESPONSIVE ========== */
         @media (max-width: 550px) {
             .card {
                 padding: 1rem 1.2rem 1.4rem;
@@ -392,7 +385,6 @@
                 <span class="live-badge" id="live1">● LIVE</span>
             </div>
 
-            <!-- OTC -->
             <div class="otc-row">
                 <span class="label" id="otcLabel1">OTC</span>
                 <span class="arrow">→</span>
@@ -404,7 +396,6 @@
                 </div>
             </div>
 
-            <!-- Jodi -->
             <div class="jodi-row">
                 <span class="label" id="jodiLabel1">Jodi</span>
                 <span class="arrow">→</span>
@@ -420,7 +411,6 @@
                 </div>
             </div>
 
-            <!-- Panel -->
             <div class="panel-row">
                 <span class="label" id="panelLabel1">Panel</span>
                 <span class="arrow">→</span>
@@ -446,7 +436,6 @@
                 <span class="live-badge" id="live2">● LIVE</span>
             </div>
 
-            <!-- OTC -->
             <div class="otc-row">
                 <span class="label" id="otcLabel2">OTC</span>
                 <span class="arrow">→</span>
@@ -458,7 +447,6 @@
                 </div>
             </div>
 
-            <!-- Jodi -->
             <div class="jodi-row">
                 <span class="label" id="jodiLabel2">Jodi</span>
                 <span class="arrow">→</span>
@@ -474,7 +462,6 @@
                 </div>
             </div>
 
-            <!-- Panel -->
             <div class="panel-row">
                 <span class="label" id="panelLabel2">Panel</span>
                 <span class="arrow">→</span>
@@ -497,117 +484,232 @@
         </div>
 
         <div class="admin-panel" id="adminPanel">
-            <!-- Card 1 -->
-            <label>Title 1 <input type="text" id="aTitle1" value="SRIDEVI"></label>
-            <label>Date/Time 1 <input type="text" id="aDatetime1" value="16/06/2026 10:35 AM"></label>
-            <label>Live Badge 1 <input type="text" id="aLive1" value="● LIVE"></label>
-            <label>OTC Label 1 <input type="text" id="aOtcLabel1" value="OTC"></label>
-            <label>Jodi Label 1 <input type="text" id="aJodiLabel1" value="Jodi"></label>
-            <label>Panel Label 1 <input type="text" id="aPanelLabel1" value="Panel"></label>
-            <label>OTC 1 (space) <input type="text" id="aOtc1" value="9 0 5 4"></label>
-            <label>Jodi 1 (space) <input type="text" id="aJodi1" value="91 92 07 06 51 57 42 46"></label>
-            <label>Panel 1 (space) <input type="text" id="aPanel1" value="889 127 469 568 370 690 149 257 239"></label>
+            <label>Title 1 <input type="text" id="aTitle1"></label>
+            <label>Date/Time 1 <input type="text" id="aDatetime1"></label>
+            <label>Live Badge 1 <input type="text" id="aLive1"></label>
+            <label>OTC Label 1 <input type="text" id="aOtcLabel1"></label>
+            <label>Jodi Label 1 <input type="text" id="aJodiLabel1"></label>
+            <label>Panel Label 1 <input type="text" id="aPanelLabel1"></label>
+            <label>OTC 1 (space) <input type="text" id="aOtc1"></label>
+            <label>Jodi 1 (space) <input type="text" id="aJodi1"></label>
+            <label>Panel 1 (space) <input type="text" id="aPanel1"></label>
 
-            <!-- Card 2 -->
-            <label>Title 2 <input type="text" id="aTitle2" value="MILAN DAY"></label>
-            <label>Date/Time 2 <input type="text" id="aDatetime2" value="11/6/2026 1:35 PM"></label>
-            <label>Live Badge 2 <input type="text" id="aLive2" value="● LIVE"></label>
-            <label>OTC Label 2 <input type="text" id="aOtcLabel2" value="OTC"></label>
-            <label>Jodi Label 2 <input type="text" id="aJodiLabel2" value="Jodi"></label>
-            <label>Panel Label 2 <input type="text" id="aPanelLabel2" value="Panel"></label>
-            <label>OTC 2 (space) <input type="text" id="aOtc2" value="3 8 9 1"></label>
-            <label>Jodi 2 (space) <input type="text" id="aJodi2" value="30 34 96 95 87 86 14 17"></label>
-            <label>Panel 2 (space) <input type="text" id="aPanel2" value="247 490 125 279 234 379 245 489"></label>
+            <label>Title 2 <input type="text" id="aTitle2"></label>
+            <label>Date/Time 2 <input type="text" id="aDatetime2"></label>
+            <label>Live Badge 2 <input type="text" id="aLive2"></label>
+            <label>OTC Label 2 <input type="text" id="aOtcLabel2"></label>
+            <label>Jodi Label 2 <input type="text" id="aJodiLabel2"></label>
+            <label>Panel Label 2 <input type="text" id="aPanelLabel2"></label>
+            <label>OTC 2 (space) <input type="text" id="aOtc2"></label>
+            <label>Jodi 2 (space) <input type="text" id="aJodi2"></label>
+            <label>Panel 2 (space) <input type="text" id="aPanel2"></label>
 
             <button class="apply-btn" id="applyBtn">⟳ APPLY CHANGES</button>
+            <button class="apply-btn" id="resetBtn" style="background:#dc262620;border-color:#dc2626;color:#dc2626;">↺ RESET TO DEFAULT</button>
         </div>
     </div>
 
     <script>
         (function() {
-            const adminPanel = document.getElementById('adminPanel');
-            const toggleBtn = document.getElementById('adminToggleBtn');
+            // ===== DEFAULT VALUES =====
+            const DEFAULTS = {
+                title1: 'SRIDEVI',
+                datetime1: '16/06/2026 10:35 AM',
+                live1: '● LIVE',
+                otcLabel1: 'OTC',
+                jodiLabel1: 'Jodi',
+                panelLabel1: 'Panel',
+                otc1: '9 0 5 4',
+                jodi1: '91 92 07 06 51 57 42 46',
+                panel1: '889 127 469 568 370 690 149 257 239',
 
-            toggleBtn.addEventListener('click', function() {
-                adminPanel.classList.toggle('open');
-                toggleBtn.textContent = adminPanel.classList.contains('open') ? '✕ CLOSE' : '⚙️ ADMIN';
-                if (adminPanel.classList.contains('open')) syncAdmin();
-            });
+                title2: 'MILAN DAY',
+                datetime2: '11/6/2026 1:35 PM',
+                live2: '● LIVE',
+                otcLabel2: 'OTC',
+                jodiLabel2: 'Jodi',
+                panelLabel2: 'Panel',
+                otc2: '3 8 9 1',
+                jodi2: '30 34 96 95 87 86 14 17',
+                panel2: '247 490 125 279 234 379 245 489'
+            };
 
+            const STORAGE_KEY = 'kalyan_market_data';
+
+            // ===== DOM REFS =====
+            const $ = (id) => document.getElementById(id);
+
+            const adminPanel = $('adminPanel');
+            const toggleBtn = $('adminToggleBtn');
+
+            // Display elements
+            const title1 = $('title1'),
+                datetime1 = $('datetime1'),
+                live1 = $('live1'),
+                otcLabel1 = $('otcLabel1'),
+                jodiLabel1 = $('jodiLabel1'),
+                panelLabel1 = $('panelLabel1');
+            const title2 = $('title2'),
+                datetime2 = $('datetime2'),
+                live2 = $('live2'),
+                otcLabel2 = $('otcLabel2'),
+                jodiLabel2 = $('jodiLabel2'),
+                panelLabel2 = $('panelLabel2');
+
+            // Admin inputs
+            const aTitle1 = $('aTitle1'),
+                aDatetime1 = $('aDatetime1'),
+                aLive1 = $('aLive1'),
+                aOtcLabel1 = $('aOtcLabel1'),
+                aJodiLabel1 = $('aJodiLabel1'),
+                aPanelLabel1 = $('aPanelLabel1'),
+                aOtc1 = $('aOtc1'),
+                aJodi1 = $('aJodi1'),
+                aPanel1 = $('aPanel1');
+
+            const aTitle2 = $('aTitle2'),
+                aDatetime2 = $('aDatetime2'),
+                aLive2 = $('aLive2'),
+                aOtcLabel2 = $('aOtcLabel2'),
+                aJodiLabel2 = $('aJodiLabel2'),
+                aPanelLabel2 = $('aPanelLabel2'),
+                aOtc2 = $('aOtc2'),
+                aJodi2 = $('aJodi2'),
+                aPanel2 = $('aPanel2');
+
+            // ===== HELPERS =====
             function updateNumbers(containerId, values) {
                 const container = document.getElementById(containerId);
                 if (!container) return;
-                container.innerHTML = values.map(v => `<span class="num">${v.trim()}</span>`).join('');
+                const nums = values.split(/\s+/).filter(s => s);
+                container.innerHTML = nums.map(v => `<span class="num">${v.trim()}</span>`).join('');
             }
 
+            function getNumbers(containerId) {
+                const els = document.getElementById(containerId).querySelectorAll('.num');
+                return Array.from(els).map(el => el.textContent).join(' ');
+            }
+
+            // ===== SAVE / LOAD =====
+            function saveData(data) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            }
+
+            function loadData() {
+                try {
+                    const raw = localStorage.getItem(STORAGE_KEY);
+                    if (raw) return JSON.parse(raw);
+                } catch (e) { /* ignore */ }
+                return null;
+            }
+
+            // ===== APPLY CHANGES =====
             function applyChanges() {
-                // Card 1
-                document.getElementById('title1').textContent = document.getElementById('aTitle1').value || 'SRIDEVI';
-                document.getElementById('datetime1').textContent = document.getElementById('aDatetime1').value || '16/06/2026 10:35 AM';
-                document.getElementById('live1').textContent = document.getElementById('aLive1').value || '● LIVE';
-                document.getElementById('otcLabel1').textContent = document.getElementById('aOtcLabel1').value || 'OTC';
-                document.getElementById('jodiLabel1').textContent = document.getElementById('aJodiLabel1').value || 'Jodi';
-                document.getElementById('panelLabel1').textContent = document.getElementById('aPanelLabel1').value || 'Panel';
+                const data = {
+                    title1: aTitle1.value || DEFAULTS.title1,
+                    datetime1: aDatetime1.value || DEFAULTS.datetime1,
+                    live1: aLive1.value || DEFAULTS.live1,
+                    otcLabel1: aOtcLabel1.value || DEFAULTS.otcLabel1,
+                    jodiLabel1: aJodiLabel1.value || DEFAULTS.jodiLabel1,
+                    panelLabel1: aPanelLabel1.value || DEFAULTS.panelLabel1,
+                    otc1: aOtc1.value || DEFAULTS.otc1,
+                    jodi1: aJodi1.value || DEFAULTS.jodi1,
+                    panel1: aPanel1.value || DEFAULTS.panel1,
 
-                const otc1 = document.getElementById('aOtc1').value.split(/\s+/).filter(s => s);
-                updateNumbers('otc1', otc1.length ? otc1 : ['9', '0', '5', '4']);
-
-                const jodi1 = document.getElementById('aJodi1').value.split(/\s+/).filter(s => s);
-                updateNumbers('jodi1', jodi1.length ? jodi1 : ['91', '92', '07', '06', '51', '57', '42', '46']);
-
-                const panel1 = document.getElementById('aPanel1').value.split(/\s+/).filter(s => s);
-                updateNumbers('panel1', panel1.length ? panel1 : ['889', '127', '469', '568', '370', '690', '149', '257', '239']);
-
-                // Card 2
-                document.getElementById('title2').textContent = document.getElementById('aTitle2').value || 'MILAN DAY';
-                document.getElementById('datetime2').textContent = document.getElementById('aDatetime2').value || '11/6/2026 1:35 PM';
-                document.getElementById('live2').textContent = document.getElementById('aLive2').value || '● LIVE';
-                document.getElementById('otcLabel2').textContent = document.getElementById('aOtcLabel2').value || 'OTC';
-                document.getElementById('jodiLabel2').textContent = document.getElementById('aJodiLabel2').value || 'Jodi';
-                document.getElementById('panelLabel2').textContent = document.getElementById('aPanelLabel2').value || 'Panel';
-
-                const otc2 = document.getElementById('aOtc2').value.split(/\s+/).filter(s => s);
-                updateNumbers('otc2', otc2.length ? otc2 : ['3', '8', '9', '1']);
-
-                const jodi2 = document.getElementById('aJodi2').value.split(/\s+/).filter(s => s);
-                updateNumbers('jodi2', jodi2.length ? jodi2 : ['30', '34', '96', '95', '87', '86', '14', '17']);
-
-                const panel2 = document.getElementById('aPanel2').value.split(/\s+/).filter(s => s);
-                updateNumbers('panel2', panel2.length ? panel2 : ['247', '490', '125', '279', '234', '379', '245', '489']);
-            }
-
-            function syncAdmin() {
-                document.getElementById('aTitle1').value = document.getElementById('title1').textContent;
-                document.getElementById('aDatetime1').value = document.getElementById('datetime1').textContent;
-                document.getElementById('aLive1').value = document.getElementById('live1').textContent;
-                document.getElementById('aOtcLabel1').value = document.getElementById('otcLabel1').textContent;
-                document.getElementById('aJodiLabel1').value = document.getElementById('jodiLabel1').textContent;
-                document.getElementById('aPanelLabel1').value = document.getElementById('panelLabel1').textContent;
-
-                const getNumbers = (id) => {
-                    const els = document.getElementById(id).querySelectorAll('.num');
-                    return Array.from(els).map(el => el.textContent).join(' ');
+                    title2: aTitle2.value || DEFAULTS.title2,
+                    datetime2: aDatetime2.value || DEFAULTS.datetime2,
+                    live2: aLive2.value || DEFAULTS.live2,
+                    otcLabel2: aOtcLabel2.value || DEFAULTS.otcLabel2,
+                    jodiLabel2: aJodiLabel2.value || DEFAULTS.jodiLabel2,
+                    panelLabel2: aPanelLabel2.value || DEFAULTS.panelLabel2,
+                    otc2: aOtc2.value || DEFAULTS.otc2,
+                    jodi2: aJodi2.value || DEFAULTS.jodi2,
+                    panel2: aPanel2.value || DEFAULTS.panel2
                 };
-                document.getElementById('aOtc1').value = getNumbers('otc1');
-                document.getElementById('aJodi1').value = getNumbers('jodi1');
-                document.getElementById('aPanel1').value = getNumbers('panel1');
 
-                document.getElementById('aTitle2').value = document.getElementById('title2').textContent;
-                document.getElementById('aDatetime2').value = document.getElementById('datetime2').textContent;
-                document.getElementById('aLive2').value = document.getElementById('live2').textContent;
-                document.getElementById('aOtcLabel2').value = document.getElementById('otcLabel2').textContent;
-                document.getElementById('aJodiLabel2').value = document.getElementById('jodiLabel2').textContent;
-                document.getElementById('aPanelLabel2').value = document.getElementById('panelLabel2').textContent;
-                document.getElementById('aOtc2').value = getNumbers('otc2');
-                document.getElementById('aJodi2').value = getNumbers('jodi2');
-                document.getElementById('aPanel2').value = getNumbers('panel2');
+                renderData(data);
+                saveData(data);
             }
 
-            document.getElementById('applyBtn').addEventListener('click', applyChanges);
-            window.addEventListener('load', function() {
+            // ===== RENDER =====
+            function renderData(data) {
+                title1.textContent = data.title1;
+                datetime1.textContent = data.datetime1;
+                live1.textContent = data.live1;
+                otcLabel1.textContent = data.otcLabel1;
+                jodiLabel1.textContent = data.jodiLabel1;
+                panelLabel1.textContent = data.panelLabel1;
+                updateNumbers('otc1', data.otc1);
+                updateNumbers('jodi1', data.jodi1);
+                updateNumbers('panel1', data.panel1);
+
+                title2.textContent = data.title2;
+                datetime2.textContent = data.datetime2;
+                live2.textContent = data.live2;
+                otcLabel2.textContent = data.otcLabel2;
+                jodiLabel2.textContent = data.jodiLabel2;
+                panelLabel2.textContent = data.panelLabel2;
+                updateNumbers('otc2', data.otc2);
+                updateNumbers('jodi2', data.jodi2);
+                updateNumbers('panel2', data.panel2);
+            }
+
+            // ===== SYNC ADMIN INPUTS =====
+            function syncAdmin() {
+                aTitle1.value = title1.textContent;
+                aDatetime1.value = datetime1.textContent;
+                aLive1.value = live1.textContent;
+                aOtcLabel1.value = otcLabel1.textContent;
+                aJodiLabel1.value = jodiLabel1.textContent;
+                aPanelLabel1.value = panelLabel1.textContent;
+                aOtc1.value = getNumbers('otc1');
+                aJodi1.value = getNumbers('jodi1');
+                aPanel1.value = getNumbers('panel1');
+
+                aTitle2.value = title2.textContent;
+                aDatetime2.value = datetime2.textContent;
+                aLive2.value = live2.textContent;
+                aOtcLabel2.value = otcLabel2.textContent;
+                aJodiLabel2.value = jodiLabel2.textContent;
+                aPanelLabel2.value = panelLabel2.textContent;
+                aOtc2.value = getNumbers('otc2');
+                aJodi2.value = getNumbers('jodi2');
+                aPanel2.value = getNumbers('panel2');
+            }
+
+            // ===== RESET =====
+            function resetToDefault() {
+                renderData(DEFAULTS);
+                saveData(DEFAULTS);
+                syncAdmin();
+            }
+
+            // ===== INIT =====
+            function init() {
+                const saved = loadData();
+                if (saved) {
+                    renderData(saved);
+                } else {
+                    renderData(DEFAULTS);
+                    saveData(DEFAULTS);
+                }
+                syncAdmin();
+
+                // Event listeners
+                $('applyBtn').addEventListener('click', applyChanges);
+                $('resetBtn').addEventListener('click', resetToDefault);
+
+                toggleBtn.addEventListener('click', function() {
+                    adminPanel.classList.toggle('open');
+                    toggleBtn.textContent = adminPanel.classList.contains('open') ? '✕ CLOSE' : '⚙️ ADMIN';
+                    if (adminPanel.classList.contains('open')) syncAdmin();
+                });
+
                 adminPanel.classList.remove('open');
                 toggleBtn.textContent = '⚙️ ADMIN';
-            });
+            }
+
+            document.addEventListener('DOMContentLoaded', init);
         })();
     </script>
 </body>
