@@ -62,6 +62,8 @@
             margin-bottom: 1rem;
             padding-bottom: 0.6rem;
             border-bottom: 1px solid #1e293b;
+            flex-wrap: wrap;
+            gap: 0.4rem;
         }
 
         .card-header .title {
@@ -111,6 +113,7 @@
             background: #0f172a;
             border-radius: 12px;
             border: 1px solid #1e293b;
+            flex-wrap: wrap;
         }
 
         .otc-row .label {
@@ -157,6 +160,7 @@
             background: #0f172a;
             border-radius: 12px;
             border: 1px solid #1e293b;
+            flex-wrap: wrap;
         }
 
         .jodi-row .label {
@@ -203,6 +207,7 @@
             border-radius: 12px;
             border: 1px solid #1e293b;
             margin-top: 0.2rem;
+            flex-wrap: wrap;
         }
 
         .panel-row .label {
@@ -384,12 +389,12 @@
             <div class="card-header">
                 <span class="title" id="title1">SRIDEVI</span>
                 <span class="datetime" id="datetime1">16/06/2026 10:35 AM</span>
-                <span class="live-badge">● LIVE</span>
+                <span class="live-badge" id="live1">● LIVE</span>
             </div>
 
             <!-- OTC -->
             <div class="otc-row">
-                <span class="label">OTC</span>
+                <span class="label" id="otcLabel1">OTC</span>
                 <span class="arrow">→</span>
                 <div class="numbers" id="otc1">
                     <span class="num">9</span>
@@ -401,7 +406,7 @@
 
             <!-- Jodi -->
             <div class="jodi-row">
-                <span class="label">Jodi</span>
+                <span class="label" id="jodiLabel1">Jodi</span>
                 <span class="arrow">→</span>
                 <div class="numbers" id="jodi1">
                     <span class="num">91</span>
@@ -417,7 +422,7 @@
 
             <!-- Panel -->
             <div class="panel-row">
-                <span class="label">Panel</span>
+                <span class="label" id="panelLabel1">Panel</span>
                 <span class="arrow">→</span>
                 <div class="numbers" id="panel1">
                     <span class="num">889</span>
@@ -438,12 +443,12 @@
             <div class="card-header">
                 <span class="title" id="title2">MILAN DAY</span>
                 <span class="datetime" id="datetime2">11/6/2026 1:35 PM</span>
-                <span class="live-badge">● LIVE</span>
+                <span class="live-badge" id="live2">● LIVE</span>
             </div>
 
             <!-- OTC -->
             <div class="otc-row">
-                <span class="label">OTC</span>
+                <span class="label" id="otcLabel2">OTC</span>
                 <span class="arrow">→</span>
                 <div class="numbers" id="otc2">
                     <span class="num">3</span>
@@ -455,7 +460,7 @@
 
             <!-- Jodi -->
             <div class="jodi-row">
-                <span class="label">Jodi</span>
+                <span class="label" id="jodiLabel2">Jodi</span>
                 <span class="arrow">→</span>
                 <div class="numbers" id="jodi2">
                     <span class="num">30</span>
@@ -471,7 +476,7 @@
 
             <!-- Panel -->
             <div class="panel-row">
-                <span class="label">Panel</span>
+                <span class="label" id="panelLabel2">Panel</span>
                 <span class="arrow">→</span>
                 <div class="numbers" id="panel2">
                     <span class="num">247</span>
@@ -492,17 +497,27 @@
         </div>
 
         <div class="admin-panel" id="adminPanel">
+            <!-- Card 1 -->
             <label>Title 1 <input type="text" id="aTitle1" value="SRIDEVI"></label>
             <label>Date/Time 1 <input type="text" id="aDatetime1" value="16/06/2026 10:35 AM"></label>
-            <label>OTC 1 (space separated) <input type="text" id="aOtc1" value="9 0 5 4"></label>
-            <label>Jodi 1 (space separated) <input type="text" id="aJodi1" value="91 92 07 06 51 57 42 46"></label>
-            <label>Panel 1 (space separated) <input type="text" id="aPanel1" value="889 127 469 568 370 690 149 257 239"></label>
+            <label>Live Badge 1 <input type="text" id="aLive1" value="● LIVE"></label>
+            <label>OTC Label 1 <input type="text" id="aOtcLabel1" value="OTC"></label>
+            <label>Jodi Label 1 <input type="text" id="aJodiLabel1" value="Jodi"></label>
+            <label>Panel Label 1 <input type="text" id="aPanelLabel1" value="Panel"></label>
+            <label>OTC 1 (space) <input type="text" id="aOtc1" value="9 0 5 4"></label>
+            <label>Jodi 1 (space) <input type="text" id="aJodi1" value="91 92 07 06 51 57 42 46"></label>
+            <label>Panel 1 (space) <input type="text" id="aPanel1" value="889 127 469 568 370 690 149 257 239"></label>
 
+            <!-- Card 2 -->
             <label>Title 2 <input type="text" id="aTitle2" value="MILAN DAY"></label>
             <label>Date/Time 2 <input type="text" id="aDatetime2" value="11/6/2026 1:35 PM"></label>
-            <label>OTC 2 (space separated) <input type="text" id="aOtc2" value="3 8 9 1"></label>
-            <label>Jodi 2 (space separated) <input type="text" id="aJodi2" value="30 34 96 95 87 86 14 17"></label>
-            <label>Panel 2 (space separated) <input type="text" id="aPanel2" value="247 490 125 279 234 379 245 489"></label>
+            <label>Live Badge 2 <input type="text" id="aLive2" value="● LIVE"></label>
+            <label>OTC Label 2 <input type="text" id="aOtcLabel2" value="OTC"></label>
+            <label>Jodi Label 2 <input type="text" id="aJodiLabel2" value="Jodi"></label>
+            <label>Panel Label 2 <input type="text" id="aPanelLabel2" value="Panel"></label>
+            <label>OTC 2 (space) <input type="text" id="aOtc2" value="3 8 9 1"></label>
+            <label>Jodi 2 (space) <input type="text" id="aJodi2" value="30 34 96 95 87 86 14 17"></label>
+            <label>Panel 2 (space) <input type="text" id="aPanel2" value="247 490 125 279 234 379 245 489"></label>
 
             <button class="apply-btn" id="applyBtn">⟳ APPLY CHANGES</button>
         </div>
@@ -519,7 +534,6 @@
                 if (adminPanel.classList.contains('open')) syncAdmin();
             });
 
-            // Helper to update a numbers container
             function updateNumbers(containerId, values) {
                 const container = document.getElementById(containerId);
                 if (!container) return;
@@ -530,6 +544,10 @@
                 // Card 1
                 document.getElementById('title1').textContent = document.getElementById('aTitle1').value || 'SRIDEVI';
                 document.getElementById('datetime1').textContent = document.getElementById('aDatetime1').value || '16/06/2026 10:35 AM';
+                document.getElementById('live1').textContent = document.getElementById('aLive1').value || '● LIVE';
+                document.getElementById('otcLabel1').textContent = document.getElementById('aOtcLabel1').value || 'OTC';
+                document.getElementById('jodiLabel1').textContent = document.getElementById('aJodiLabel1').value || 'Jodi';
+                document.getElementById('panelLabel1').textContent = document.getElementById('aPanelLabel1').value || 'Panel';
 
                 const otc1 = document.getElementById('aOtc1').value.split(/\s+/).filter(s => s);
                 updateNumbers('otc1', otc1.length ? otc1 : ['9', '0', '5', '4']);
@@ -543,6 +561,10 @@
                 // Card 2
                 document.getElementById('title2').textContent = document.getElementById('aTitle2').value || 'MILAN DAY';
                 document.getElementById('datetime2').textContent = document.getElementById('aDatetime2').value || '11/6/2026 1:35 PM';
+                document.getElementById('live2').textContent = document.getElementById('aLive2').value || '● LIVE';
+                document.getElementById('otcLabel2').textContent = document.getElementById('aOtcLabel2').value || 'OTC';
+                document.getElementById('jodiLabel2').textContent = document.getElementById('aJodiLabel2').value || 'Jodi';
+                document.getElementById('panelLabel2').textContent = document.getElementById('aPanelLabel2').value || 'Panel';
 
                 const otc2 = document.getElementById('aOtc2').value.split(/\s+/).filter(s => s);
                 updateNumbers('otc2', otc2.length ? otc2 : ['3', '8', '9', '1']);
@@ -557,6 +579,10 @@
             function syncAdmin() {
                 document.getElementById('aTitle1').value = document.getElementById('title1').textContent;
                 document.getElementById('aDatetime1').value = document.getElementById('datetime1').textContent;
+                document.getElementById('aLive1').value = document.getElementById('live1').textContent;
+                document.getElementById('aOtcLabel1').value = document.getElementById('otcLabel1').textContent;
+                document.getElementById('aJodiLabel1').value = document.getElementById('jodiLabel1').textContent;
+                document.getElementById('aPanelLabel1').value = document.getElementById('panelLabel1').textContent;
 
                 const getNumbers = (id) => {
                     const els = document.getElementById(id).querySelectorAll('.num');
@@ -568,6 +594,10 @@
 
                 document.getElementById('aTitle2').value = document.getElementById('title2').textContent;
                 document.getElementById('aDatetime2').value = document.getElementById('datetime2').textContent;
+                document.getElementById('aLive2').value = document.getElementById('live2').textContent;
+                document.getElementById('aOtcLabel2').value = document.getElementById('otcLabel2').textContent;
+                document.getElementById('aJodiLabel2').value = document.getElementById('jodiLabel2').textContent;
+                document.getElementById('aPanelLabel2').value = document.getElementById('panelLabel2').textContent;
                 document.getElementById('aOtc2').value = getNumbers('otc2');
                 document.getElementById('aJodi2').value = getNumbers('jodi2');
                 document.getElementById('aPanel2').value = getNumbers('panel2');
